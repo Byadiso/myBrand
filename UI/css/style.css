@@ -1,0 +1,103 @@
+/* my variables style */
+
+:root{
+    --blueColor: #1e90ff;
+    --colorHover:  #0f4e8d;
+    --whiteColor: #ffffff;
+    --walletHeaderColor:rgb(130, 129, 113);
+    --activeColorHeader:rgb(97, 97, 87);
+    --expenseColor: rgb(236, 126, 35);
+    --incomeColor: rgb(124, 250, 66);
+    --savingsColor:rgb(194, 182, 24);
+    --walletColor:rgb(97, 97, 87);
+    --buttonColor:rgb(97, 97, 87);
+    --textColorWhite:#ffffff;
+    --textColorGrey:rgb(97, 97, 87);
+    --spacing: 4px;
+    --error:rgb(204, 14, 14);
+    --colorText: black;  
+    --background-color:rgb(251 251 251);
+    --colorHoverlink:rgba(0, 0, 0, 0.123);
+  }
+  
+  /* all styles  ---------------------------*/
+
+
+  * {
+    box-sizing: border-box;
+    }
+    
+    *:focus {
+        outline: none;
+    }
+
+    /* body syles  */
+
+    body {
+    font-family: Arial;
+    background-color: var(--whiteColor);
+    padding: 10px;  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin:0;
+    }
+
+    /* menu */
+
+    nav{
+        display: flex;
+        justify-content: space-around;
+    }
+    nav.menu li{
+        text-decoration: none;
+    }
+
+    nav button{
+        color: var(--whiteColor);
+        background-color: var(--blueColor);
+        border: none;
+        border-radius: 20px;
+        width: 100px;
+        height: 40px;
+    }
+
+    .menu{
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+           
+    }
+    .menu a{
+        text-decoration: none;    
+        margin:var(--spacing) 
+    }
+
+    
+    /* hero section */
+.hero_section{
+    background-image: url(../images/);
+}
+
+    /* destination */
+    .destination_content{
+        display:flex;
+        justify-content: center;
+    }
+    
+    
+    /* statistic section */
+
+    .statistic_section{
+        display:flex;
+        justify-content:center;
+        padding:var(--spacing)
+    }
+
+
+    /* footer */
+
+    footer{
+        display:flex;
+        justify-content:center
+    }
