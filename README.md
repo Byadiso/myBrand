@@ -1,7 +1,7 @@
 # myBrand
 
-myBrand is a project about a travel stories website called travelStory.com it is about telling the world about our stories, beautiful places we visited.
-It is a capstone project made for Andela Technical Leadership Program.
+myBrand is a portfolio project about my latest project and a simple blog about my interest.
+It is a capstone project made during my Andela Technical Leadership Program.
 
 # TABLE OF CONTENTS
 
