@@ -6,37 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBrand</title>
     <link rel="stylesheet" href="./css/style.css" />
+    <!-- for roboto font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
       <nav>
-        <h1 class="tember_log">Ngana</h1>
         <div class="menu">
+          <h1 class="tember_logo menu_nav">Ngana</h1>
           <a class="menu_nav">Home</a>
           <a class="menu_nav">Blog</a>
           <a class="menu_nav">Services</a>
           <a class="menu_nav">Contact us</a>
           <a class="menu_nav">login</a>
+          <button class="hire_now menu_nav">Hire me</button>
         </div>
-        <button class="book_now">Hire me</button>
       </nav>
     </header>
     <section>
       <div class="hero_section">
-        <div class="hero_slide">
-          <h2>Hellow I'm</h2>
+        <div class="hero_content">
+          <h2>Hello I'm</h2>
           <h1>Desire BYAMUNGU</h1>
           <h2>Full-stack Developer</h2>
-          <button>Hire me</button>
+          <button class="hire_now">Hire me</button>
         </div>
       </div>
 
       <!-- Top Promotions section-->
 
       <div class="statistic_section">
-        <h2><span>10</span>Happy Clients</h2>
-        <h2><span>10</span>Happy Clients</h2>
-        <h2><span>10</span>Happy Clients</h2>
+        <div class="stat_content">
+          <span>10</span>
+          <h4>Happy Clients</h4>
+        </div>
+        <div class="stat_content stat_content_middle">
+          <span>10</span>
+          <h4>project completed</h4>
+        </div>
+        <div class="stat_content">
+          <span>10</span>
+          <h4>Achievement</h4>
+        </div>
       </div>
 
       <!-- who I am section section-->
@@ -50,37 +64,42 @@
           <!-- main who -->
 
           <div class="main_who_items">
-            <img src="who_image" alt="" />
-            <h2>Desire BYAMUNGU</h2>
-            <h3>Full stack</h3>
-          </div>
-        </div>
-       
-
-        <!-- Services section -->
-
-        <div class="service_section">
-          <div class="destinaion_header">
-            <h2>Our services</h2>
-            <h3>Choose your next service</h3>
-          </div>
-          <div class="service_content">
-            <div class="service_item">
-              <img src="" alt="photo_service" />
-              <h3 class="service_title">Choose your next service</h3>
-            </div>
-            <div class="service_item">
-              <img src="" alt="photo_service" />
-              <h3 class="service_title">Choose your next service</h3>
-            </div>
-            <div class="service_item">
-              <img src="" alt="photo_service" />
-              <h3 class="service_title">Choose your next service</h3>
+            <img
+              class="who_image"
+              src="./images/pexels-adrianna-calvo-4886824.jpg"
+              alt=""
+            />
+            <div>
+              <h2>Desire BYAMUNGU</h2>
+              <h3>Full stack</h3>
+              <p>I like create beautiful website for beautiful businesses</p>
             </div>
           </div>
         </div>
+      </div>
 
-       
+      <!-- Services section -->
+
+      <div class="service_section">
+        <div class="Service_header">
+          <h2>Our services</h2>
+          <h3>Choose your next service</h3>
+        </div>
+        <div class="service_content">
+          <div class="service_item">
+            <img src="" alt="photo_service" />
+            <h3 class="service_title">Choose your next service</h3>
+          </div>
+          <div class="service_item">
+            <img src="" alt="photo_service" />
+            <h3 class="service_title">Choose your next service</h3>
+          </div>
+          <div class="service_item">
+            <img src="" alt="photo_service" />
+            <h3 class="service_title">Choose your next service</h3>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- footer info and details -->
@@ -99,9 +118,14 @@
       </div>
       <div class="footer subscribe">
         <h3>Subscribe to our blog</h3>
-        <p>Singup for  our offer</p>
-        <input type="text" name="email" id="email_subscribution">
-        <input type="submit" value="Subscribe">
+        <p>Singup for our offer</p>
+        <input
+          class="footer_input"
+          type="text"
+          name="email"
+          id="email_subscribution"
+        />
+        <input class="footer_submit" type="submit" value="Subscribe" />
       </div>
     </footer>
   </body>

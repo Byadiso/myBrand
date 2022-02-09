@@ -8,8 +8,6 @@ It is a capstone project made during my Andela Technical Leadership Program.
 - PROJECT OVERVIEW
 - FEATURES
 - DEMO
-- DEMO
-- Middleware
 - API End Points
 - Known Issues
 - Installation

@@ -1,18 +1,20 @@
 /* my variables style */
 
 :root{
-    --blueColor: #1e90ff;
+    --blueColor: #5BD4FB;
     --colorHover:  #0f4e8d;
     --whiteColor: #ffffff;
     --activeColorHeader:rgb(97, 97, 87);
     --buttonColor:rgb(97, 97, 87);
     --textColorWhite:#ffffff;
-    --textColorGrey:rgb(97, 97, 87);
-    --spacing: 4px;
+    --textColorGrey:#4A4D4E;
+    --spacing: 10px;
     --error:rgb(204, 14, 14);
-    --colorText: black;  
     --background-color:rgb(251 251 251);
     --colorHoverlink:rgba(0, 0, 0, 0.123);
+    --colorfooter:#424343;
+    --colorGreyText:#D4E1E5;
+    --inputColor:#5F6466;
   }
   
   /* all styles  ---------------------------*/
@@ -29,9 +31,8 @@
     /* body syles  */
 
     body {
-    font-family: Arial;
+    font-family: 'Roboto', sans-serif; 
     background-color: var(--whiteColor);
-    padding: 10px;  
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -44,11 +45,9 @@
         display: flex;
         justify-content: space-around;
     }
-    nav.menu li{
-        text-decoration: none;
-    }
+   
 
-    nav button{
+    .hire_now{
         color: var(--whiteColor);
         background-color: var(--blueColor);
         border: none;
@@ -59,34 +58,104 @@
 
     .menu{
         display: flex;
-        justify-content: space-between;
+        justify-content:center;
         margin: 10px;
-           
+        padding:20px           
     }
-    .menu a{
+    /* .menu a{
         text-decoration: none;    
         margin:var(--spacing) 
-    }
+    } */
 
     
     /* hero section */
 .hero_section{
     background-image: url(../images/);
+    background:var(--blueColor);
+    color:var(--whiteColor);
+    display:flex;
+    flex-direction: column;
+    padding:160px;
+    background: linear-gradient(0deg, rgba(15, 15, 15, 0.76), rgba(3, 3, 3, 0.774)), url(../images/pexels-adrianna-calvo-4886824.jpg);
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+.hero_content{
+    border-left: 4px solid  var(--blueColor);
+    padding-left: 30px;
 }
 
-    /* destination */
-    .destination_content{
-        display:flex;
-        justify-content: center;
-    }
-    
+.hero_content h2{
+    font-family: 'Roboto Thin';
+}
+  
     
     /* statistic section */
 
-    .statistic_section{
+.statistic_section{
+        background-color:var(--whiteColor);
         display:flex;
+        color:var(--textColorGrey);
         justify-content:center;
-        padding:var(--spacing)
+        align-items: center;
+        padding:var(--spacing);
+        border-radius: 20px;
+        box-shadow: 0.10em 0.10em 0.2em;
+        width: 40%;
+        margin-left: 350px;
+        margin-top: -35px;
+    }
+    .stat_content_middle{
+        border-left: 2px solid  var(--textColorGrey);
+        border-right: 2px solid  var(--textColorGrey);
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .stat_content{
+        display: flex;
+        justify-content:center;
+        flex-direction: column;
+        margin-right: var(--spacing);
+        margin-left: var(--spacing);
+        padding: auto;
+    }
+    
+    /* who I am section */
+    .who_section{
+        display: block;
+        align-items: center;
+        justify-content:center
+    }
+
+    .main_who_items{
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        color:var(--textColorGrey)
+    }
+    .who_header{
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        flex-direction: column;
+        color:var(--textColorGrey)
+    }
+    .who_image{
+        Width:15%;
+        height:70%;
+        border-radius: 20px;
+        padding: 10px;
+    }
+/* 
+    servicesection */
+
+    .service_section{
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        flex-direction: column;
+        color:var(--textColorGrey)  
     }
 
 
@@ -94,5 +163,25 @@
 
     footer{
         display:flex;
-        justify-content:center
+        justify-content:center;
+        align-items: center;
+        background:var(--colorfooter);
+        color: var(--whiteColor);
+        padding: 10px;
+       
     }
+
+    footer div{
+        margin-right: 210px;
+    }
+
+    footer p{
+        color: var(--colorGreyText);
+    }
+   .footer_input{
+       background:var(--inputColor)
+   }
+   .footer_submit{
+    background:var(--blueColor)
+}
+   
