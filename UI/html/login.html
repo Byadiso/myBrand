@@ -36,38 +36,46 @@
       </nav>
     </header>
     <section>
-      <div class="hero_section">
-        <div class="hero_content">
-          <h2>Hello</h2>
-          <h1>Subscribe to my blog</h1>
-          <h2>We have beautiful tech stories</h2>
-          <button class="hire_now hire_text">Hire me</button>
+      <div class="hero_section hero_login_section">
+        <div class="hero_content hero_login_content">
+          <h1>Subscribe to my blog, we have beautiful stories</h1>         
         </div>
       </div>
 
       <!-- Services section -->
 
-      <div class="service_section">
-        
+      <div class="service_section">        
         <div class="service_content">
-          <div class="service_item_left">
-            <div class="Service_form_header">
-              <div class="text_L">
-                <h4>REQUEST</h4>
-              </div>
-              <div class="text_R">
-                <h4>Contact</h4>
-              </div>
-            </div>
-            <div class="Service_form">
-              <div class="service_form_item">
-                <input type="text" name="name" id="name" />
-                <input type="text" name="email" id="email" />
-                <textarea name="message" id="" cols="30" rows="10"></textarea>
-                <input class="hire_now" type="submit" value="SEND NOW" />
+             <!-- for login -->
+          <div class="service_item_left login_form">
+             <div class="Service_form">
+              <div class="service_form_item form_login" >
+                <input type="text" name="email" id="email" placeholder="email"/>
+                <input type="password" name="password" id="password" placeholder="password" /> 
+                <div class="login_register">
+                  <input class="login" type="submit" value="login" />
+                  <input class="register" type="submit" value="register" />
+                </div>      
               </div>
             </div>
           </div>
+          
+          <!-- for register -->
+          <div class="service_item_left register_form hide">
+            <div class="Service_form">
+             <div class="service_form_item form_login">
+               <input type="text" name="name" id="firstname" placeholder="firstname"/>
+               <input type="text" name="name" id="lastname" placeholder="lastname"/>
+               <input type="text" name="email" id="email" placeholder="email"/> 
+               <input type="text" name="password" id="password" placeholder="password"/>
+               <div class="login_register">
+                <input class="register" type="submit" value="register" />
+                 <input class="login" type="submit" value="login" />
+                
+               </div>      
+             </div>
+           </div>
+         </div>
 
       </div>
     </section>

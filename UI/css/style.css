@@ -14,10 +14,11 @@
     --background-color:rgb(251 251 251);
     --colorHoverlink:rgba(0, 0, 0, 0.123);
     --colorfooter:#424343;
-    --textColorGreyParagraph:#4a4d4e93;
+    --textColorGreyParagraph:#818181;
     --inputColor:#5F6466;
     --colorforWeakGrey: #74777769;
     --linkColor:rgb(0, 0, 0);
+    --lowerBackground:#f3f3f3;
   }
   
   /* all styles  ---------------------------*/
@@ -109,7 +110,7 @@
     display:flex;
     flex-direction: column;
     padding:120px;
-    background: linear-gradient(0deg, rgba(15, 15, 15, 0.76), rgba(3, 3, 3, 0.774)), url(../images/pexels-adrianna-calvo-4886824.jpg);
+    background: linear-gradient(0deg, rgba(15, 15, 15, 0.76), rgba(3, 3, 3, 0.774)), url(../images/background.jpg);
     background-repeat:no-repeat;
     background-size: cover;
 }
@@ -155,11 +156,20 @@
     }
     .stat_content span{
         margin-left:30px;
-        margin-top: 20px;
+        font-size: 40px;
+        font-weight: 700;
+        color: var(--colorforWeakGrey);
+        line-height: 48px;
+        display: block;
+       
     }
     .stat_content h4{
         margin-top: 0;
         margin-bottom: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--colorforWeakGrey);
+        font-family: "Montserrat", serif;
     }
 
     /* who I am section */
@@ -173,7 +183,7 @@
         display: flex;
         align-items: center;
         justify-content:center;
-        color:var(--textColorGrey);
+        color:var(--textColorGreyParagraph);
         margin: 20px;
     }
     .who_header{
@@ -181,14 +191,12 @@
         align-items: center;
         justify-content:center;
         flex-direction: column;
-        color:var(--textColorGrey)
+        color:var(--textColorGreyParagraph)
     }
-    /* .who_image{
-        Width:15%;
-        height:70%;
-        border-radius: 20px;
-        padding: 10px;
-    } */
+    .who_header p{
+        color:var(--colorforWeakGrey)
+    }
+   
     .main_who_items img{
         Width:15%;
         height:100%;
@@ -196,15 +204,26 @@
         padding: 10px;
         margin:20px
     }
+
+    .main_who_items p{
+        color: var(--colorforWeakGrey);
+    }
 /* 
     servicesection */
 
+    
     .service_section{
         display: flex;
         align-items: center;
         justify-content:center;
         flex-direction: column;
-        color:var(--textColorGrey)  
+        color:var(--textColorGrey);
+        background: var(--lowerBackground); 
+
+    }
+
+    .Service_header{
+        margin: 20px;
     }
     .service_content{
         display: flex;
@@ -216,8 +235,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color:var(--whiteColor)
+        color:var(--whiteColor);
+       
       
+    }
+    .service_text, .service_image{
+        cursor: pointer;
     }
 
     .text_L{
@@ -252,27 +275,41 @@
     .service_item{
         display: flex;
         justify-content: center;
+        align-items: center;
         margin-left: 20px;
         margin-bottom: 20px;
 
     }
 
-    .service_text{
-        background: var(--blueColor);
+    .service_text{ 
+        display: flex;
+        justify-content: center;     
+        align-items: center; 
         width:150px;
-        height:135px;
+        height:145px;
+        border: 1px solid var(--textColorGreyParagraph);
+        color:var(--blueColor);
+        padding: 25px;
+    }
+
+    .service_text:hover{
+     
+     
+       background:var(--blueColor);
         color:var(--whiteColor);
+        padding: 25px;
+        border:none;
     }
     
     .service_image img{
         width:200px;
-        height:135px;
+        height:145px;
         
     }
 /* 
     input  */
 
-    input[type=text],textarea{
+    input[type=text], input[type=password],textarea{
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -286,9 +323,172 @@
     .service_text h3{
         padding: 10px;
     }
+
+    /* for blog page */
+
+.blog_categories{
+    display:flex;
+    flex-direction: column;
+}
+
+    
+.blog_section{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+    color:var(--textColorGrey);
+    background: var(--lowerBackground); 
+
+}
+
+
+
+.blog_text, .blog_image{
+    cursor: pointer;
+}
+
+
+.blog_form_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background:var(--textColorGrey);
+    padding:20px;
+}
+.blog_content{
+    display:flex;
+    
+}
+
+.blog_item{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+    margin-bottom: 20px;
+
+}
+
+.blog_text{ 
+    display: flex;
+    justify-content: center;     
+    align-items: center; 
+    width:150px;
+    height:145px;
+    border: 1px solid var(--textColorGreyParagraph);
+    color:var(--blueColor);
+    padding: 25px;
+}
+
+.blog_text:hover{
+ 
+   background:var(--blueColor);
+    color:var(--whiteColor);
+    padding: 25px;
+    border:none;
+}
+
+.blog_image img{
+    width:200px;
+    height:145px;    
+}
+
+.blog_item_rigt{
+    border-left: 2px solid var(--colorforWeakGrey);
+    margin-left: 20px ;
+    margin-bottom: 20px;
+    width: 20%;
+}
+.blog_item_left{
+        width: 80%;
+        display: flex;
+        justify-content:center;
+        flex-wrap: wrap;
+}
+
+/* for search input */
+.blog_search{
+    display:flex;
+    margin-top: 20px;
+}
+.blog_search input[type=text]{
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    background:var(--colorforWeakGrey)
+}
+.blog_search i{
+    position: relative;
+    left: -25px;
+    top: 15px;
+   cursor: pointer;
+}
+/* .................................... */
+.blog_categories a{
+    text-decoration: none;
+    color:var(--colorforWeakGrey);
+    padding:5px;
+    border-bottom: 1px solid var(--colorforWeakGrey);
+}
+.blog_popular a, .blog_tags a{
+    text-decoration: none;
+    color:var(--colorforWeakGrey);
+    padding:5px;
+    border-bottom: 1px solid var(--colorforWeakGrey);
+}
+
+/* for login */
+.hero_login_section{
+   
+    padding:30px;
+    background: linear-gradient(0deg, rgba(15, 15, 15, 0.76), rgba(3, 3, 3, 0.774)), url(../images/background.jpg);
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+.hero_login_content{
+    display:flex;
+    justify-content:center;
+}
+.hero_login_content h1{
+    padding:20px
+}
+.form_login{
+    border-radius: 4px;
+    margin: 50px;
+}
+.form_login input{
+    border-radius: 20px;
+}
+.login, .register{
+    color: var(--whiteColor);
+    background-color: var(--blueColor);
+    border: none;
+    border-radius: px;
+    padding: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.login_register{
+    display: inline;
+    margin: 20px;
+}
+
+/* ..........register.....section..... */
+.hide{
+    display:none
+}
     /* footer */
 
-    footer{
+footer{
         display:flex;
         justify-content:center;
         align-items: center;
@@ -299,7 +499,7 @@
     }
 
     footer div{
-        margin-right: 210px;
+        margin-right: 90px;
     }
 
     footer p{
@@ -309,7 +509,7 @@
   
 footer input[type=submit]{
     width: 100%;
-    padding: 12px 20px;
+    padding: 5px 10px;
     margin: 8px 0;
     display: inline-block;
     background:var(--blueColor);
@@ -320,7 +520,7 @@ footer input[type=submit]{
   }
   footer input[type=text]{
     width: 100%;
-    padding: 12px 20px;
+    padding: 5px 10px;
     margin: 8px 0;
     display: inline-block;
     background:var(--inputColor);
