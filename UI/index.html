@@ -29,14 +29,23 @@
   <body>
     <header>
       <nav>
-        <div class="menu">
+        <div class="menu nav_small">
           <h1 class="ngana_logo">Ngana</h1>
-          <a href="./index.html" class="menu_nav">Home</a>
-          <a href="./html/blog.html" class="menu_nav">Blog</a>
-          <a href="./html/services.html" class="menu_nav">Services</a>
-          <a href="./html/contact.html" class="menu_nav">Contact us</a>
-          <a href="./html/login.html" class="menu_nav">login</a>
-          <a href="./html/hire.html" class="menu_nav hire_now">Hire me</a>
+          <a class="menu_nav burger_menu nav_small"
+            ><i class="fa fa-bars"></i
+          ></a>
+          <a href="./index.html" class="menu_nav small_device">Home</a>
+          <a href="./html/blog.html" class="menu_nav small_device">Blog</a>
+          <a href="./html/services.html" class="menu_nav small_device"
+            >Services</a
+          >
+          <a href="./html/contact.html" class="menu_nav small_device"
+            >Contact us</a
+          >
+          <a href="./html/login.html" class="menu_nav small_device">login</a>
+          <a href="./html/hire.html" class="menu_nav hire_now small_device"
+            >Hire me</a
+          >
           <!-- <button class="hire_now menu_nav">Hire me</button> -->
         </div>
       </nav>
@@ -192,14 +201,7 @@
     </footer>
   </body>
   <script src="./Js/script.js"></script>
-  <!-- <script>
-    window.onload = function () {
-      if (screen.width < 350) {
-        var body = document.body;
-        //mvp.setAttribute('content','');
-        body.setAttribute("content", "width=device-width, initial-scale=1");
-        console.log("no more resizing");
-      }
-    };
-  </script> -->
+  <script>
+    const burger_menu = document.getElementsByClassName("burger_menu");
+  </script>
 </html>
