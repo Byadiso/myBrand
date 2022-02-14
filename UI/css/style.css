@@ -693,7 +693,11 @@ footer input[type=submit]{
 
     .burger_menu{
         display:block;
-        font-size: 30px;
+        font-size: 30px;        
+    }
+
+    .hide_burger{
+        display: none;
     }
     .hero_section{
         font-size: .8rem;
@@ -878,3 +882,24 @@ for ipods and tables */
         margin-right: 0px;
     }
   }
+
+
+
+/* 
+  for dark mode */
+
+  @media (prefers-color-scheme: dark) {
+      body{
+          background: #333;
+          color: white;
+      }
+      
+  }
+
+  @media (prefers-color-scheme: light) {
+    body{
+        background: #ddd;
+        color: black;
+    }
+    
+}
