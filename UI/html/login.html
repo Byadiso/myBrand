@@ -47,11 +47,11 @@
       <div class="service_section">        
         <div class="service_content">
              <!-- for login -->
-          <div class="service_item_left login_form">
+          <div class="service_item_left login_form" id="login_form">
              <div class="Service_form">
               <div class="service_form_item form_login" >
-                <input type="text" name="email" id="email" placeholder="email"/>
-                <input type="password" name="password" id="password" placeholder="password" /> 
+                <input type="text" name="email" class="email" placeholder="email"/>
+                <input type="password" name="password" class="password" placeholder="password" /> 
                 <div class="login_register">
                   <input class="login" type="submit" value="login" />
                   <input class="register" type="submit" value="register" />
@@ -61,13 +61,13 @@
           </div>
           
           <!-- for register -->
-          <div class="service_item_left register_form hide">
+          <div class="service_item_left register_form hide" id="register_form">
             <div class="Service_form">
              <div class="service_form_item form_login">
                <input type="text" name="name" id="firstname" placeholder="firstname"/>
                <input type="text" name="name" id="lastname" placeholder="lastname"/>
-               <input type="text" name="email" id="email" placeholder="email"/> 
-               <input type="text" name="password" id="password" placeholder="password"/>
+               <input type="text" name="email" class="email" placeholder="email"/> 
+               <input type="text" name="password" class="password" placeholder="password"/>
                <div class="login_register">
                 <input class="register" type="submit" value="register" />
                  <input class="login" type="submit" value="login" />
@@ -105,4 +105,6 @@
       </div>
     </footer>
   </body>
+  <script src="../Js/login.js"></script>
+  
 </html>
