@@ -623,6 +623,12 @@ width: 100%;
 cursor: pointer;
 }
 
+/* 
+add error border when make a mistake to my form */
+/* 
+input#name\ error_message {
+    border: 1px solid red;
+} */
     /* footer */
 
 footer{
