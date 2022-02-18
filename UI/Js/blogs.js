@@ -1,4 +1,4 @@
-export const blogs = [
+const blogs = [
   {
     id: 1,
     title: "this my firstblog",
