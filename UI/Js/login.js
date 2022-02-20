@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (email.value && password.value) {
         console.log("let do rogin");
-        window.location.href = "../html/dashboard.html";
+        // window.location.href = "../html/dashboard.html";
       }
     });
   });

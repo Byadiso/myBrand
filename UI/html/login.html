@@ -50,10 +50,10 @@
           <div class="service_item_left login_form" id="login_form">
              <div class="Service_form">
               <div class="service_form_item form_login" >
-                <input type="text" name="email" class="email" placeholder="email"/>
-                <input type="password" name="password" class="password" placeholder="password" /> 
+                <input type="text" name="email" class="email" placeholder="email" id="email_login"/>
+                <input type="password" name="password" class="password" placeholder="password" id="password_login"/> 
                 <div class="login_register">
-                  <input class="login" type="submit" value="login" />
+                  <input class="login" type="submit" value="login" id="loginSubmit"/>
                   <input class="register" type="submit" value="register" />
                 </div>      
               </div>
@@ -64,12 +64,12 @@
           <div class="service_item_left register_form hide" id="register_form">
             <div class="Service_form">
              <div class="service_form_item form_login">
-               <input type="text" name="name" id="firstname" placeholder="firstname"/>
-               <input type="text" name="name" id="lastname" placeholder="lastname"/>
-               <input type="text" name="email" class="email" placeholder="email"/> 
-               <input type="text" name="password" class="password" placeholder="password"/>
+               <input type="text" name="firstname" id="firstname" placeholder="firstname"/>
+               <input type="text" name="lastname" id="lastname" placeholder="lastname"/>
+               <input type="text" name="email" class="email" placeholder="email" id="email-register"/> 
+               <input type="password" name="password" class="password" placeholder="password" id="password-register"/>
                <div class="login_register">
-                <input class="register" type="submit" value="register" />
+                <input class="register" type="submit" value="register" id="registerSubmit"/>
                  <input class="login" type="submit" value="login" />
                 
                </div>      
@@ -105,6 +105,107 @@
       </div>
     </footer>
   </body>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js" defer></script>
+  <!-- <script src="../Js/firebase.js"></script>  -->
   <script src="../Js/login.js"></script>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+    // import { initializeApp } from "firebase/app";
+    
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAi54Nrxz1GpLIykzV-PNg64SsM1adu9Vs",
+      authDomain: "mybrand-97ee1.firebaseapp.com",
+      databaseURL: "https://mybrand-97ee1-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "mybrand-97ee1",
+      storageBucket: "mybrand-97ee1.appspot.com",
+      messagingSenderId: "899192042567",
+      appId: "1:899192042567:web:7e46dd60a36eeed45bad62"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+
+    console.log(app)
+    console.log(auth)
+    //refernce a collection
+    // const loginRef = database.ref("User");
+
+//my login button
+
+const registerSubmit = document.getElementById("registerSubmit");
+
+// // subtmit on clcik
+// loginSubmit.addEventListener("click", (e) => {
+//   e.preventDefault();
+
+//   const name = getInputValue("name");
+//   const email = getInputValue("email");
+//   const password = getInputValue("password");
+
+//   saveUser(name, email, password);
+// });
+
+//function to get inpu value
+
+function getInputValue(id) {
+  return document.getElementById(id).value;
+}
+
+// //save user to firebaseapp
+// function saveUser(name, email, password) {
+//   var newLoginRef = loginRef.push();
+
+//   newLoginRef.set({
+//     name: name,
+//     email: email,
+//     password: password,
+//   });
+// }
+
+// register
+
+
+registerSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const firstname = getInputValue("firstname");
+  const lastname = getInputValue("lastname");
+  const email = getInputValue("email-register");
+  const password = getInputValue("password-register");
+
+  createUserWithEmailAndPassword( auth, email.trim(), password.trim(), firstname.trim(),lastname.trim())
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    alert('User created')
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // alert(errorMessage)
+    console.log(email.trim())
+    // ..
+  });
+
+})
+
+  </script>
+   
   
 </html>
