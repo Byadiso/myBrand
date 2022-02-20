@@ -56,15 +56,41 @@
               </div>
               <div class="dashboard_categories">
                 <h1>Dashboard</h1>
-                <a href="#"><i class="fa fa-add"></i>Add Blog</a>
-                <a href="#"><i class="fa fa-add"></i>My info</a>
-                <a href="#"><i class="fa fa-add"></i>Members</a>
-                <a href="#"><i class="fa fa-settings"></i>Settings</a>
+                <a href="#" id="add"><i class="fa fa-add"></i>Add Blog</a>
+                <a href="#" id="info"><i class="fa fa-add"></i>My info</a>
+                <a href="#" id="members"><i class="fa fa-add"></i>Members</a>
+                <a href="#" id="settings"
+                  ><i class="fa fa-settings"></i>Settings</a
+                >
               </div>
             </div>
           </div>
           <div class="dashboard_item_rigt">
-            <div>Yes this is the content fr my dashboards</div>
+            <div id="main_dashboard">
+              Yes this is the content fr my dashboards
+            </div>
+
+            <div class="add_blog hide" id="form_blog">
+              <input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="add title"
+              />
+              <input
+                type="text"
+                name="body"
+                id="body"
+                placeholder="Add your content here"
+              />
+
+              <input
+                class="addBlog"
+                type="submit"
+                value="Add Blog"
+                id="addBlog"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -95,4 +121,70 @@
       </div>
     </footer>
   </body>
+  <script src="../Js/dashboard.js" defer></script>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+    import {
+      getDatabase,
+      set,
+      ref,
+      update,
+    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+    // import { initializeApp } from "firebase/app";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAi54Nrxz1GpLIykzV-PNg64SsM1adu9Vs",
+      authDomain: "mybrand-97ee1.firebaseapp.com",
+      databaseURL:
+        "https://mybrand-97ee1-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "mybrand-97ee1",
+      storageBucket: "mybrand-97ee1.appspot.com",
+      messagingSenderId: "899192042567",
+      appId: "1:899192042567:web:7e46dd60a36eeed45bad62",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    console.log(app);
+    console.log(auth);
+    //refernce a collection
+
+    //function to get inpu value
+
+    function getInputValue(id) {
+      return document.getElementById(id).value;
+    }
+
+    //my add blog button
+    const addButton = document.getElementById("addBlog");
+
+    addButton.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const title = getInputValue("title");
+      const body = getInputValue("body");
+
+      set(ref(database, "blogs/" + title), {
+        title: title,
+        body: body,
+        Image: "../images/pexels-adrianna-calvo-4886824.jpg",
+      });
+
+      console.log("blog added successully");
+    });
+  </script>
 </html>

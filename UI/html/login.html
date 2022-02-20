@@ -116,8 +116,8 @@
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-    import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+    import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
     // import { initializeApp } from "firebase/app";
     
     // TODO: Add SDKs for Firebase products that you want to use
@@ -148,6 +148,7 @@
 //my login button
 
 const registerSubmit = document.getElementById("registerSubmit");
+const loginSubmit = document.getElementById("loginSubmit");
 
 // // subtmit on clcik
 // loginSubmit.addEventListener("click", (e) => {
@@ -192,15 +193,47 @@ registerSubmit.addEventListener("click", (e) => {
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    set((ref(database,'users/'+user.uid), {
+      firstname:firstname.trim(),
+      lastname:lastname.trim(), 
+      email:email.trim(),
+    }))
     alert('User created')
     // ...
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    // alert(errorMessage)
+    alert(errorMessage)
     console.log(email.trim())
     // ..
+  });
+
+})
+
+// login feature
+loginSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  const email = getInputValue("email_login");
+  const password = getInputValue("password_login");
+
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    alert('User logged successfully');
+    window.location.href = "../html/dashboard.html";
+
+    const dt = new Date();
+    update((ref(database,'users/'+user.uid), {
+      last_login:dt,
+         }))
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(errorMessage)
   });
 
 })
