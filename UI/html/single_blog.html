@@ -191,7 +191,7 @@
 
   <script src="../Js/singleBlog.js" defer></script>
 
-  <script type="module">
+  <script type="module" defer>
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
     import {
@@ -234,7 +234,8 @@
     }
 
     //my add blog button
-    const addButton = document.getElementById("addBlog");
+    const removeBlogButton = document.getElementById("removeBlog");
+    const editBlogButton = document.getElementById("editBlog");
     const blogAdmin = document.getElementById("blog_admin");
 
     // const blogRef = ref(database, "blogs/" + blog_id);
@@ -254,39 +255,21 @@
         console.error(error);
       });
 
-    // onValue(blogRef, (snapshot) => {
-    //   const data = snapshot.val();
+    //remove blog
+    removeBlogButton.addEventListener("click", (e) => {
+      let key = e.target.parentElement.dataset.uid;
+      console.log("let remove this blog " + key);
+      console.log(key);
 
-    //   let blogsArray = [];
-    //   console.log(data);
-    //   for (var [key, value] of Object.entries(data)) {
-    //     console.log(value.title, value.body);
-    //     const content_elt = document.createElement("DIV");
-    //     content_elt.innerHTML = `
-    //     <div class="blog_image">
-    //       <img src=${value.Image} alt="blog image">
-    //     </div>
-    //     <h3>${value.title}</h3>
-    //     <p class="blog_title">${value.body}</p>
-    //     <a href="./single_blog.html">Read more..</a>
-    //     `;
+      // window.location.href = "./html/blog.html";
+    });
 
-    //     content_elt.setAttribute("class", "blog_item");
+    //edit or update blog
+    editBlogButton.addEventListener("click", (e) => {
+      let key = e.target.parentElement.dataset.uid;
+      console.log("let edit this blog" + key);
 
-    //     blogAdmin.append(content_elt);
-    //   }
-
-    //   // for (var i = 0; i < blogsArray.length; i++) {
-    //   //   console.log(data);
-    //   //   const content_elt = document.createElement("DIV");
-    //   //   content_elt.innerHTML = `
-    //   //   <h2>${blogsArray[i].Object.Keys.title}</h2>
-    //   //   <p>${blogsArray[i].content}</p>
-    //   //   <img src=${blogsArray[i].Image} alt="blog image">
-    //   //   `;
-
-    //   //   blogAdmin.append(content_elt);
-    //   // }
-    // });
+      // window.location.href = "./html/blog.html";
+    });
   </script>
 </html>

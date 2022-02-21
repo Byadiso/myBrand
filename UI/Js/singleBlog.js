@@ -41,6 +41,11 @@ let blog = array.find((item) => {
           <textarea class="comment" placeholder="add your comment">
           </textarea>
           <input type="submit" value="add comment" />
+          <div class="admin_control_button" data-uid=${key}>         
+            <button id="removeBlog"> Remove</button>
+            <button id="editBlog">Edit</button>
+
+          </div>
         </div>
       </div>
     </div>
