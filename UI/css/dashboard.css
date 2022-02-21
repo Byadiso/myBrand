@@ -437,10 +437,20 @@
 }
 
 .dashboard_item_rigt{
-    border-left: 2px solid var(--colorforWeakGrey);
-    margin-left: 20px ;
-    margin-bottom: 20px;
-    width: 20%;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    /* border-left: 2px solid var(--colorforWeakGrey); */
+    
+    margin: 20px;
+    padding: 20px;
+    max-width: 80%;
+    background:#b7babb
+
+}
+
+.form_blog{
+    max-width:50%
 }
 .dashboard_item_left{
         min-width: 20%;
@@ -566,10 +576,10 @@ width: 100%;
     justify-content:center;
     align-items: center;
 }
-.dashboard_item_rigt{
+/* .dashboard_item_rigt{
     max-width:80%;
     background:#29b4e2
-}
+} */
 
     /* footer */
 
