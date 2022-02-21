@@ -189,19 +189,23 @@
     </footer>
   </body>
 
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
   <script src="../Js/singleBlog.js" defer></script>
 
   <script type="module" defer>
     // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-    import {
-      getDatabase,
-      set,
-      ref,
-      get,
-      child,
-      onValue,
-    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+    // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+    // import {
+    //   getDatabase,
+    //   set,
+    //   ref,
+    //   get,
+    //   child,
+    //   onValue,
+    // } from firebase;
 
     // import { initializeApp } from "firebase/app";
 
@@ -219,8 +223,8 @@
     };
 
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase();
+    const app = firebase.initializeApp(firebaseConfig);
+    // const database = getDatabase();
 
     //my id in the localStorage
 
@@ -239,29 +243,34 @@
     const blogAdmin = document.getElementById("blog_admin");
 
     // const blogRef = ref(database, "blogs/" + blog_id);
+    // commenting this since they are not working
 
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `blogs/${blog_id}`))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-        } else {
-          console.log(
-            "No data available that is why I am going to use localStorage"
-          );
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // const dbRef = firebase.database();
+    // get(child(dbRef, `blogs/${blog_id}`))
+    //   .then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //       console.log(snapshot.val());
+    //     } else {
+    //       console.log(
+    //         "No data available that is why I am going to use localStorage"
+    //       );
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
 
     //remove blog
     removeBlogButton.addEventListener("click", (e) => {
       let key = e.target.parentElement.dataset.uid;
       console.log("let remove this blog " + key);
       console.log(key);
+      firebase
+        .database()
+        .ref("blogs/" + key)
+        .remove();
 
-      // window.location.href = "./html/blog.html";
+      window.location.href = "./blog.html";
     });
 
     //edit or update blog
