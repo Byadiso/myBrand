@@ -48,8 +48,8 @@
       <div class="blog_section">
         <div class="blog_content single_blog">
           <div class="blog_item_left">
-            <div class="blog_item_content">
-              <h3>website Development</h3>
+            <div class="blog_item_content" id="blog_item_content">
+              <!-- <h3>website Development</h3>
               <div class="single_blog_image">
                 <img
                   src="../images/pexels-adrianna-calvo-4886824.jpg"
@@ -75,7 +75,7 @@
                   </textarea>
                   <input type="submit" value="add comment" />
                 </div>
-              </div>
+              </div> -->
             </div>
             <hr />
             <!-- for related blog -->
@@ -245,7 +245,9 @@
         if (snapshot.exists()) {
           console.log(snapshot.val());
         } else {
-          console.log("No data available");
+          console.log(
+            "No data available that is why I am going to use localStorage"
+          );
         }
       })
       .catch((error) => {

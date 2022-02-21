@@ -48,7 +48,7 @@
       <div class="blog_section">
         <div class="blog_content">
           <div class="blog_item_left">
-            <div class="blog_item">
+            <!-- <div class="blog_item">
               <div class="blog_image">
                 <img
                   src="../images/pexels-adrianna-calvo-4886824.jpg"
@@ -134,7 +134,7 @@
                 the real you with your business
               </p>
               <h4 class="readmore">Read more..</h4>
-            </div>
+            </div> -->
 
             <h2>Blog added by Admin from firebase</h2>
             <div id="blog_admin"></div>
@@ -256,17 +256,13 @@
 
         var obj = {
           id: value.id,
-          body: value.title,
+          title: value.title,
           body: value.body,
           Image: value.Image,
         };
-        // console.log({
-        //   id: value.id,
-        //   body: value.body,
-        //   Image: value.Image,
-        // });
 
         blogsArray.push(obj);
+        console.log(blogsArray);
 
         const content_elt = document.createElement("DIV");
         content_elt.innerHTML = `
@@ -289,18 +285,6 @@
 
       // save to localStorage
       localStorage.setItem("data", dataSave);
-
-      // for (var i = 0; i < blogsArray.length; i++) {
-      //   console.log(data);
-      //   const content_elt = document.createElement("DIV");
-      //   content_elt.innerHTML = `
-      //   <h2>${blogsArray[i].Object.Keys.title}</h2>
-      //   <p>${blogsArray[i].content}</p>
-      //   <img src=${blogsArray[i].Image} alt="blog image">
-      //   `;
-
-      //   blogAdmin.append(content_elt);
-      // }
     });
   </script>
 </html>

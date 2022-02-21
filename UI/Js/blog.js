@@ -7,15 +7,18 @@ block.addEventListener("click", (e) => {
   let id = e.target.dataset.id;
   console.log(e.target.dataset.id);
 
-  //   if (e.target.classList === "readme_button") {
-  //     console.log("yes");
-  //   }
+  // if (e.target.className === "readme_button") {
+  //   console.log("yes");
+  // }
 
   const id_clicked = JSON.stringify(id);
 
   // save to localStorage
-  localStorage.setItem("id", id_clicked);
+  let idSave = localStorage.setItem("id", id_clicked);
 
+  if (id_clicked) {
+    window.location.href = "../html/single_blog.html";
+  }
   //   //function to get inpu value
 
   //   function getInputValue(id) {
