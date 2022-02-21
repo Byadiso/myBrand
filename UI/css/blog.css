@@ -456,6 +456,7 @@ width: 100%;
      display: flex;
      justify-content:center;
      align-items: flex-end;
+     flex-wrap: wrap;
  }
 
  .blog_relate_image img{
@@ -649,6 +650,21 @@ width: 100%;
 .portfolio_image img:hover{
     border: 4px solid var(--colorforWeakGrey);
 }
+
+
+.blog_item_content{
+    margin-right: 20px;
+    max-width: 100%;
+}
+
+
+#blog_admin{
+    display:flex;
+    justify-content:center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
     /* footer */
 
 footer{
@@ -802,6 +818,21 @@ footer input[type=submit]{
         align-items: center;
         flex-direction: column;
     }
+
+    .blog_content img{
+        Width:100%;
+        height:100%;
+        border-radius: 20px;
+        padding: 10px;
+        /* margin:20px */
+    }
+
+    .blog_item_content{
+        margin: 20px;
+        padding:10px
+    }
+
+    
     /* for footer section */
 
     footer {
@@ -907,6 +938,11 @@ for ipods and tables */
     .portfolio_nav h1{
        font-size: 1rem;
        margin: 0px;
+    }
+
+    .blog_item_content{
+        padding: 20px;
+        margin: 10px;
     }
 
     /* for footer section */

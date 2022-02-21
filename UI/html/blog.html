@@ -135,6 +135,9 @@
               </p>
               <h4 class="readmore">Read more..</h4>
             </div>
+
+            <h2>Blog added by Admin from firebase</h2>
+            <div id="blog_admin"></div>
           </div>
 
           <!-- for categories -->
@@ -201,4 +204,80 @@
     </footer>
   </body>
   <script src="../Js/blog.js" type="module"></script>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+    import {
+      getDatabase,
+      set,
+      ref,
+      onValue,
+    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+
+    // import { initializeApp } from "firebase/app";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5sPlupW_n1XEt6xsw_Y7aAZKltGEFyXw",
+      authDomain: "mybrand-df7b7.firebaseapp.com",
+      projectId: "mybrand-df7b7",
+      storageBucket: "mybrand-df7b7.appspot.com",
+      messagingSenderId: "1073877765217",
+      appId: "1:1073877765217:web:7f63596f42c5d4ca18ae20",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    //function to get inpu value
+
+    function getInputValue(id) {
+      return document.getElementById(id).value;
+    }
+
+    //my add blog button
+    const addButton = document.getElementById("addBlog");
+    const blogAdmin = document.getElementById("blog_admin");
+
+    const blogs = ref(database, "blogs/");
+    onValue(blogs, (snapshot) => {
+      const data = snapshot.val();
+
+      let blogsArray = [];
+      console.log(data);
+      for (var [key, value] of Object.entries(data)) {
+        console.log(value.title, value.body);
+        const content_elt = document.createElement("DIV");
+        content_elt.innerHTML = `
+        <div class="blog_image">
+          <img src=${value.Image} alt="blog image">
+        </div>
+        <h3>${value.title}</h3>
+        <p class="blog_title">${value.body}</p>
+        <a href="./single_blog.html">Read more..</a>
+        `;
+
+        content_elt.setAttribute("class", "blog_item");
+
+        blogAdmin.append(content_elt);
+      }
+
+      // for (var i = 0; i < blogsArray.length; i++) {
+      //   console.log(data);
+      //   const content_elt = document.createElement("DIV");
+      //   content_elt.innerHTML = `
+      //   <h2>${blogsArray[i].Object.Keys.title}</h2>
+      //   <p>${blogsArray[i].content}</p>
+      //   <img src=${blogsArray[i].Image} alt="blog image">
+      //   `;
+
+      //   blogAdmin.append(content_elt);
+      // }
+    });
+  </script>
 </html>

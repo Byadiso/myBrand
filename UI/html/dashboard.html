@@ -77,11 +77,25 @@
                 id="title"
                 placeholder="add title"
               />
-              <input
+              <!-- <input
                 type="text"
                 name="body"
                 id="body"
                 placeholder="Add your content here"
+              /> -->
+              <textarea
+                type="text"
+                name="body"
+                id="body"
+                placeholder="Add your content here"
+              >
+              </textarea>
+
+              <input
+                type="file"
+                name="image"
+                id="image"
+                placeholder="add image"
               />
 
               <input
@@ -123,20 +137,30 @@
   </body>
   <script src="../Js/dashboard.js" defer></script>
 
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
+
   <script type="module">
     // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-    import {
-      getDatabase,
-      set,
-      ref,
-      update,
-    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+
+    // import {
+    //   getDatabase,
+    //   set,
+    //   ref,
+    //   update,
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+    // import {
+    //   getAuth,
+    //   createUserWithEmailAndPassword,
+    //   signInWithEmailAndPassword,
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+
+    // import {
+    //   getStorage,
+    //   ref as sRef,
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-storage.js";
     // import { initializeApp } from "firebase/app";
 
     // TODO: Add SDKs for Firebase products that you want to use
@@ -144,47 +168,98 @@
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyAi54Nrxz1GpLIykzV-PNg64SsM1adu9Vs",
-      authDomain: "mybrand-97ee1.firebaseapp.com",
-      databaseURL:
-        "https://mybrand-97ee1-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "mybrand-97ee1",
-      storageBucket: "mybrand-97ee1.appspot.com",
-      messagingSenderId: "899192042567",
-      appId: "1:899192042567:web:7e46dd60a36eeed45bad62",
+      apiKey: "AIzaSyA5sPlupW_n1XEt6xsw_Y7aAZKltGEFyXw",
+      authDomain: "mybrand-df7b7.firebaseapp.com",
+      projectId: "mybrand-df7b7",
+      storageBucket: "mybrand-df7b7.appspot.com",
+      messagingSenderId: "1073877765217",
+      appId: "1:1073877765217:web:7f63596f42c5d4ca18ae20",
     };
 
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const auth = getAuth();
+    const app = firebase.initializeApp(firebaseConfig);
+    // const database = firebase.getDatabase(app);
+    // const auth = firebase.getAuth();
+    // const storage = firebase.getStorage(app);
 
-    console.log(app);
-    console.log(auth);
-    //refernce a collection
-
-    //function to get inpu value
-
-    function getInputValue(id) {
-      return document.getElementById(id).value;
-    }
-
-    //my add blog button
     const addButton = document.getElementById("addBlog");
 
     addButton.addEventListener("click", (e) => {
       e.preventDefault();
 
-      const title = getInputValue("title");
-      const body = getInputValue("body");
+      // image variable
+      const image = document.getElementById("image").files[0];
+      const imageName = image.name;
 
-      set(ref(database, "blogs/" + title), {
-        title: title,
-        body: body,
-        Image: "../images/pexels-adrianna-calvo-4886824.jpg",
-      });
+      //refernce a collection
+      const storageRef = firebase.storage().ref("images/" + imageName);
+      // const imagesRef = ref("images/" + imageName);
 
-      console.log("blog added successully");
+      // upload image to selected  storage reference
+      var uploadTask = storageRef.put(image);
+
+      uploadTask.on(
+        "state_changed",
+        function (snapshot) {
+          var progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "done");
+        },
+        function (error) {
+          console.log(error.message);
+        },
+        function () {
+          // handle successfully upload here..
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            // getimage downloaded url here and upload to the database
+
+            const title = getInputValue("title");
+            const body = getInputValue("body");
+
+            firebase
+              .database()
+              .ref("blogs/")
+              .push()
+              .set(
+                {
+                  title: title,
+                  body: body,
+                  Image: downloadURL,
+                },
+                function (error) {
+                  if (error) {
+                    console.log("error whie uploading");
+                  } else {
+                    console.log("successfully uploaded");
+                  }
+                }
+              );
+          });
+
+          //function to get inpu value
+
+          function getInputValue(id) {
+            return document.getElementById(id).value;
+          }
+
+          //my add blog button
+          // const addButton = document.getElementById("addBlog");
+
+          // addButton.addEventListener("click", (e) => {
+          //   e.preventDefault();
+
+          //   const title = getInputValue("title");
+          //   const body = getInputValue("body");
+
+          //   set(ref(database, "blogs/" + title), {
+          //     title: title,
+          //     body: body,
+          //     Image: image,
+          //   });
+
+          console.log("blog added successully");
+        }
+      );
     });
   </script>
 </html>

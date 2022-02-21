@@ -100,4 +100,129 @@
       </div>
     </footer>
   </body>
+
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+
+    // import {
+    //   getDatabase,
+    //   set,
+    //   ref,
+    //   update
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+    // import {
+    //   getAuth,
+    //   createUserWithEmailAndPassword,
+    //   signInWithEmailAndPassword,
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+
+    // import {
+    //   getStorage,
+    //   ref as sRef,
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-storage.js";
+    // import { initializeApp } from "firebase/app";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAi54Nrxz1GpLIykzV-PNg64SsM1adu9Vs",
+      authDomain: "mybrand-97ee1.firebaseapp.com",
+      databaseURL:
+        "https://mybrand-97ee1-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "mybrand-97ee1",
+      storageBucket: "mybrand-97ee1.appspot.com",
+      messagingSenderId: "899192042567",
+      appId: "1:899192042567:web:7e46dd60a36eeed45bad62",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    console.log(firebase);
+
+    // Initialize Firebase
+    // const app = initializeApp(firebaseConfig);
+    // const database = getDatabase(app);
+    // const auth = getAuth();
+    // const storage = getStorage(app);
+
+    // const addButton = document.getElementById("addBlog");
+
+    // addButton.addEventListener("click", (e) => {
+    //   e.preventDefault();
+
+    //   // image variable
+    //   const image = document.getElementById("image").files[0];
+    //   const imageName = image.name;
+
+    //   //refernce a collection
+    //   const storageRef = sRef(storage, "images/" + imageName);
+    //   // const imagesRef = ref("images/" + imageName);
+
+    //   // upload image to selected  storage reference
+    //   var uploadTask = firebase.storage.put("image");
+
+    //   uploadTask.on(
+    //     "state_changed",
+    //     function (snapshot) {
+    //       var progress =
+    //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //       console.log("Upload is " + progress + "done");
+    //     },
+    //     function (error) {
+    //       console.log(error.message);
+    //     },
+    //     function () {
+    //       // handle successfully upload here..
+    //       uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+    //         // getimage downloaded url here and upload to the database
+
+    //         const title = getInputValue("title");
+    //         const body = getInputValue("body");
+
+    //         set(
+    //           ref(database, "blogs/" + title),
+    //           {
+    //             title: title,
+    //             body: body,
+    //             Image: downloadURL,
+    //           },
+    //           function (error) {
+    //             if (error) {
+    //               console.log("error whie uploading");
+    //             } else {
+    //               console.log("successfully uploaded");
+    //             }
+    //           }
+    //         );
+    //       });
+
+    // //function to get inpu value
+
+    // function getInputValue(id) {
+    //   return document.getElementById(id).value;
+    // }
+
+    // //my add blog button
+    // // const addButton = document.getElementById("addBlog");
+
+    // // addButton.addEventListener("click", (e) => {
+    // //   e.preventDefault();
+
+    // //   const title = getInputValue("title");
+    // //   const body = getInputValue("body");
+
+    // //   set(ref(database, "blogs/" + title), {
+    // //     title: title,
+    // //     body: body,
+    // //     Image: image,
+    // //   });
+
+    //     console.log("blog added successully");
+    //   }
+    // );
+    // });
+  </script>
 </html>
