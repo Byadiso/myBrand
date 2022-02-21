@@ -250,22 +250,44 @@
 
       let blogsArray = [];
       console.log(data);
+
       for (var [key, value] of Object.entries(data)) {
-        console.log(value.title, value.body);
+        // console.log(value.title, value.body, data);
+
+        var obj = {
+          id: value.id,
+          body: value.body,
+          Image: value.Image,
+        };
+        // console.log({
+        //   id: value.id,
+        //   body: value.body,
+        //   Image: value.Image,
+        // });
+
+        blogsArray.push(obj);
+
         const content_elt = document.createElement("DIV");
         content_elt.innerHTML = `
-        <div class="blog_image">
-          <img src=${value.Image} alt="blog image">
+        <div class="blog_image blog" data-id=${value.id}>
+          <img src=${value.Image} alt="blog image blog" data-id=${value.id}>
         </div>
-        <h3>${value.title}</h3>
-        <p class="blog_title">${value.body}</p>
-        <a href="./single_blog.html">Read more..</a>
+        <h3 class="blog" data-id=${value.id}>${value.title}</h3>
+        <p class="blog_title blog" data-id=${value.id}>${value.body}</p>
+        <a href="./single_blog.html" data-id=${value.id} class="readme_button blog">Read more..</a>
         `;
 
         content_elt.setAttribute("class", "blog_item");
-
+        content_elt.setAttribute("data-id", value.id);
         blogAdmin.append(content_elt);
       }
+
+      console.log(blogsArray);
+
+      const dataSave = JSON.stringify(blogsArray);
+
+      // save to localStorage
+      localStorage.setItem("data", dataSave);
 
       // for (var i = 0; i < blogsArray.length; i++) {
       //   console.log(data);

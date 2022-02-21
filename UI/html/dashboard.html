@@ -215,6 +215,9 @@
 
             const title = getInputValue("title");
             const body = getInputValue("body");
+            // var id;
+
+            var id = Math.floor(Math.random() * 100);
 
             firebase
               .database()
@@ -225,6 +228,7 @@
                   title: title,
                   body: body,
                   Image: downloadURL,
+                  id: id,
                 },
                 function (error) {
                   if (error) {
