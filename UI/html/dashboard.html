@@ -215,7 +215,9 @@
             // getimage downloaded url here and upload to the database
 
             const title = getInputValue("title");
-            const body = getInputValue("body");
+            // const body = getInputValue("body");
+
+            const blogText = tinymce.activeEditor.getContent();
             // var id;
 
             var id = Math.floor(Math.random() * 100);
@@ -227,7 +229,8 @@
               .set(
                 {
                   title: title,
-                  body: body,
+                  // body: body,
+                  body: blogText,
                   Image: downloadURL,
                   id: id,
                 },
