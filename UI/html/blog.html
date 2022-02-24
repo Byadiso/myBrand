@@ -253,12 +253,13 @@
 
       for (var [key, value] of Object.entries(data)) {
         // console.log(value.title, value.body, data);
-
+        console.log(key);
         var obj = {
           id: value.id,
           title: value.title,
           body: value.body,
           Image: value.Image,
+          uid_key: key,
         };
 
         blogsArray.push(obj);

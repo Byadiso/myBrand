@@ -10,7 +10,8 @@ let blog_single = document.createElement("DIV");
 
 let blog = array.find((item) => {
   for (var [key, value] of Object.entries(item)) {
-    console.log("this is the " + value.id);
+    console.log("this is the " + value.uid_key);
+
     if (parseInt(value.id) === parseInt(blogId)) {
       blog_single.innerHTML = `
       <div class="blog_item_content" data-uid=${key}>
@@ -26,8 +27,8 @@ let blog = array.find((item) => {
         <p><i class="fa fa-heart"></i>Like</p>
         <p><i class="fa fa-comment"></i>comment</p>
         
-        <p><i class="fa fa-trash admin_control_button" id="removeBlog" data-uid=${key}></i></p>
-        <p><i class="fa fa-edit admin_control_button" id="editBlog" data-uid=${key}></i></p>
+        <p><i class="fa fa-trash admin_control_button" id="removeBlog" data-uid=${value.uid_key}></i></p>
+        <p><i class="fa fa-edit admin_control_button" id="editBlog" data-uid=${value.uid_key}></i></p>
      </div>
       
 
@@ -54,6 +55,12 @@ let blog = array.find((item) => {
     </div>
       `;
       blog_item_content.append(blog_single);
+
+      //save my data into local storage
+      const dataSave = JSON.stringify(value);
+
+      // save to localStorage
+      localStorage.setItem("sngle_data", dataSave);
     }
   }
 });
