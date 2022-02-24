@@ -537,6 +537,19 @@ width: 100%;
     display: inline;
     margin: 20px;
 }
+.hide{
+    display:none;
+}
+
+#alert_message_login, #alert_message_register{   
+    background: green;
+    color: white;
+    margin: 10px;    
+    display: flex;
+    justify-content: center;
+}
+/* 
+
 
 /* ..........register.....section..... */
 .hide{

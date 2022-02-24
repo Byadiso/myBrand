@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBrand</title>
     <link rel="stylesheet" href="../css/contact.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <!-- for roboto font -->
     <link
       href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
@@ -50,12 +51,12 @@
           <p>Get intouch with me</p>
         </div>
         <div class="service_content">
-          <div class="service_item_left">
+          <div class="service_item_left" id="request_form">
             <div class="Service_form_header">
-              <div class="text_L">
+              <div class="text_L request_button">
                 <h4>REQUEST</h4>
               </div>
-              <div class="text_R active">
+              <div class="text_R active contact_button">
                 <h4>Contact</h4>
               </div>
             </div>
@@ -64,7 +65,7 @@
                 <input
                   type="text"
                   name="name"
-                  id="name"
+                  id="name error_message"
                   placeholder="full name"
                 />
                 <input
@@ -75,22 +76,26 @@
                 />
                 <textarea
                   name="message"
-                  id=""
+                  id="message"
                   cols="30"
                   rows="10"
                   placeholder="message"
                 ></textarea>
-                <input class="hire_now" type="submit" value="SEND NOW" />
+                <input
+                  class="hire_now send_request"
+                  type="submit"
+                  value="SEND NOW"
+                />
               </div>
             </div>
           </div>
 
-          <div class="service_item_left hide">
+          <div class="service_item_left hide" id="contact_form">
             <div class="Service_form_header">
-              <div class="text_R">
+              <div class="text_R request_button">
                 <h4>REQUEST</h4>
               </div>
-              <div class="text_L">
+              <div class="text_L contact_button">
                 <h4>Contact</h4>
               </div>
             </div>
@@ -134,4 +139,5 @@
       </div>
     </footer>
   </body>
+  <script src="../Js/contact.js" defer></script>
 </html>
