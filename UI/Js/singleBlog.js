@@ -14,7 +14,8 @@ let blog = array.find((item) => {
     if (parseInt(value.id) === parseInt(blogId)) {
       blog_single.innerHTML = `
       <div class="blog_item_content" data-uid=${key}>
-      <h3>website Development</h3>
+     
+    
       <div class="single_blog_image">
         <img
           src=${value.Image}
@@ -24,7 +25,13 @@ let blog = array.find((item) => {
       <div class="icon_blog">
         <p><i class="fa fa-heart"></i>Like</p>
         <p><i class="fa fa-comment"></i>comment</p>
-      </div>
+        
+        <p><i class="fa fa-trash admin_control_button" id="removeBlog" data-uid=${key}></i></p>
+        <p><i class="fa fa-edit admin_control_button" id="editBlog" data-uid=${key}></i></p>
+     </div>
+      
+
+     
 
       <h3 class="blog_title">
       ${value.title}
@@ -34,18 +41,14 @@ let blog = array.find((item) => {
       </p>
       <div class="comment_section">
         <div class="comment_content">
-          <p>this is your comment</p>
-          <p>this is your comment</p>
+            <p>this is your comment</p>
         </div>
         <div class="comment_form">
           <textarea class="comment" placeholder="add your comment">
           </textarea>
-          <input type="submit" value="add comment" />
-          <div class="admin_control_button" data-uid=${key}>         
-            <button id="removeBlog"> Remove</button>
-            <button id="editBlog">Edit</button>
-
-          </div>
+          <input type="submit" value="Add comment" />
+                
+          
         </div>
       </div>
     </div>

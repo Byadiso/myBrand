@@ -409,16 +409,27 @@
     margin: 0px; 
 }
 .blog_item p{
-    color:var(--textColorGreyParagraph);
+    /* color:var(--textColorGreyParagraph); */
     width:220px;
     /* height:145px;   */
-   
-      
 }
 .readmore{
     float: left;
     margin: 0px;
+    
 }
+
+.readme_button{
+        
+        padding: 5px;
+        display:flex;
+        justify-content:center;
+        color:white;   
+        border-radius: 20px;
+        margin: 2px;
+        background:var(--blueColor);
+        cursor: pointer;
+    }
 .readmore:hover{
     cursor: pointer;
     color:var(--colorforWeakGrey);
@@ -470,13 +481,14 @@ width: 100%;
     width:520px;
     height:345px;   
     margin: 0px; 
+    margin-top: 35px;
  }
 .icon_blog{
     display:flex;
 }
 .icon_blog p{
     color: var(--colorforWeakGrey);
-    margin-right: 30px;
+    margin-right: 25px;
     cursor: pointer;
 }
  .icon_blog i{
@@ -664,7 +676,22 @@ width: 100%;
     flex-wrap: wrap;
     align-items: center;
 }
+#removeBlog{
+    color:red;
+    cursor:pointer;
+    }
 
+#editBlog{
+    color:var(--blueColor);
+    cursor:pointer;
+}
+
+#removeBlog{
+    margin-left: 240px;    
+}
+#editBlog{
+    margin-left: 20px;    
+}
     /* footer */
 
 footer{
@@ -829,8 +856,36 @@ footer input[type=submit]{
 
     .blog_item_content{
         margin: 20px;
-        padding:10px
+        padding:10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
+
+    .readme_button{
+        padding: 10px;
+        color:var(--whiteColor);
+        text-decoration: none;
+        background:var(--blueColor);
+        cursor: pointer;
+    }
+    .readme_button p{
+        color: var(--whiteColor)
+    }
+
+    /* for icon */
+    
+#removeBlog, #editBlog{
+    margin-left: 20px;    
+}
+
+.icon_blog p {
+    color: var(--colorforWeakGrey);
+    margin-right: 5px;
+    cursor: pointer;
+}
+
 
     
     /* for footer section */
