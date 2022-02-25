@@ -23,8 +23,8 @@ It is a capstone project made during my Andela Technical Leadership Program.
 
 ### My live project can be access by visit this link 
 
--Github Pages: https://byadiso.github.io/myBrand/html/hire.html
--Netlify : https://mybrand-atlp-project.netlify.app/index.html
+- Github Pages: https://byadiso.github.io/myBrand/html/hire.html
+- Netlify : https://mybrand-atlp-project.netlify.app/index.html
 
 # Build With
 
