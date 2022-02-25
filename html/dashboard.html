@@ -101,6 +101,7 @@
                 id="addBlog"
               />
             </div>
+            <h5 id="alert_message_add_blog" class="hide">Added successfully</h5>
           </div>
         </div>
       </div>
@@ -148,10 +149,12 @@
       onValue,
     } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
 
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
     // import {
     //   getAuth,
     //   createUserWithEmailAndPassword,
     //   signInWithEmailAndPassword,
+    //   onAuthStateChanged,
     // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 
     // import {
@@ -175,7 +178,7 @@
 
     // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+    const database = getDatabase(initializeApp(firebaseConfig));
     // const database = firebase.getDatabase(app);
     // const auth = firebase.getAuth();
     // const storage = firebase.getStorage(app);
@@ -210,16 +213,16 @@
         <div class="blog_image blog" data-id=${value.id}>
           <img src=${value.Image} alt="blog image blog" data-id=${value.id}>
         </div>
-      
+
           <h3 class="blog" data-id=${value.id}>${value.title}</h3>
           <div class="dashboard_bottom">
         <i class="fa fa-trash admin_control_button" id="removeBlog" data-uid=${value.uid_key}></i><p>Delete</p>
         <i class="fa fa-edit admin_control_button" id="editBlog" data-uid=${value.uid_key}></i><p>Edit</p>
-          
+
         </div>
-       
-        
-        
+
+
+
         `;
 
         content_elt.setAttribute("class", "blog_item");
@@ -289,6 +292,15 @@
                     console.log("error whie uploading");
                   } else {
                     console.log("successfully uploaded");
+
+                    const alert_message_add_blog = document.getElementById(
+                      "alert_message_add_blog"
+                    );
+                    alert_message_add_blog.style.display = "flex";
+
+                    setTimeout(() => {
+                      location.href = "./blog.html";
+                    }, 3000);
                   }
                 }
               );
@@ -304,41 +316,23 @@
         }
       );
 
-      //see user details when loggedin
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          const uid = user.uid;
+      //   //see user details when loggedin
+      //   onAuthStateChanged(auth, (user) => {
+      //     if (user) {
+      //       // User is signed in, see docs for a list of available properties
+      //       // https://firebase.google.com/docs/reference/js/firebase.User
+      //       const uid = user.uid;
 
-          console.log(user);
+      //       console.log(user);
 
-          // ...
-        } else {
-          // User is signed out
+      //       // ...
+      //     } else {
+      //       // User is signed out
 
-          window.location.href = "./login.html";
-          // ...
-        }
-      });
-    });
-
-    //see user details when loggedin
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-
-        console.log(user);
-
-        // ...
-      } else {
-        // User is signed out
-
-        window.location.href = "./login.html";
-        // ...
-      }
+      //       window.location.href = "./login.html";
+      //       // ...
+      //     }
+      //   });
     });
   </script>
 

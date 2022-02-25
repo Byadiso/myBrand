@@ -506,6 +506,7 @@
     display:flex;
     justify-content:center;
     align-items: center;
+    flex-direction: column;
     /* border-left: 2px solid var(--colorforWeakGrey); */
     
     margin: 15px;
@@ -531,6 +532,16 @@
     margin-right: 5px;
     margin-top: 20px;
     margin-left: 10px;
+}
+
+#alert_message_add_blog{
+    background: green;
+    width: 100%;
+    color: white;
+    margin-top: 50px;    
+    padding:5px;
+    display: none;
+    justify-content: center;
 }
 
 .dashboard_item_left{
@@ -660,6 +671,12 @@ width: 100%;
 /* .dashboard_item_rigt{
     max-width:80%;
     background:#29b4e2
+} */
+/* #main_dashboard {
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
 } */
 
     /* footer */

@@ -381,7 +381,9 @@
     /* border:1px solid var(--colorforWeakGrey); */
     /* box-shadow: 0.10em 0.10em 0.2em; */    
     margin:20px;
-    padding:10px
+    padding:10px;
+    max-width: 50%;
+    max-height: 30%;
 }
 .blog_item_left .blog_item{
     box-shadow: -0.05em 0.05em 0.7em 0.05px;
