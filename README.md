@@ -19,6 +19,8 @@ It is a capstone project made during my Andela Technical Leadership Program.
 
 # DEMO
 
+My live project can be access by visit this link : https://byadiso.github.io/myBrand/html/hire.html
+
 # Build With
 
 ### frontend
