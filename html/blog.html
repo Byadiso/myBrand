@@ -249,7 +249,7 @@
       const data = snapshot.val();
 
       let blogsArray = [];
-      console.log(data);
+      // console.log(data);
 
       for (var [key, value] of Object.entries(data)) {
         // console.log(value.title, value.body, data);
@@ -263,7 +263,7 @@
         };
 
         blogsArray.push(obj);
-        console.log(blogsArray);
+        console.log(obj.uid_key);
 
         const content_elt = document.createElement("DIV");
         content_elt.innerHTML = `
@@ -272,11 +272,11 @@
         </div>
         <h3 class="blog" data-id=${value.id}>${value.title}</h3>
         <p class="blog_title blog" data-id=${value.id}>${value.body}</p>
-        <p  data-id=${value.id} class="readme_button blog">Read more..</p>
+        <p  data-id=${obj.uid_key} class="readme_button blog">Read more..</p>
         `;
 
         content_elt.setAttribute("class", "blog_item");
-        content_elt.setAttribute("data-id", value.id);
+        content_elt.setAttribute("data-id", value.uid_key);
         blogAdmin.append(content_elt);
       }
 
