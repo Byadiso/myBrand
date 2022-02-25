@@ -25,12 +25,9 @@ let blog = array.find((item) => {
       </div>
       <div class="icon_blog">
         <p><i class="fa fa-heart"></i>Like</p>
-        <p><i class="fa fa-comment"></i>comment</p>
-        
-        <p><i class="fa fa-trash admin_control_button" id="removeBlog" data-uid=${value.uid_key}></i></p>
-        <p><i class="fa fa-edit admin_control_button" id="editBlog" data-uid=${value.uid_key}></i></p>
-     </div>
-      
+        <p><i class="fa fa-comment"></i>comment</p>         
+       
+     </div>    
 
      
 
@@ -54,6 +51,11 @@ let blog = array.find((item) => {
       </div>
     </div>
       `;
+      // to be added later
+
+      // <i class="fa fa-trash admin_control_button" id="removeBlog" data-uid=${value.uid_key}></i><p>Delete</p>
+      // <i class="fa fa-edit admin_control_button" id="editBlog" data-uid=${value.uid_key}></i><p>Edit</p>
+
       blog_item_content.append(blog_single);
 
       //save my data into local storage

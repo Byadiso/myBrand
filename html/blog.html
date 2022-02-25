@@ -249,7 +249,7 @@
       const data = snapshot.val();
 
       let blogsArray = [];
-      console.log(data);
+      // console.log(data);
 
       for (var [key, value] of Object.entries(data)) {
         // console.log(value.title, value.body, data);
@@ -263,7 +263,7 @@
         };
 
         blogsArray.push(obj);
-        console.log(blogsArray);
+        console.log(obj.uid_key);
 
         const content_elt = document.createElement("DIV");
         content_elt.innerHTML = `

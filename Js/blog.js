@@ -6,6 +6,7 @@ block.addEventListener("click", (e) => {
   e.preventDefault();
   let id = e.target.dataset.id;
   console.log(e.target.dataset.id);
+  console.log(e.target.dataset.id);
 
   // if (e.target.className === "readme_button") {
   //   console.log("yes");
@@ -17,7 +18,7 @@ block.addEventListener("click", (e) => {
   let idSave = localStorage.setItem("id", id_clicked);
 
   if (id_clicked) {
-    window.location.href = "../html/single_blog.html";
+    window.location.href = `../html/single_blog.html`;
   }
   //   //function to get inpu value
 
