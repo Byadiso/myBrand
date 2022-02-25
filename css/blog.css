@@ -371,7 +371,7 @@
     
 }
 
-.blog_item{
+.blog_item_left .blog_item{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -384,6 +384,21 @@
     padding:10px;
     max-width: 50%;
     max-height: 30%;
+}
+
+
+
+.blog_item_rigt .blog_item{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    /* margin:20px;
+    padding:10px;
+    max-width: 50%;
+    max-height: 30%; */
 }
 .blog_item_left .blog_item{
     box-shadow: -0.05em 0.05em 0.7em 0.05px;
