@@ -29,7 +29,7 @@
           <a href="./blog.html" class="menu_nav">Blog</a>
           <a href="./services.html" class="menu_nav">Services</a>
           <a href="./contact.html" class="menu_nav">Contact us</a>
-          <a href="./login.html" class="menu_nav">login</a>
+          <a href="./login.html" class="menu_nav" id="loginMenu">login</a>
           <a href="./hire.html" class="menu_nav hire_now">Hire me</a>
           <!-- <button class="hire_now menu_nav">Hire me</button> -->
         </div>
@@ -56,11 +56,12 @@
               </div>
               <div class="dashboard_categories">
                 <h1>Dashboard</h1>
-                <a href="#" id="add"><i class="fa fa-add"></i>Add Blog</a>
-                <a href="#" id="info"><i class="fa fa-add"></i>My info</a>
-                <a href="#" id="members"><i class="fa fa-add"></i>Members</a>
-                <a href="#" id="settings"
-                  ><i class="fa fa-settings"></i>Settings</a
+                <a href="#" id="add"><i class="fa fa-plus"></i>Add Blog</a>
+                <a href="#" id="info"><i class="fa fa-info"></i>My info</a>
+                <a href="#" id="members"><i class="fa fa-user"></i>Members</a>
+                <a href="#" id="settings"><i class="fa fa-gear"></i>Settings</a>
+                <a href="#" id="logout" class="logout"
+                  ><i class="fa fa-sign-out"></i>logout</a
                 >
               </div>
             </div>
@@ -150,12 +151,12 @@
     } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-    // import {
-    //   getAuth,
-    //   createUserWithEmailAndPassword,
-    //   signInWithEmailAndPassword,
-    //   onAuthStateChanged,
-    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 
     // import {
     //   getStorage,
@@ -180,7 +181,7 @@
     const app = firebase.initializeApp(firebaseConfig);
     const database = getDatabase(initializeApp(firebaseConfig));
     // const database = firebase.getDatabase(app);
-    // const auth = firebase.getAuth();
+    const auth = getAuth();
     // const storage = firebase.getStorage(app);
 
     const addButton = document.getElementById("addBlog");
@@ -307,17 +308,6 @@
 
           // <!--   for sign out  -->
 
-          // <!-- const logout=document.getElementById("logout");
-
-          // logout.addEventListener("click", logoutFunc);
-
-          // function logoutFunc(e){
-          //   e.preventDefault();
-          //   auth.signOut().then(()=>{
-          //     console.log("User logged out")
-          //   });
-          // } -->
-
           //function to get input value
 
           function getInputValue(id) {
@@ -327,6 +317,42 @@
           console.log("blog added successully");
         }
       );
+    });
+
+    // const logoutButton = document.getElementById("logout");
+    const logoutButton = document.getElementById("logout");
+
+    logoutButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      // console.log("yes log out");
+      auth.signOut().then(() => {
+        console.log("User logged out");
+
+        setTimeout(() => {
+          location.href = "./blog.html";
+        }, 3000);
+      });
+    });
+
+    // check if user is logged in
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        console.log(user);
+
+        const loginMenu = document.getElementById("loginMenu");
+        loginMenu.innerHTML = "Dashboard";
+        loginMenu.setAttribute("href", "./dashboard.html");
+        // ...
+      }
+      if (user == undefined) {
+        // User is signed out
+        // ...
+        location.href = "./login.html";
+        console.log("no user");
+      }
     });
   </script>
 
