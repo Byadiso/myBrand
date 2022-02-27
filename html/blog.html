@@ -244,7 +244,8 @@
     const addButton = document.getElementById("addBlog");
     const blogAdmin = document.getElementById("blog_admin");
 
-    const blogs = ref(database, "blogs/");
+    //read data from database () firebase
+    const blogs = firebase.database().ref("blogs/");
     onValue(blogs, (snapshot) => {
       const data = snapshot.val();
 

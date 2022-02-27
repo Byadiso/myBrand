@@ -445,21 +445,15 @@
     color:var(--blueColor);
    
 }
-
+.blog{
+    width:100%;
+    
+}
 #removeBlog, #editBlog{
     margin-left: 30px;
     padding: 5px;
      cursor:pointer;
 }
-
-/* 
-#blog_admin{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;   
-    padding:20px;
-} */
 
 .dashboard_bottom{
     display:flex;
@@ -473,18 +467,17 @@
 
 
 .blog_item{
-    max-width: 45%;
-    max-height: 45%;
-    justify-content: center;
+    width: 100%;
+    max-height: 20%;
+   /*  justify-content: center; */
     display:flex;
     margin-bottom: 5px;
     margin-left: 5px;
-    padding:15px;
-    flex-direction: column;
+    padding:10px;    
     border: 1px solid white;
 }
 .blog_image{
-    margin: 0px;
+    margin-right: -40px;
     padding:0px;
 }
 .blog_image  img{

@@ -247,7 +247,6 @@
 
       //refernce a collection
       const storageRef = firebase.storage().ref("images/" + imageName);
-      // const imagesRef = ref("images/" + imageName);
 
       // upload image to selected  storage reference
       var uploadTask = storageRef.put(image);
@@ -306,6 +305,19 @@
               );
           });
 
+          // <!--   for sign out  -->
+
+          // <!-- const logout=document.getElementById("logout");
+
+          // logout.addEventListener("click", logoutFunc);
+
+          // function logoutFunc(e){
+          //   e.preventDefault();
+          //   auth.signOut().then(()=>{
+          //     console.log("User logged out")
+          //   });
+          // } -->
+
           //function to get input value
 
           function getInputValue(id) {
@@ -315,24 +327,6 @@
           console.log("blog added successully");
         }
       );
-
-      //   //see user details when loggedin
-      //   onAuthStateChanged(auth, (user) => {
-      //     if (user) {
-      //       // User is signed in, see docs for a list of available properties
-      //       // https://firebase.google.com/docs/reference/js/firebase.User
-      //       const uid = user.uid;
-
-      //       console.log(user);
-
-      //       // ...
-      //     } else {
-      //       // User is signed out
-
-      //       window.location.href = "./login.html";
-      //       // ...
-      //     }
-      //   });
     });
   </script>
 
