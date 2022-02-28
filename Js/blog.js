@@ -18,7 +18,7 @@ block.addEventListener("click", (e) => {
   let idSave = localStorage.setItem("id", id_clicked);
 
   if (id_clicked) {
-    window.location.href = `../html/single_blog?id=${id_clicked}`;
+    window.location.href = `../html/single_blog.html?id=${id_clicked}`;
   }
   //   //function to get inpu value
 
