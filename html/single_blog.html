@@ -29,7 +29,7 @@
           <a href="./blog.html" class="menu_nav">Blog</a>
           <a href="./services.html" class="menu_nav">Services</a>
           <a href="./contact.html" class="menu_nav">Contact us</a>
-          <a href="./login.html" class="menu_nav">login</a>
+          <a href="./login.html" class="menu_nav" id="loginMenu">login</a>
           <a href="./hire.html" class="menu_nav hire_now">Hire me</a>
           <!-- <button class="hire_now menu_nav">Hire me</button> -->
         </div>
@@ -240,7 +240,7 @@
 
   <script type="module" defer>
     // Import the functions you need from the SDKs you need
-    // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
     // import {
     //   getDatabase,
     //   set,
@@ -249,6 +249,13 @@
     //   child,
     //   onValue,
     // } from firebase;
+
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 
     // import { initializeApp } from "firebase/app";
 
@@ -266,8 +273,8 @@
     };
 
     // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    // const database = getDatabase();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
 
     //my id in the localStorage
 
@@ -409,6 +416,27 @@
     //     );
     //   });
     // });
+
+    // check if user is logged in
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        console.log(user);
+
+        const loginMenu = document.getElementById("loginMenu");
+        loginMenu.innerHTML = "Dashboard";
+        loginMenu.setAttribute("href", "./dashboard.html");
+        // ...
+      }
+      if (user == undefined) {
+        // User is signed out
+        // ...
+        location.href = "./login.html";
+        console.log("no user");
+      }
+    });
   </script>
 
   <!-- adding tiny myce -->

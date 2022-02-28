@@ -107,11 +107,11 @@
       </div>
     </footer>
   </body>
-  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase.js" defer></script>
   <!-- <script src="../Js/firebase.js"></script>  -->
   <script src="../Js/login.js"></script>
 
@@ -136,9 +136,10 @@
     };
   
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = getDatabase(initializeApp(firebaseConfig));
     const auth = getAuth();
+    
 
 
     console.log(app)
@@ -226,9 +227,12 @@ loginSubmit.addEventListener("click", (e) => {
     window.location.href = "../html/dashboard.html";
 
     const dt = new Date();
-    update((ref(database,'users/'+user.uid), {
+    firebase.database().ref('users/'+user.uid).update({
       last_login:dt,
-         }))
+         })
+    // update((ref(database,'users/'+user.uid), {
+    //   last_login:dt,
+    //      }))
     // ...
   })
   .catch((error) => {

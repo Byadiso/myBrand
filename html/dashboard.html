@@ -29,7 +29,7 @@
           <a href="./blog.html" class="menu_nav">Blog</a>
           <a href="./services.html" class="menu_nav">Services</a>
           <a href="./contact.html" class="menu_nav">Contact us</a>
-          <a href="./login.html" class="menu_nav">login</a>
+          <a href="./login.html" class="menu_nav" id="loginMenu">login</a>
           <a href="./hire.html" class="menu_nav hire_now">Hire me</a>
           <!-- <button class="hire_now menu_nav">Hire me</button> -->
         </div>
@@ -56,11 +56,12 @@
               </div>
               <div class="dashboard_categories">
                 <h1>Dashboard</h1>
-                <a href="#" id="add"><i class="fa fa-add"></i>Add Blog</a>
-                <a href="#" id="info"><i class="fa fa-add"></i>My info</a>
-                <a href="#" id="members"><i class="fa fa-add"></i>Members</a>
-                <a href="#" id="settings"
-                  ><i class="fa fa-settings"></i>Settings</a
+                <a href="#" id="add"><i class="fa fa-plus"></i>Add Blog</a>
+                <a href="#" id="info"><i class="fa fa-info"></i>My info</a>
+                <a href="#" id="members"><i class="fa fa-user"></i>Members</a>
+                <a href="#" id="settings"><i class="fa fa-gear"></i>Settings</a>
+                <a href="#" id="logout" class="logout"
+                  ><i class="fa fa-sign-out"></i>logout</a
                 >
               </div>
             </div>
@@ -69,7 +70,14 @@
             <div id="main_dashboard ">
               Hello Admin welcome to your dashboards
             </div>
-            <div id="blog_admin"></div>
+            <div id="blog_admin">
+              <img
+                id="loading"
+                src="../images/loading.gif"
+                alt="loading trick"
+                srcset=""
+              />
+            </div>
 
             <div class="add_blog hide" id="form_blog">
               <input
@@ -99,6 +107,38 @@
                 type="submit"
                 value="Add Blog"
                 id="addBlog"
+              />
+            </div>
+
+            <!-- edit form -->
+            <div class="add_blog hide" id="form_edit">
+              <input
+                type="text"
+                name="title"
+                id="title_update"
+                placeholder="add title"
+              />
+
+              <textarea
+                type="text"
+                name="body"
+                id="body_update"
+                placeholder="Add your content here"
+              >
+              </textarea>
+
+              <input
+                type="file"
+                name="image"
+                id="image_update"
+                placeholder="add image"
+              />
+
+              <input
+                class="addBlog add_blog_button"
+                type="submit"
+                value="Update Blog"
+                id="updateBlog"
               />
             </div>
             <h5 id="alert_message_add_blog" class="hide">Added successfully</h5>
@@ -150,12 +190,12 @@
     } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
 
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-    // import {
-    //   getAuth,
-    //   createUserWithEmailAndPassword,
-    //   signInWithEmailAndPassword,
-    //   onAuthStateChanged,
-    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
 
     // import {
     //   getStorage,
@@ -180,11 +220,12 @@
     const app = firebase.initializeApp(firebaseConfig);
     const database = getDatabase(initializeApp(firebaseConfig));
     // const database = firebase.getDatabase(app);
-    // const auth = firebase.getAuth();
+    const auth = getAuth();
     // const storage = firebase.getStorage(app);
 
     const addButton = document.getElementById("addBlog");
     const blogAdmin = document.getElementById("blog_admin");
+    const form = document.getElementById("form_blog");
 
     //get all blogs
     const blogs = ref(database, "blogs/");
@@ -216,14 +257,16 @@
 
           <h3 class="blog" data-id=${value.id}>${value.title}</h3>
           <div class="dashboard_bottom">
-        <i class="fa fa-trash admin_control_button" id="removeBlog" data-uid=${value.uid_key}></i><p>Delete</p>
-        <i class="fa fa-edit admin_control_button" id="editBlog" data-uid=${value.uid_key}></i><p>Edit</p>
+        <i class="fa fa-trash admin_control_button removeBlog" id="removeBlog" data-uid=${obj.uid_key}></i><p class="removeBlog" data-uid=${obj.uid_key}>Delete</p>
+        <i class="fa fa-edit admin_control_button editBlog" id="editBlog" data-uid=${obj.uid_key}></i><p class="editBlog" data-uid=${obj.uid_key}>Edit</p>
 
         </div>
-
-
-
         `;
+        if (content_elt) {
+          console.log("yeseee");
+          const loading = document.getElementById("loading");
+          loading.style.display = "none";
+        }
 
         content_elt.setAttribute("class", "blog_item");
         content_elt.setAttribute("data-id", value.uid_key);
@@ -247,7 +290,6 @@
 
       //refernce a collection
       const storageRef = firebase.storage().ref("images/" + imageName);
-      // const imagesRef = ref("images/" + imageName);
 
       // upload image to selected  storage reference
       var uploadTask = storageRef.put(image);
@@ -306,6 +348,8 @@
               );
           });
 
+          // <!--   for sign out  -->
+
           //function to get input value
 
           function getInputValue(id) {
@@ -315,24 +359,169 @@
           console.log("blog added successully");
         }
       );
+    });
 
-      //   //see user details when loggedin
-      //   onAuthStateChanged(auth, (user) => {
-      //     if (user) {
-      //       // User is signed in, see docs for a list of available properties
-      //       // https://firebase.google.com/docs/reference/js/firebase.User
-      //       const uid = user.uid;
+    // const logoutButton = document.getElementById("logout");
+    const logoutButton = document.getElementById("logout");
 
-      //       console.log(user);
+    logoutButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      // console.log("yes log out");
+      auth.signOut().then(() => {
+        console.log("User logged out");
 
-      //       // ...
-      //     } else {
-      //       // User is signed out
+        setTimeout(() => {
+          location.href = "./blog.html";
+        }, 3000);
+      });
+    });
 
-      //       window.location.href = "./login.html";
-      //       // ...
-      //     }
-      //   });
+    // check if user is logged in
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        console.log(user);
+
+        const loginMenu = document.getElementById("loginMenu");
+        loginMenu.innerHTML = "Dashboard";
+        loginMenu.setAttribute("href", "./dashboard.html");
+        // ...
+      }
+      if (user == undefined) {
+        // User is signed out
+        // ...
+        location.href = "./login.html";
+        console.log("no user");
+      }
+    });
+
+    // for edit and delete item from firebase
+
+    const removeBlogButton = document.getElementById("removeBlog");
+    const editBlogButton = document.getElementById("editBlog");
+    // const blogAdmin = document.getElementById("blog_admin");
+
+    // //remove blog
+    blogAdmin.addEventListener("click", (e) => {
+      //let me get my uid
+      let key = e.target.dataset.uid;
+      console.log(key);
+
+      if (e.target.className.includes("removeBlog")) {
+        console.log("let remove this blog " + key);
+
+        firebase
+          .database()
+          .ref("blogs/" + key)
+          .remove(function (error) {
+            if (error) {
+              console.log("delete error" + error);
+            } else {
+              console.log("delete successfully");
+              window.location.href = "./dashboard.html";
+            }
+          });
+      } else if (e.target.className.includes("editBlog")) {
+        console.log("let edit something");
+        // let id = e.target.dataset.uid;
+        //edit or update blog
+
+        let key = e.target.dataset.uid;
+
+        console.log("let edit this blog");
+        const updateBlogButton = document.getElementById("updateBlog");
+
+        const title = document.getElementById("title_update");
+        const body = document.getElementById("body_update");
+        const imageEdit = document.getElementById("image_update");
+        const formEdit = document.getElementById("form_edit");
+
+        //get data from locastoragee
+        let data_single = JSON.parse(localStorage.getItem("data"));
+
+        console.log(data_single);
+        console.log(key);
+        let tobeEddit = data_single.find((elt) => elt.uid_key === key);
+        console.log(tobeEddit);
+        // let see what we have here
+
+        formEdit.style.display = "block";
+        console.log(title.value);
+        title.value = tobeEddit.title;
+        const blogText = tinymce.activeEditor.setContent(tobeEddit.body);
+        imageEdit.name = tobeEddit.Image;
+
+        updateBlogButton.addEventListener("click", (e) => {
+          // image variable
+          const image = document.getElementById("image_update").files[0];
+          const imageName = image.name;
+          //refernce a collection
+          const storageRef = firebase.storage().ref("images/" + imageName);
+          // const imagesRef = ref("images/" + imageName);
+
+          // upload image to selected  storage reference
+          var uploadTask = storageRef.put(image);
+
+          uploadTask.on(
+            "state_changed",
+            function (snapshot) {
+              var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log("Upload is " + progress + "done");
+            },
+            function (error) {
+              console.log(error.message);
+            },
+            function () {
+              // handle successfully upload here..
+              uploadTask.snapshot.ref
+                .getDownloadURL()
+                .then(function (downloadURL) {
+                  // getimage downloaded url here and upload to the database
+
+                  // const title = getInputValue("title");
+                  // const body = getInputValue("body");
+
+                  const blogText = tinymce.activeEditor.getContent();
+                  // var id;
+
+                  var id = Math.floor(Math.random() * 100);
+
+                  firebase
+                    .database()
+                    .ref("blogs/" + key)
+                    .update(
+                      {
+                        // id: value.id,
+                        title: title.value,
+                        body: blogText,
+                        Image: downloadURL,
+                        uid_key: key,
+                      },
+                      function (error) {
+                        if (error) {
+                          console.log("error whie uploading");
+                        } else {
+                          console.log("successfully uploaded");
+                          // window.location.href = "./dashboard.html";
+                          formEdit.style.display = "none";
+                          const alert_message_add_blog =
+                            document.getElementById("alert_message_add_blog");
+                          alert_message_add_blog.style.display = "flex";
+
+                          setTimeout(() => {
+                            location.href = "./dashboard.html";
+                          }, 4000);
+                        }
+                      }
+                    );
+                });
+            }
+          );
+        });
+      }
     });
   </script>
 
@@ -342,6 +531,15 @@
     console.log(tinymce);
     tinymce.init({
       selector: "#body",
+      width: 450,
+      height: 250,
+    });
+  </script>
+
+  <script>
+    console.log(tinymce);
+    tinymce.init({
+      selector: "#body_update",
       width: 450,
       height: 250,
     });
