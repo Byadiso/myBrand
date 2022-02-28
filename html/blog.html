@@ -137,7 +137,14 @@
             </div> -->
 
             <h2>Welcome to my blogs from firebase</h2>
-            <div id="blog_admin"></div>
+            <div id="blog_admin">
+              <img
+                id="loading"
+                src="../images/loading.gif"
+                alt="loading trick"
+                srcset=""
+              />
+            </div>
           </div>
 
           <!-- for categories -->
@@ -298,6 +305,12 @@
         content_elt.setAttribute("class", "blog_item");
         content_elt.setAttribute("data-id", value.id);
         blogAdmin.append(content_elt);
+
+        if (content_elt) {
+          console.log("yeseee");
+          const loading = document.getElementById("loading");
+          loading.style.display = "none";
+        }
       }
 
       console.log(blogsArray);
