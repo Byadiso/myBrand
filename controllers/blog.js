@@ -1,9 +1,11 @@
-import { errorHandler } from "../helper/dbErroHandler";
-import Blog from "../models/blog";
+import { errorHandler } from "../helper/dbErroHandler.js";
+import formidable from "formidable";
+import _ from "lodash";
+import fs from "fs";
+import Blog from "../models/blog.js";
 
-exports.blogById = (req, res, next, id) => {
-  Blog
-    .findById(id)
+export function blogById(req, res, next, id) {
+  Blog.findById(id)
     .populate("comments", "text created")
     .populate("comments.createdBy", "_id name")
     .exec((err, blog) => {
@@ -15,22 +17,19 @@ exports.blogById = (req, res, next, id) => {
       req.blog = blog;
       next();
     });
-};
+}
 
-exports.read = (req, res) => {
+export function read(req, res) {
   req.blog.photo = undefined;
   return res.json(req.blog);
-};
+}
 
-exports.list = (req, res) => {
-  
+export function list(req, res) {
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
   let limit = req.query.limit ? parseInt(req.query.limit) : 6;
 
-  Blog
-    .find()
+  Blog.find()
     .select("-photo")
-   
     // .populate('comments','text created')
     .populate("comments.createdBy", "_id name")
     .sort([[sortBy]])
@@ -42,17 +41,17 @@ exports.list = (req, res) => {
         });
       }
       res.status(200).json({
+        count: data.length + " Blogs",
         properties: data,
         message: "all Blogs",
         status: true,
       });
     });
-};
+}
 
-exports.listRelated = (req, res) => {
+export function listRelated(req, res) {
   let limit = req.query.limit ? parseInt(req.query.limit) : 4;
-  Blog
-    .find({ _id: { $ne: req.blog }, category: req.blog.category })
+  Blog.find({ _id: { $ne: req.blog }, category: req.blog.category })
     .select("-photo")
     .limit(limit)
     .populate("category", "_id name")
@@ -64,9 +63,9 @@ exports.listRelated = (req, res) => {
       }
       res.json(blogs);
     });
-};
+}
 
-exports.listCategories = (req, res) => {
+export function listCategories(req, res) {
   Blog.distinct("category", {}, (err, categories) => {
     if (err) {
       return res.status(400).json({
@@ -75,11 +74,10 @@ exports.listCategories = (req, res) => {
     }
     res.json(categories);
   });
-};
+}
 
-exports.listByUser = (req, res) => {
-  Blog
-    .find({ createdBy: req.profile._id })
+export function listByUser(req, res) {
+  Blog.find({ createdBy: req.profile._id })
     .populate("createdBy", "_id name")
     .select("_id title body created comments")
     .sort("_created")
@@ -94,10 +92,9 @@ exports.listByUser = (req, res) => {
         message: `blog by this user`,
       });
     });
-};
+}
 
-exports.listBySearch = (req, res) => {
- 
+export function listBySearch(req, res) {
   let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
   let limit = req.body.limit ? parseInt(req.body.limit) : 100;
   let skip = parseInt(req.body.skip);
@@ -121,8 +118,7 @@ exports.listBySearch = (req, res) => {
     }
   }
 
-  Blog
-    .find(findArgs)
+  Blog.find(findArgs)
     .select("-photo")
     .populate("category")
     .sort([[sortBy, order]])
@@ -139,9 +135,9 @@ exports.listBySearch = (req, res) => {
         data,
       });
     });
-};
+}
 
-exports.create = (req, res) => {
+export function create(req, res) {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
   form.parse(req, (err, fields, files) => {
@@ -151,19 +147,17 @@ exports.create = (req, res) => {
       });
     }
     // check for all fields
-    const { name, description, price, category, quantity, shipping } = fields;
-    if (
-      !title ||
-      !body ||     
-      !category ||     
-    ) {
+    const { title, content } = fields;
+    console.log(fields);
+    if (!title || !content) {
       return res.status(400).json({
         error: " All fields are required",
       });
     }
 
-    let blog = new blog(fields);
+    let blog = new Blog(fields);
     blog.createdBy = req.profile;
+    console.log(files.photo);
     if (files.photo) {
       //validation of photo files
       if (files.photo.size > 3000000) {
@@ -189,9 +183,9 @@ exports.create = (req, res) => {
       });
     });
   });
-};
+}
 
-exports.remove = (req, res) => {
+export function remove(req, res) {
   let blog = req.blog;
   blog.remove((err, deletedblog) => {
     if (err) {
@@ -205,9 +199,9 @@ exports.remove = (req, res) => {
       status: true,
     });
   });
-};
+}
 
-exports.update = (req, res) => {
+export function update(req, res) {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
   form.parse(req, (err, fields, files) => {
@@ -216,13 +210,6 @@ exports.update = (req, res) => {
         error: "Image could not be uploaded",
       });
     }
-    // check for all fields
-    // const {name, description, price, category, quantity, shipping } = fields
-    // if(!name || !description || !price || !category || !quantity || !shipping) {
-    //     return res.status(400).json({
-    //         error: " All fields are required"
-    //     })
-    // }
 
     let blog = req.blog;
     blog = _.extend(blog, fields);
@@ -250,17 +237,17 @@ exports.update = (req, res) => {
       });
     });
   });
-};
+}
 
-exports.photo = (req, res, next) => {
+export function photo(req, res, next) {
   if (req.blog.photo) {
     res.set("Content-Type", req.blog.photo.contentType);
     return res.send(req.blog.photo.data);
   }
   next();
-};
+}
 
-exports.listSearch = (req, res) => {
+export function listSearch(req, res) {
   // create query object to hold search value and category value
   const query = {};
   // assign search value to query.name
@@ -283,20 +270,17 @@ exports.listSearch = (req, res) => {
       })
       .select("-photo");
   }
-};
+}
 
-
-
-exports.comment = (req, res) => {
+export function comment(req, res) {
   let comment = req.body.comment;
   comment.createdBy = req.body.userId;
 
-  Blog
-    .findByIdAndUpdate(
-      req.body.blogId,
-      { $push: { comments: comment } },
-      { new: true }
-    )
+  Blog.findByIdAndUpdate(
+    req.body.blogId,
+    { $push: { comments: comment } },
+    { new: true }
+  )
     .populate("comments", "text created")
     .populate("comments.createdBy", "_id name")
     .populate("createdBy", "_id name")
@@ -313,17 +297,16 @@ exports.comment = (req, res) => {
         });
       }
     });
-};
+}
 
-exports.uncomment = (req, res) => {
+export function uncomment(req, res) {
   let comment = req.body.comment;
 
-  Blog
-    .findByIdAndUpdate(
-      req.body.blogId,
-      { $pull: { comments: { _id: comment._id } } },
-      { new: true }
-    )
+  Blog.findByIdAndUpdate(
+    req.body.blogId,
+    { $pull: { comments: { _id: comment._id } } },
+    { new: true }
+  )
     .populate("comments.postedBy", "_id name")
     .populate("postedBy", "_id name")
     .exec((err, result) => {
@@ -339,9 +322,9 @@ exports.uncomment = (req, res) => {
         });
       }
     });
-};
+}
 
-exports.updateComment = (req, res) => {
+export function updateComment(req, res) {
   let comment = req.body.comment;
 
   blog
@@ -373,4 +356,4 @@ exports.updateComment = (req, res) => {
           });
       }
     });
-};
+}

@@ -1,76 +1,101 @@
-import User from "../models/user";
+import User from "../models/user.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import expressJwt from "express-jwt"; // for authorization check
 // let uuidv1 = require('uuidv1');
-import { errorHandler } from "../helper/dbErroHandler";
+import { errorHandler } from "../helper/dbErroHandler.js";
 
-exports.signup = (req, res) => {
-  console.log("req.body", req.body);
-  const user = new User(req.body);
-  user.save((err, user) => {
-    if (err) {
-      return res.status(400).json({
-        err: errorHandler(err),
-        // err:err,
-        status: false,
-        message: "Email already exist!",
-      });
-    }
-    user.salt = undefined;
-    user.hashed_password = undefined;
-    res.status(200).json({
-      user: user,
-      status: true,
-      message: "user created successful",
+export const signup = async (req, res) => {
+  var name = req.body.name;
+  var username = req.body.username;
+  var email = req.body.email;
+  var password = req.body.password;
+
+  if (name && email && password && username) {
+    var user = await User.findOne({
+      $or: [{ username: username }, { email: email }],
+    }).catch((error) => {
+      console.log(error);
+      res.status(400).json({ message: "Something went wrong" });
     });
-  });
+
+    if (user == null) {
+      // No user found
+      var data = req.body;
+
+      data.password = await bcrypt.hash(password, bcrypt.genSaltSync(10));
+      User.create(data).then((user) => {
+        // req.session.user = user;
+        user.password = undefined;
+        res.status(200).json({ message: "account registered Successfully" });
+      });
+    } else {
+      // User found
+      if (email == user.email) {
+        res.status(400).json({ message: "email in user" });
+      } else {
+        res.status(400).json({ message: "username  already in user." });
+      }
+    }
+  } else {
+    // payload.errorMessage = "Make sure each field has a valid value.";
+    res.status(400).json({
+      message: "Make sure each field has a valid value",
+      user: req.body,
+    });
+  }
 };
 
-exports.signin = (req, res) => {
-  //find the user based on email
+export const signin = async (req, res, next) => {
+  if (req.body.email && req.body.password) {
+    var user = await User.findOne({
+      $or: [{ username: req.body.username }, { email: req.body.email }],
+    }).catch((error) => {
+      console.log(error);
+      res.status(400).json({ message: "No user with that email or username" });
+    });
 
-  const { email, password } = req.body;
-  User.findOne({ email }, (err, user) => {
-    if (err || !user) {
-      return res.status(400).json({
-        error: "User with that email does not exist. Please signup",
-        status: false,
-      });
-    }
-    // if user is found make sure that the email and passwword match
+    if (user != null) {
+      //  user found
+      var result = await bcrypt.compare(req.body.password, user.password);
 
-    // create authenticate method in user model
-    if (!user.authenticate(password)) {
-      return res.status(401).json({
-        error: "Email and password does not match",
-        status: false,
-      });
+      if (result === true) {
+        // req.session.user = user;
+        // generate a signed token with uer id and secret
+        user.password = undefined;
+        const token = jwt.sign({ _id: user._id }, `${process.env.JWT_SECRET}`);
+        //persist the token as 't' in cookie with expiry date
+        res.cookie("t", token, { expire: new Date() + 9999 });
+        res.status(200).json({
+          token: token,
+          message: "user logged in successfully",
+          user: user,
+        });
+      }
     }
-    // generate a signed token with uer id and secret
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-    //persist the token as 't' in cookie with expiry date
-    res.cookie("t", token, { expire: new Date() + 9999 });
-    //retunr response with the user and token to froned client
-    const { _id, name, email, role } = user;
-    return res
-      .status(200)
-      .json({ token, status: true, user: { _id, email, name, role } });
-  });
+    if (result === false) {
+      res.status(400).json({ message: "Login credentials incorrect!" });
+    }
+  } else {
+    res
+      .status(404)
+      .json({ message: "Make sure each field has a valid value!" });
+  }
 };
 
-exports.signout = (req, res) => {
+export const signout = (req, res) => {
   res.clearCookie("t");
   res.json({ message: "Signout success" });
 };
 
-exports.requireSignin = expressJwt({
+export const requireSignin = expressJwt({
   // secret: process.env.JWT_SECRET,
   secret: "hgjhjdgdhgjdhglaskdaghnbgfnbgfgfgfg",
   algorithms: ["HS256"], // added later
   userProperty: "auth",
 });
 
-exports.isAuth = (req, res, next) => {
+export const isAuth = (req, res, next) => {
   let user = req.profile && req.auth && req.profile._id == req.auth._id;
   if (!user) {
     return res.status(403).json({
@@ -80,7 +105,7 @@ exports.isAuth = (req, res, next) => {
   next();
 };
 
-exports.isAdmin = (req, res, next) => {
+export const isAdmin = (req, res, next) => {
   if (req.profile.role === 0) {
     return res.status(403).json({
       error: " Admin ressource! Access denied",

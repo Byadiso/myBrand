@@ -6,8 +6,8 @@ import {
   remove,
   listUsers,
   userPhoto,
-} from "../controllers/user";
-import { requireSignin, isAuth, isAdmin } from "../controllers/auth";
+} from "../controllers/user.js";
+import { requireSignin, isAuth, isAdmin } from "../controllers/auth.js";
 const router = express.Router();
 
 router.get("/v1/user/:userId", requireSignin, isAuth, read);
@@ -22,4 +22,4 @@ router.get("/v1/user/photo/:userId", userPhoto);
 
 router.param("userId", userById);
 
-module.exports = router;
+export default router;

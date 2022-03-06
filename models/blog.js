@@ -9,7 +9,7 @@ const blogSchema = new mongoose.Schema(
       required: true,
       maxlength: 32,
     },
-    body: {
+    content: {
       type: String,
       trim: true,
       required: true,
@@ -37,4 +37,5 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Blog", blogSchema);
+var Blog = mongoose.model("Blog", blogSchema);
+export default Blog;

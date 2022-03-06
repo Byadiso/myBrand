@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
-const {
+import { requireSignin, isAuth, isAdmin } from "../controllers/auth.js";
+import {
   create,
   blogById,
   read,
@@ -11,39 +11,36 @@ const {
   list,
   listRelated,
   listCategories,
+  listBySearch,
   listSearch,
   photo,
   comment,
   uncomment,
   updateComment,
-} = require("../controllers/blog");
-const { userById } = require("../controllers/user");
+  listByUser,
+} from "../controllers/blog.js";
+
+import { userById } from "../controllers/user.js";
 // const { blogById} = require('../controllers/blog');
 
-router.post("/v1/blog/create/:userId", requireSignin, isAuth, isAdmin, create);
-router.delete(
-  "/v1/blog/:blogId/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
-  remove
-);
-router.put("/v1/blog/:blogId/:userId", requireSignin, isAuth, isAdmin, update);
-router.get("/v1/blog/:blogId", read);
-router.get("/v1/blogs", list);
-router.get("/v1/blogs/search", listSearch);
-router.get("/v1/blogs/related/:blogId", listRelated);
-router.get("/v1/blogs/categories", listCategories);
-router.post("/v1/blogs/by/search", listBySearch);
-router.get("/v1/blogs/:userId", listByUser);
-router.get("/v1/blog/photo/:blogId", photo);
+router.post("/blog/create/:userId", requireSignin, isAuth, isAdmin, create);
+router.delete("/blog/:blogId/:userId", requireSignin, isAuth, isAdmin, remove);
+router.put("/blog/:blogId/:userId", requireSignin, isAuth, isAdmin, update);
+router.get("/blog/:blogId", read);
+router.get("/blogs", list);
+router.get("/blogs/search", listSearch);
+router.get("/blogs/related/:blogId", listRelated);
+router.get("/blogs/categories", listCategories);
+router.post("/blogs/by/search", listBySearch);
+router.get("/blogs/:userId", listByUser);
+router.get("/blog/photo/:blogId", photo);
 
 // comments
-router.put("/v1/blog/comment", requireSignin, comment);
-router.put("/v1/blog/uncomment", requireSignin, uncomment);
-router.put("/v1/blog/updatecomment", requireSignin, updateComment);
+router.put("/blog/comment", requireSignin, comment);
+router.put("/blog/uncomment", requireSignin, uncomment);
+router.put("/blog/updatecomment", requireSignin, updateComment);
 
 router.param("userId", userById);
 router.param("blogId", blogById);
 
-module.exports = router;
+export default router;
