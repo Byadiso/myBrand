@@ -1,24 +1,29 @@
-import { errorHandler } from "../helper/dbErroHandler";
-import Category from "../models/category";
+import { errorHandler } from "../helper/dbErroHandler.js";
+import Category from "../models/category.js";
 
-exports.create = (req, res) => {
+export const create = (req, res) => {
   const category = new Category(req.body);
-  category.save((err, data) => {
-    if (err) {
-      return res.status(400).json({
-        // error: errorHandler(err)
-        error: err,
+  console.log(category);
+  if (category !== undefined) {
+    category.save((err, data) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+          error: err,
+        });
+      }
+      res.json({
+        category: data,
+        status: true,
+        message: "Your category has been successfull created",
       });
-    }
-    res.json({
-      category: data,
-      status: true,
-      message: "Your category has been successfull created",
     });
-  });
+  } else {
+    res.status(400).json({ message: " enter a name first" });
+  }
 };
 
-exports.categoryById = (req, res, next, id) => {
+export const categoryById = (req, res, next, id) => {
   Category.findById(id).exec((err, category) => {
     if (err || !category) {
       return res.status(400).json({
@@ -30,11 +35,11 @@ exports.categoryById = (req, res, next, id) => {
   });
 };
 
-exports.read = (req, res) => {
+export const read = (req, res) => {
   return res.json(req.category);
 };
 
-exports.remove = (req, res) => {
+export const remove = (req, res) => {
   let category = req.category;
   category.remove((err, deletedCategory) => {
     if (err) {
@@ -51,7 +56,7 @@ exports.remove = (req, res) => {
   });
 };
 
-exports.update = (req, res) => {
+export const update = (req, res) => {
   let category = req.category;
   category.name = req.body.name;
 
@@ -65,13 +70,17 @@ exports.update = (req, res) => {
   });
 };
 
-exports.list = (req, res) => {
+export const list = (req, res) => {
   Category.find().exec((err, categories) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler(err),
       });
     }
-    res.json(categories);
+    res.json({
+      count: categories.length,
+      Categories: categories,
+      message: "all your categories",
+    });
   });
 };

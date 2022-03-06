@@ -1,15 +1,15 @@
 import express from "express";
 
-const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
-const {
+import { requireSignin, isAuth, isAdmin } from "../controllers/auth.js";
+import {
   create,
   categoryById,
   remove,
   read,
   update,
   list,
-} = require("../controllers/category");
-const { userById } = require("../controllers/user");
+} from "../controllers/category.js";
+import { userById } from "../controllers/user.js";
 
 const router = express.Router();
 

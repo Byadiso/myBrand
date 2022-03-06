@@ -12,6 +12,7 @@ dotenv.config();
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import blogRoutes from "./routes/blog.js";
+import categoryRoutes from "./routes/category.js";
 
 //app
 const app = express();
@@ -62,6 +63,7 @@ app.use(express.json());
 app.use("/", authRoutes);
 app.use("/", userRoutes);
 app.use("/", blogRoutes);
+app.use("/", categoryRoutes);
 
 app.use("*", (req, res) => {
   res.status(400).json({
