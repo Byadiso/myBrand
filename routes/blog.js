@@ -36,7 +36,7 @@ router.get("/blogs/:userId", listByUser);
 router.get("/blog/photo/:blogId", photo);
 
 // comments
-router.put("/blog/comment", requireSignin, comment);
+router.put("/blog/:blogId/comment/:userId", requireSignin, comment);
 router.put("/blog/uncomment", requireSignin, uncomment);
 router.put("/blog/updatecomment", requireSignin, updateComment);
 
