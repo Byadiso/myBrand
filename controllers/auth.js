@@ -22,12 +22,13 @@ export const signup = async (req, res) => {
     if (user == null) {
       // No user found
       var data = req.body;
-
       data.password = await bcrypt.hash(password, bcrypt.genSaltSync(10));
       User.create(data).then((user) => {
         // req.session.user = user;
         user.password = undefined;
-        res.status(200).json({ message: "account registered Successfully" });
+        res
+          .status(200)
+          .json({ User: user, message: "account registered Successfully" });
       });
     } else {
       // User found

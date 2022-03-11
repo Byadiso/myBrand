@@ -258,14 +258,14 @@ export const listSearch = (req, res) => {
 };
 
 export const comment = (req, res) => {
-  comment.text = req.body.comment;
+  let comment = req.body.comment;
   console.log(req.params.userId);
 
-  comment.createdBy = req.params.userId;
+  //   comment.createdBy = req.params.userId;
 
   Blog.findByIdAndUpdate(
     req.params.blogId,
-    { $push: { comments: comment.text } },
+    { $push: { comments: comment } },
     { new: true }
   )
     .populate("comments", "text created")
