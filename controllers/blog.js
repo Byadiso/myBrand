@@ -39,7 +39,7 @@ export const list = (req, res) => {
       }
       res.status(200).json({
         count: data.length + " Blogs",
-        properties: data,
+        blogs: data,
         message: "all Blogs",
         status: true,
       });
@@ -85,7 +85,7 @@ export const listByUser = (req, res) => {
         });
       }
       res.json({
-        properties: blogs,
+        blogs: blogs,
         message: `blog by this user`,
       });
     });
@@ -208,9 +208,9 @@ export const update = (req, res) => {
         });
       }
       res.json({
-        property: result,
+        blog: result,
         status: true,
-        message: "Your property has been Updated successfull",
+        message: "Your blog has been Updated successfull",
       });
     });
   });
@@ -236,7 +236,7 @@ export const listSearch = (req, res) => {
     if (req.query.category && req.query.category != "All") {
       query.category = req.query.category;
     }
-    // find the blog based on query object with 2 properties
+    // find the blog based on query object with 2 blogs
     // search and category
     Blog.find(query, (err, blogs) => {
       if (err) {
@@ -259,22 +259,23 @@ export const listSearch = (req, res) => {
 
 export const comment = (req, res) => {
   let comment = req.body.comment;
-  console.log(req.params.userId);
 
-  //   comment.createdBy = req.params.userId;
-
+  let blogId = req.params.blogId;
+  console.log(req.body, comment, blogId);
   Blog.findByIdAndUpdate(
-    req.params.blogId,
+    blogId,
     { $push: { comments: comment } },
     { new: true }
   )
-    .populate("comments", "text created")
-    .populate("comments.createdBy", "_id name")
-    .populate("createdBy", "_id name")
+    .populate("comments", "comment created")
+    // .populate("comments.createdBy", "_id name")
+    // .populate("createdBy", "_id name")
     .exec((err, result) => {
       if (err) {
-        return res.status(400).json({
-          error: err,
+        console.log("errrrrrrr");
+        return res.status(404).json({
+          errors: errsds,
+          data: result,
         });
       } else {
         res.json({

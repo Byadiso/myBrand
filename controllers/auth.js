@@ -93,7 +93,7 @@ export const requireSignin = expressJwt({
   // secret: process.env.JWT_SECRET,
   secret: "hgjhjdgdhgjdhglaskdaghnbgfnbgfgfgfg",
   algorithms: ["HS256"], // added later
-  userProperty: "auth",
+  userBlog: "auth",
 });
 
 export const isAuth = (req, res, next) => {

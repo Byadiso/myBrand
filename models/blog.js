@@ -28,7 +28,7 @@ const blogSchema = new mongoose.Schema(
 
     comments: [
       {
-        text: String,
+        type: String,
         created: { type: Date, default: Date.now },
         createdBy: { type: ObjectId, ref: "User" },
       },
