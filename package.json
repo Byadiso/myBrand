@@ -27,6 +27,7 @@
   "homepage": "https://github.com/Byadiso/myBrand#readme",
   "dependencies": {
     "babel-jest": "^27.5.1",
+    "babel-node": "^0.0.1-security",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
     "dotenv": "^16.0.0",
