@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../../";
+import app from "../";
 
 describe("user tests", () => {
   let token;
