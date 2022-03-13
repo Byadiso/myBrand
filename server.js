@@ -57,6 +57,7 @@ app.use(
     extended: false,
   })
 );
+
 app.use(express.json());
 
 //routes middleware
@@ -77,5 +78,16 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("views/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "views", "build", "home"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("Api running");
+  });
+}
 
 export default app;
