@@ -16,6 +16,10 @@ const blogSchema = new mongoose.Schema(
       required: true,
       maxlength: 2000,
     },
+    views: {
+      type: Number,
+      default: 0,
+    },
 
     image: {
       data: Buffer,

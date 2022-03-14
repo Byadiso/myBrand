@@ -11,7 +11,7 @@ export const blogById = (req, res, next, id) => {
     .exec((err, blog) => {
       if (err || !blog) {
         return res.status(400).json({
-          error: " blog not found",
+          error: " blog not found with that id",
         });
       }
       req.blog = blog;

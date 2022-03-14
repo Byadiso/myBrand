@@ -22,12 +22,13 @@ import {
 
 import { userById } from "../controllers/user.js";
 import { verifyToken } from "../middlewares/auth.js";
+import { UpdateViews } from "../middlewares/blog.js";
 import { mongooseErrorHandler } from "../middlewares/checkerros.js";
 
 router.post("/blogs/create/", verifyToken, requireSignin, isAdmin, create);
 router.delete("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, remove);
 router.put("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, update);
-router.get("/blogs/:blogId", read);
+router.get("/blogs/:blogId", UpdateViews, read);
 router.get("/blogs", list);
 router.get("/blogs/search", listSearch);
 router.get("/blogs/related/:blogId", listRelated);
