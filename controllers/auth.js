@@ -40,10 +40,13 @@ export const signup = async (req, res) => {
     }
   } else {
     // payload.errorMessage = "Make sure each field has a valid value.";
-    res.status(400).json({
-      message: "Make sure each field has a valid value",
-      user: req.body,
-    });
+    if (!name || !email || !password || !username) {
+      res.status(400).json({
+        message:
+          "Make sure email, name, password or username has a valid value",
+        user: req.body,
+      });
+    }
   }
 };
 
@@ -96,18 +99,57 @@ export const requireSignin = expressJwt({
   userBlog: "auth",
 });
 
-export const isAuth = (req, res, next) => {
-  let user = req.profile && req.auth && req.profile._id == req.auth._id;
+export const isAuth = async (req, res, next) => {
+  const usertoken = req.headers.authorization;
+  if (usertoken === undefined) {
+    return res
+      .status(404)
+      .json({ message: "No token found, plz login and try again" });
+  }
+
+  const token = usertoken.split(" ");
+  const decoded = jwt.verify(token[1], process.env.JWT_SECRET);
+  let userId = decoded;
+  console.log(userId);
+
+  //getting user's details
+  var user = await User.findOne({ _id: userId }).catch((error) => {
+    console.log(error);
+    res.status(400).json({ message: "No user with that email or username" });
+  });
+
+  // let user = req.profile && req.auth && req.profile._id == req.auth._id;
   if (!user) {
     return res.status(403).json({
-      error: " Access denied",
+      error: " Access denied,try to sign in and try again",
     });
   }
   next();
 };
 
-export const isAdmin = (req, res, next) => {
-  if (req.profile.role === 0) {
+export const isAdmin = async (req, res, next) => {
+  const usertoken = req.headers.authorization;
+  console.log(usertoken);
+  if (usertoken === undefined) {
+    return res
+      .status(404)
+      .json({ message: "No token found, plz login and try again" });
+  }
+
+  // const usertoken = req.headers.authorization;
+  const token = usertoken.split(" ");
+  const decoded = jwt.verify(token[1], process.env.JWT_SECRET);
+  let userId = decoded;
+
+  //getting user's details
+  var user = await User.findOne({ _id: userId }).catch((error) => {
+    console.log(error);
+    res.status(400).json({ message: "No user with that email or username" });
+  });
+
+  console.log(user);
+
+  if (user.role === 0) {
     return res.status(403).json({
       error: " Admin ressource! Access denied",
     });

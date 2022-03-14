@@ -20,14 +20,14 @@ export const blogById = (req, res, next, id) => {
 };
 
 export const read = (req, res) => {
-  req.blog.photo = undefined;
+  req.blog.image = undefined;
   return res.json(req.blog);
 };
 
 export const list = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 6;
   Blog.find()
-    .select("-photo")
+    .select("-image")
     // .populate('comments','text created')
     .populate("comments.createdBy", "_id name")
     .limit(limit)
@@ -49,7 +49,7 @@ export const list = (req, res) => {
 export const listRelated = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 4;
   Blog.find({ _id: { $ne: req.blog }, category: req.blog.category })
-    .select("-photo")
+    .select("-image")
     .limit(limit)
     .populate("category", "_id name")
     .exec((err, blogs) => {
@@ -97,7 +97,7 @@ export const listBySearch = (req, res) => {
   let findArgs = {};
 
   Blog.find(findArgs)
-    .select("-photo")
+    .select("-image")
     .populate("category")
     .skip(skip)
     .limit(limit)
@@ -116,8 +116,14 @@ export const listBySearch = (req, res) => {
 
 export const create = (req, res) => {
   let form = new formidable.IncomingForm();
+
   form.keepExtensions = true;
   form.parse(req, (err, fields, files) => {
+    // console.log("Parsing done.");
+    // console.dir(req.headers);
+    // console.log(fields);
+    // // console.log(files);
+    // console.log(files.image);
     if (err) {
       return res.status(400).json({
         error: "Image could not be uploaded",
@@ -125,31 +131,43 @@ export const create = (req, res) => {
     }
     // check for all fields
     const { title, content } = fields;
-    console.log(fields);
-    if (!title || !content) {
+
+    if (!title && !content) {
       return res.status(400).json({
         error: " All fields are required",
       });
     }
 
+    if (!title) {
+      return res.status(400).json({
+        error: `Title is required`,
+      });
+    }
+    if (!content) {
+      return res.status(400).json({
+        error: `Content is required`,
+      });
+    }
+
     let blog = new Blog(fields);
     blog.createdBy = req.profile;
-    console.log(files.photo);
-    if (files.photo) {
-      //validation of photo files
-      if (files.photo.size > 3000000) {
+
+    if (files.image) {
+      //validation of image files
+      if (files.image.size > 3000000) {
         return res.status(400).json({
           error: "Image should be less than  3mb in size",
         });
       }
-      blog.photo.data = fs.readFileSync(files.photo.path);
-      blog.photo.contentType = files.photo.type;
+      blog.image.data = fs.readFileSync(files.image.filepath);
+      blog.image.contentType = files.image.mimetype;
     }
     blog.save((err, result) => {
       if (err) {
+        console.log(err);
         return res.status(404).json({
-          error: errorHandler(err),
-          // error: err,
+          // error: errorHandler(err),
+          error: err.message,
           status: false,
         });
       }
@@ -190,26 +208,26 @@ export const update = (req, res) => {
 
     let blog = req.blog;
     blog = _.extend(blog, fields);
-    if (files.photo) {
-      //validation of photo files
-      if (files.photo.size > 3000000) {
+    if (files.image) {
+      //validation of image files
+      if (files.image.size > 3000000) {
         return res.status(400).json({
           error: "Image should be less than  3mb in size",
         });
       }
-      blog.photo.data = fs.readFileSync(files.photo.path);
-      blog.photo.contentType = files.photo.type;
+      blog.image.data = fs.readFileSync(files.image.filepath);
+      blog.image.contentType = files.image.mimetype;
     }
     blog.save((err, result) => {
       if (err) {
         return res.status(404).json({
-          error: errorHandler(err),
-          status: false,
+          error: err,
+          success: false,
         });
       }
       res.json({
         blog: result,
-        status: true,
+        success: true,
         message: "Your blog has been Updated successfull",
       });
     });
@@ -217,9 +235,9 @@ export const update = (req, res) => {
 };
 
 export const photo = (req, res, next) => {
-  if (req.blog.photo) {
-    res.set("Content-Type", req.blog.photo.contentType);
-    return res.send(req.blog.photo.data);
+  if (req.blog.image) {
+    res.set("Content-Type", req.blog.image.contentType);
+    return res.send(req.blog.image.data);
   }
   next();
 };
@@ -253,28 +271,27 @@ export const listSearch = (req, res) => {
         }`,
         blogs: blogs,
       });
-    }).select("-photo");
+    }).select("-image");
   }
 };
 
 export const comment = (req, res) => {
   let comment = req.body.comment;
-
   let blogId = req.params.blogId;
-  console.log(req.body, comment, blogId);
+
   Blog.findByIdAndUpdate(
     blogId,
     { $push: { comments: comment } },
     { new: true }
   )
     .populate("comments", "comment created")
-    // .populate("comments.createdBy", "_id name")
-    // .populate("createdBy", "_id name")
+    .populate("comments.createdBy", "_id name")
+    .populate("createdBy", "_id name")
     .exec((err, result) => {
       if (err) {
-        console.log("errrrrrrr");
+        console.log(err);
         return res.status(404).json({
-          errors: errsds,
+          errors: err,
           data: result,
         });
       } else {

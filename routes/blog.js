@@ -21,23 +21,36 @@ import {
 } from "../controllers/blog.js";
 
 import { userById } from "../controllers/user.js";
+import { verifyToken } from "../middlewares/auth.js";
+import { mongooseErrorHandler } from "../middlewares/checkerros.js";
 
-router.post("/blogs/create/:userId", requireSignin, isAdmin, create);
-router.delete("/blogs/:blogId/:userId", requireSignin, isAdmin, remove);
-router.put("/blogs/:blogId/:userId", requireSignin, isAdmin, update);
+router.post("/blogs/create/", verifyToken, requireSignin, isAdmin, create);
+router.delete("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, remove);
+router.put("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, update);
 router.get("/blogs/:blogId", read);
 router.get("/blogs", list);
 router.get("/blogs/search", listSearch);
 router.get("/blogs/related/:blogId", listRelated);
 router.get("/blogs/categories", listCategories);
 router.post("/blogs/by/search", listBySearch);
-router.get("/blogs/:userId", listByUser);
+router.get("/blogs/", listByUser);
 router.get("/blog/photo/:blogId", photo);
 
 // comments
-router.put("/blogs/:blogId/comment/:userId", requireSignin, comment);
-router.put("/blogs/:blogId/uncomment", requireSignin, uncomment);
-router.put("/blogs/:blogId/updatecomment", requireSignin, updateComment);
+router.put(
+  "/blogs/:blogId/comments/",
+  verifyToken,
+  isAuth,
+  requireSignin,
+  comment
+);
+router.put("/blogs/:blogId/uncomments/", verifyToken, requireSignin, uncomment);
+router.put(
+  "/blogs/:blogId/updatecomment/",
+  verifyToken,
+  requireSignin,
+  updateComment
+);
 
 router.param("userId", userById);
 router.param("blogId", blogById);
