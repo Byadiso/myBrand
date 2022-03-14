@@ -24,34 +24,34 @@ import { userById } from "../controllers/user.js";
 import { verifyToken } from "../middlewares/auth.js";
 import { mongooseErrorHandler } from "../middlewares/checkerros.js";
 
-router.post("/blogs/create/", verifyToken, requireSignin, isAdmin, create);
-router.delete("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, remove);
-router.put("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, update);
-router.get("/blogs/:blogId", read);
-router.get("/blogs", list);
-router.get("/blogs/search", listSearch);
-router.get("/blogs/related/:blogId", listRelated);
-router.get("/blogs/categories", listCategories);
-router.post("/blogs/by/search", listBySearch);
-router.get("/blogs/", listByUser);
+router.post("/message/create/", verifyToken, requireSignin, isAdmin, create);
+router.delete("/message/:blogId/", verifyToken, requireSignin, isAdmin, remove);
+router.put("/message/:blogId/", verifyToken, requireSignin, isAdmin, update);
+router.get("/message/:blogId", read);
+router.get("/message", list);
+router.get("/message/search", listSearch);
+router.get("/message/related/:blogId", listRelated);
+router.get("/message/categories", listCategories);
+router.post("/message/by/search", listBySearch);
+router.get("/message/", listByUser);
 router.get("/blog/photo/:blogId", photo);
 
 // comments
 router.post(
-  "/blogs/:blogId/comments/",
+  "/message/:blogId/comments/",
   verifyToken,
   isAuth,
   requireSignin,
   comment
 );
 router.put(
-  "/blogs/:blogId/comments/:commentId",
+  "/message/:blogId/comments/:commentId",
   verifyToken,
   requireSignin,
   uncomment
 );
 router.put(
-  "/blogs/:blogId/updatecomment/",
+  "/message/:blogId/updatecomment/",
   verifyToken,
   requireSignin,
   updateComment
