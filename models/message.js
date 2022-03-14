@@ -3,12 +3,10 @@ const { ObjectId } = mongoose.Schema;
 
 const blogSchema = new mongoose.Schema(
   {
-    name: {
+    sender: {
       type: String,
       trim: true,
-      required: [true, "Title is required"],
-      maxlength: [32, "title should less than 32 characters"],
-      minLength: [4, "title should be at least four characters"],
+      required: [true, "Your name is required"],
     },
     email: {
       type: String,
@@ -18,8 +16,10 @@ const blogSchema = new mongoose.Schema(
     },
 
     content: {
-      data: Buffer,
-      conentType: String,
+      type: String,
+      trim: true,
+      required: [true, "Content is required"],
+      minLength: [4, "title should be at least four characters"],
     },
   },
   { timestamps: true }
