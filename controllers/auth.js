@@ -110,7 +110,7 @@ export const isAuth = async (req, res, next) => {
   const token = usertoken.split(" ");
   const decoded = jwt.verify(token[1], process.env.JWT_SECRET);
   let userId = decoded;
-  console.log(userId);
+  // console.log(userId);
 
   //getting user's details
   var user = await User.findOne({ _id: userId }).catch((error) => {

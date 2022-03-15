@@ -207,6 +207,26 @@ export const update = (req, res) => {
       });
     }
 
+    // check for all fields
+    const { title, content } = fields;
+
+    if (!title && !content) {
+      return res.status(400).json({
+        error: " All fields are required",
+      });
+    }
+
+    if (!title) {
+      return res.status(400).json({
+        error: `Title is required`,
+      });
+    }
+    if (!content) {
+      return res.status(400).json({
+        error: `Content is required`,
+      });
+    }
+
     let blog = req.blog;
     blog = _.extend(blog, fields);
     if (files.image) {
