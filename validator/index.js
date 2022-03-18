@@ -1,4 +1,4 @@
-exports.userSignupValidator = (req, res, next) => {
+export const userSignupValidator = (req, res, next) => {
   req.check("name", "Name is required").notEmpty();
   req
     .check("email", "Email must be between 3 to 32 characters")
@@ -8,8 +8,8 @@ exports.userSignupValidator = (req, res, next) => {
   req.check("password", "Password is required").notEmpty();
   req
     .check("password")
-    .isLength({ min: 6 })
-    .withMessage("Password must contain at least 6 characters")
+    .isLength({ min: 3 })
+    .withMessage("Password must contain at least 3 characters")
     .matches(/\d/)
     .withMessage("Password must contain a number");
   const errors = req.validationErrors();
@@ -20,11 +20,11 @@ exports.userSignupValidator = (req, res, next) => {
   next();
 };
 
-exports.createBlogValidator = (req, res, next) => {
+export const createBlogValidator = (req, res, next) => {
   req.check("title", "Title is required").notEmpty();
   req
     .check("body", "body must be between 3 to 50 characters")
-    .isLength({ min: 4, max: 32 });
+    .isLength({ min: 4, max: 32 }).json;
   req.check("image", "image is required").notEmpty();
 
   const errors = req.validationErrors();

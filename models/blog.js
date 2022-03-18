@@ -6,14 +6,19 @@ const blogSchema = new mongoose.Schema(
     title: {
       type: String,
       trim: true,
-      required: true,
-      maxlength: 32,
+      required: [true, "Title is required"],
+      maxlength: [32, "title should less than 32 characters"],
+      minLength: [4, "title should be at least four characters"],
     },
-    body: {
+    content: {
       type: String,
       trim: true,
       required: true,
       maxlength: 2000,
+    },
+    views: {
+      type: Number,
+      default: 0,
     },
 
     image: {
@@ -28,7 +33,7 @@ const blogSchema = new mongoose.Schema(
 
     comments: [
       {
-        text: String,
+        type: String,
         created: { type: Date, default: Date.now },
         createdBy: { type: ObjectId, ref: "User" },
       },
@@ -37,4 +42,5 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Blog", blogSchema);
+var Blog = mongoose.model("Blog", blogSchema);
+export default Blog;

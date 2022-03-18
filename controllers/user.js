@@ -1,11 +1,12 @@
-import User from "../models/user";
-import { errorHandler } from "../helper/dbErroHandler";
+import User from "../models/user.js";
+import { errorHandler } from "../helper/dbErroHandler.js";
 
-exports.userById = (req, res, next, id) => {
+export const userById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({
-        error: "User not found",
+        error: err,
+        errors: "User not found",
       });
     }
     req.profile = user;
@@ -13,13 +14,13 @@ exports.userById = (req, res, next, id) => {
   });
 };
 
-exports.read = (req, res) => {
+export const read = (req, res) => {
   req.profile.hashed_password = undefined;
   req.profile.salt = undefined;
   return res.json(req.profile);
 };
 
-exports.remove = (req, res) => {
+export const remove = (req, res) => {
   let user = req.profile;
   user.remove((err, deletedUser) => {
     if (err) {
@@ -34,7 +35,7 @@ exports.remove = (req, res) => {
   });
 };
 
-exports.userPhoto = (req, res, next) => {
+export const userPhoto = (req, res, next) => {
   if (req.profile.photo.data) {
     res.set(("Content-Type", req.profile.photo.contentType));
     return res.send(req.profile.photo.data);
@@ -43,7 +44,7 @@ exports.userPhoto = (req, res, next) => {
 };
 
 //fetch all users from theb database
-exports.listUsers = (req, res) => {
+export const listUsers = (req, res) => {
   User.find()
     .select("-photo")
     .exec((err, users) => {
@@ -58,4 +59,23 @@ exports.listUsers = (req, res) => {
         status: true,
       });
     });
+};
+
+export const update = (req, res) => {
+  let user = req.profile;
+  User.findOneAndUpdate(
+    { _id: user._id },
+    { $set: req.body },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        return res.status(400).json({
+          error: "You are not authorized  to perfom this action",
+        });
+      }
+      user.hashed_password = undefined;
+      user.salt = undefined;
+      res.json(user);
+    }
+  );
 };

@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
-const {
+import { requireSignin, isAuth, isAdmin } from "../controllers/auth.js";
+import {
   create,
   blogById,
   read,
@@ -11,39 +11,54 @@ const {
   list,
   listRelated,
   listCategories,
+  listBySearch,
   listSearch,
   photo,
   comment,
   uncomment,
   updateComment,
-} = require("../controllers/blog");
-const { userById } = require("../controllers/user");
-// const { blogById} = require('../controllers/blog');
+  listByUser,
+} from "../controllers/blog.js";
 
-router.post("/v1/blog/create/:userId", requireSignin, isAuth, isAdmin, create);
-router.delete(
-  "/v1/blog/:blogId/:userId",
-  requireSignin,
-  isAuth,
-  isAdmin,
-  remove
-);
-router.put("/v1/blog/:blogId/:userId", requireSignin, isAuth, isAdmin, update);
-router.get("/v1/blog/:blogId", read);
-router.get("/v1/blogs", list);
-router.get("/v1/blogs/search", listSearch);
-router.get("/v1/blogs/related/:blogId", listRelated);
-router.get("/v1/blogs/categories", listCategories);
-router.post("/v1/blogs/by/search", listBySearch);
-router.get("/v1/blogs/:userId", listByUser);
-router.get("/v1/blog/photo/:blogId", photo);
+import { userById } from "../controllers/user.js";
+import { verifyToken } from "../middlewares/auth.js";
+import { UpdateViews } from "../middlewares/blog.js";
+import { mongooseErrorHandler } from "../middlewares/checkerros.js";
+
+router.post("/blogs/create/", verifyToken, requireSignin, isAdmin, create);
+router.delete("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, remove);
+router.put("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, update);
+router.get("/blogs/:blogId", UpdateViews, read);
+router.get("/blogs", list);
+router.get("/blogs/search", listSearch);
+router.get("/blogs/related/:blogId", listRelated);
+router.get("/blogs/categories", listCategories);
+router.post("/blogs/by/search", listBySearch);
+router.get("/blogs/", listByUser);
+router.get("/blog/photo/:blogId", photo);
 
 // comments
-router.put("/v1/blog/comment", requireSignin, comment);
-router.put("/v1/blog/uncomment", requireSignin, uncomment);
-router.put("/v1/blog/updatecomment", requireSignin, updateComment);
+router.post(
+  "/blogs/:blogId/comments/",
+  verifyToken,
+  isAuth,
+  requireSignin,
+  comment
+);
+router.put(
+  "/blogs/:blogId/comments/:commentId",
+  verifyToken,
+  requireSignin,
+  uncomment
+);
+router.put(
+  "/blogs/:blogId/updatecomment/",
+  verifyToken,
+  requireSignin,
+  updateComment
+);
 
 router.param("userId", userById);
 router.param("blogId", blogById);
 
-module.exports = router;
+export default router;
