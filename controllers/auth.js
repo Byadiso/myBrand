@@ -89,7 +89,7 @@ export const signin = async (req, res, next) => {
 
 export const signout = (req, res) => {
   res.clearCookie("t");
-  res.json({ message: "Signout success" });
+  res.status(200).json({ message: "Signout success" });
 };
 
 export const requireSignin = expressJwt({

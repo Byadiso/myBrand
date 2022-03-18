@@ -24,7 +24,7 @@ export const createBlogValidator = (req, res, next) => {
   req.check("title", "Title is required").notEmpty();
   req
     .check("body", "body must be between 3 to 50 characters")
-    .isLength({ min: 4, max: 32 });
+    .isLength({ min: 4, max: 32 }).json;
   req.check("image", "image is required").notEmpty();
 
   const errors = req.validationErrors();

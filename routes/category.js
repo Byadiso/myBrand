@@ -16,9 +16,9 @@ const router = express.Router();
 //for categories routers
 
 router.get("/category/:categoryId", read);
-router.post("/category/create/:userId", requireSignin, isAdmin, create);
-router.delete("/category/:categoryId/:userId", requireSignin, isAdmin, remove);
-router.put("/category/:categoryId/:userId", requireSignin, isAdmin, update);
+router.post("/category/create/", requireSignin, isAdmin, create);
+router.delete("/category/:categoryId/", requireSignin, isAdmin, remove);
+router.put("/category/:categoryId/", requireSignin, isAdmin, update);
 router.get("/categories", list);
 
 router.param("userId", userById);
