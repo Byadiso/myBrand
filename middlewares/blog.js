@@ -1,6 +1,6 @@
 import Blog from "../models/blog.js";
 
-export const UpdateViews = (req, res) => {
+export const UpdateViews = (req, res, next) => {
   let blogId = req.params.blogId;
 
   Blog.updateOne({ _id: blogId }, { $inc: { views: +1 } })
@@ -23,4 +23,6 @@ export const UpdateViews = (req, res) => {
         });
       }
     });
+
+  next();
 };
