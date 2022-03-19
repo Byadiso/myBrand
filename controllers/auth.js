@@ -39,13 +39,31 @@ export const signup = async (req, res) => {
       }
     }
   } else {
-    // payload.errorMessage = "Make sure each field has a valid value.";
-    if (!name || !email || !password || !username) {
+    if (!name) {
       res.status(400).json({
-        message:
-          "Make sure email, name, password or username has a valid value",
+        message: "name is missing",
         user: req.body,
       });
+    }
+
+    if (!email) {
+      res.status(400).json({
+        message: "email is missing",
+        user: req.body,
+      });
+      if (!password) {
+        res.status(400).json({
+          message: "password is required",
+          user: req.body,
+        });
+
+        if (!username) {
+          res.status(400).json({
+            message: "username is missing",
+            user: req.body,
+          });
+        }
+      }
     }
   }
 };
@@ -75,6 +93,7 @@ export const signin = async (req, res, next) => {
           message: "user logged in successfully",
           user: user,
         });
+        user.token;
       }
     }
     if (result === false) {

@@ -10,15 +10,15 @@ import {
 import { requireSignin, isAuth, isAdmin } from "../controllers/auth.js";
 const router = express.Router();
 
-router.get("/v1/user/:userId", requireSignin, read);
-router.put("/v1/user/:userId", requireSignin, update);
-router.delete("/v1/user/:userId", requireSignin, isAdmin, remove);
+router.get("/user/:userId", requireSignin, read);
+router.put("/user/:userId", requireSignin, update);
+router.delete("/user/:userId", requireSignin, isAdmin, remove);
 
 // get all users
-router.get("/v1/users/", requireSignin, listUsers);
+router.get("/users/", requireSignin, listUsers);
 
 // photo
-router.get("/v1/user/photo/:userId", userPhoto);
+router.get("/user/photo/:userId", userPhoto);
 
 router.param("userId", userById);
 

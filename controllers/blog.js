@@ -118,6 +118,7 @@ export const create = (req, res) => {
   let form = new formidable.IncomingForm();
 
   form.keepExtensions = true;
+
   form.parse(req, (err, fields, files) => {
     // console.log("Parsing done.");
     // console.dir(req.headers);
@@ -159,11 +160,12 @@ export const create = (req, res) => {
           error: "Image should be less than  3mb in size",
         });
       }
-      blog.image.data = fs.readFileSync(files.image.filepath);
+
+      blog.image.data = fs.readFileSync(files.image.path);
       blog.image.contentType = files.image.mimetype;
     }
     blog.save((err, result) => {
-      result.image = undefined;
+      // result.image = undefined;
       if (err) {
         console.log(err);
         return res.status(404).json({
@@ -172,7 +174,7 @@ export const create = (req, res) => {
           status: false,
         });
       }
-      res.json({
+      return res.json({
         blog: result,
         status: true,
         message: "Your blog is created successful",

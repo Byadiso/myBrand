@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import expressValidator from "express-validator";
 
 import path from "path";
 
@@ -51,6 +52,7 @@ app.use((req, res, next) => {
 
 //middlewares
 app.use(bodyParser.json());
+app.use(expressValidator());
 
 app.use(
   express.urlencoded({
