@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyBrand</title>
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <!-- for roboto font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 
+    bringing Icon for footer -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="menu">
+          <h1 class="ngana_logo">Ngana</h1>
+          <a href="../index.html" class="menu_nav">Home</a>
+          <a href="./blog.html" class="menu_nav">Blog</a>
+          <a href="./services.html" class="menu_nav">Services</a>
+          <a href="./contact.html" class="menu_nav">Contact us</a>
+          <a href="./login.html" class="menu_nav">login</a>
+          <a href="./hire.html" class="menu_nav hire_now">Hire me</a>
+          <!-- <button class="hire_now menu_nav">Hire me</button> -->
+        </div>
+      </nav>
+    </header>
+    <section>
+      <div class="hero_section">
+        <div class="hero_content">
+          <h2>Hello Admin</h2>
+          <h1>Desire BYAMUNGU</h1>
+        </div>
+      </div>
+
+      <!-- dashboard section -->
+
+      <div class="dashboard_section">
+        <div class="dashboard_content">
+          <!-- for menue -->
+          <div class="dashboard_item_left">
+            <div class="dashboard_item">
+              <div class="dashboard_search">
+                <input type="text" placeholder="Search.." name="search" />
+                <i class="fa fa-search"></i>
+              </div>
+              <div class="dashboard_categories">
+                <h1>Dashboard</h1>
+                <a href="#" id="add"><i class="fa fa-add"></i>Add Blog</a>
+                <a href="#" id="info"><i class="fa fa-add"></i>My info</a>
+                <a href="#" id="members"><i class="fa fa-add"></i>Members</a>
+                <a href="#" id="settings"
+                  ><i class="fa fa-settings"></i>Settings</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="dashboard_item_rigt">
+            <div id="main_dashboard">
+              Hello Admin welcome to your dashboards
+            </div>
+
+            <div class="add_blog hide" id="form_blog">
+              <input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="add title"
+              />
+              <!-- <input
+                type="text"
+                name="body"
+                id="body"
+                placeholder="Add your content here"
+              /> -->
+              <textarea
+                type="text"
+                name="body"
+                id="body"
+                placeholder="Add your content here"
+              >
+              </textarea>
+
+              <input
+                type="file"
+                name="image"
+                id="image"
+                placeholder="add image"
+              />
+
+              <input
+                class="addBlog add_blog_button"
+                type="submit"
+                value="Add Blog"
+                id="addBlog"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer info and details -->
+
+    <footer>
+      <div class="footer support">
+        <h3>Phone support</h3>
+        <p>24 hours a day</p>
+        <p>+2507887573743</p>
+      </div>
+      <div class="footer social_media">
+        <h3>Get intouch with us</h3>
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-twitter"></i>
+      </div>
+      <div class="footer subscribe">
+        <h3>Subscribe to our blog</h3>
+        <p>Singup for our offer</p>
+
+        <div class="footer_input">
+          <input type="text" name="email" id="email_subscribution" />
+          <input class="footer_submit" type="submit" value="Subscribe" />
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script src="../Js/dashboard.js" defer></script>
+  <script src="../Js/tinymce/tinymce.min.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+
+    // import {
+    //   getDatabase,
+    //   set,
+    //   ref,
+    //   update,
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+    // import {
+    //   getAuth,
+    //   createUserWithEmailAndPassword,
+    //   signInWithEmailAndPassword,
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+
+    // import {
+    //   getStorage,
+    //   ref as sRef,
+    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-storage.js";
+    // import { initializeApp } from "firebase/app";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5sPlupW_n1XEt6xsw_Y7aAZKltGEFyXw",
+      authDomain: "mybrand-df7b7.firebaseapp.com",
+      projectId: "mybrand-df7b7",
+      storageBucket: "mybrand-df7b7.appspot.com",
+      messagingSenderId: "1073877765217",
+      appId: "1:1073877765217:web:7f63596f42c5d4ca18ae20",
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    // const database = firebase.getDatabase(app);
+    // const auth = firebase.getAuth();
+    // const storage = firebase.getStorage(app);
+
+    const addButton = document.getElementById("addBlog");
+
+    addButton.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      // image variable
+      const image = document.getElementById("image").files[0];
+      const imageName = image.name;
+
+      //refernce a collection
+      const storageRef = firebase.storage().ref("images/" + imageName);
+      // const imagesRef = ref("images/" + imageName);
+
+      // upload image to selected  storage reference
+      var uploadTask = storageRef.put(image);
+
+      uploadTask.on(
+        "state_changed",
+        function (snapshot) {
+          var progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "done");
+        },
+        function (error) {
+          console.log(error.message);
+        },
+        function () {
+          // handle successfully upload here..
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            // getimage downloaded url here and upload to the database
+
+            const title = getInputValue("title");
+            // const body = getInputValue("body");
+
+            const blogText = tinymce.activeEditor.getContent();
+            // var id;
+
+            var id = Math.floor(Math.random() * 100);
+
+            firebase
+              .database()
+              .ref("blogs/")
+              .push()
+              .set(
+                {
+                  title: title,
+                  // body: body,
+                  body: blogText,
+                  Image: downloadURL,
+                  id: id,
+                },
+                function (error) {
+                  if (error) {
+                    console.log("error whie uploading");
+                  } else {
+                    console.log("successfully uploaded");
+                  }
+                }
+              );
+          });
+
+          //function to get input value
+
+          function getInputValue(id) {
+            return document.getElementById(id).value;
+          }
+
+          //my add blog button
+          // const addButton = document.getElementById("addBlog");
+
+          // addButton.addEventListener("click", (e) => {
+          //   e.preventDefault();
+
+          //   const title = getInputValue("title");
+          //   const body = getInputValue("body");
+
+          //   set(ref(database, "blogs/" + title), {
+          //     title: title,
+          //     body: body,
+          //     Image: image,
+          //   });
+
+          console.log("blog added successully");
+        }
+      );
+    });
+  </script>
+
+  <!-- adding tiny myce -->
+
+  <script>
+    console.log(tinymce);
+    tinymce.init({
+      selector: "#body",
+      width: 450,
+      height: 250,
+    });
+  </script>
+</html>

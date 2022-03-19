@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyBrand</title>
+    <link rel="stylesheet" href="../css/blog.css" />
+    <!-- for roboto font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 
+    bringing Icon for footer -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="menu">
+          <h1 class="ngana_logo">Ngana</h1>
+          <a href="../index.html" class="menu_nav">Home</a>
+          <a href="./blog.html" class="menu_nav">Blog</a>
+          <a href="./services.html" class="menu_nav">Services</a>
+          <a href="./contact.html" class="menu_nav">Contact us</a>
+          <a href="./login.html" class="menu_nav">login</a>
+          <a href="./hire.html" class="menu_nav hire_now">Hire me</a>
+          <!-- <button class="hire_now menu_nav">Hire me</button> -->
+        </div>
+      </nav>
+    </header>
+    <section>
+      <div class="hero_section">
+        <div class="hero_content">
+          <h2>My Blogs</h2>
+          <h1>My Latest blogs</h1>
+        </div>
+      </div>
+
+      <!-- blogs section -->
+
+      <div class="blog_section">
+        <div class="blog_content single_blog">
+          <div class="blog_item_left">
+            <div id="header_message"></div>
+            <div class="blog_item_content" id="blog_item_content">
+              <!-- <h3>website Development</h3>
+              <div class="single_blog_image">
+                <img
+                  src="../images/pexels-adrianna-calvo-4886824.jpg"
+                  alt="photo_blog"
+                />
+              </div>
+              <div class="icon_blog">
+                <p><i class="fa fa-heart"></i>Like</p>
+                <p><i class="fa fa-comment"></i>comment</p>
+              </div>
+
+              <p class="blog_title">
+                website Development is a great opportunity to show to the world
+                the real you with your business
+              </p>
+              <div class="comment_section">
+                <div class="comment_content">
+                  <p>this is your comment</p>
+                  <p>this is your comment</p>
+                </div>
+                <div class="comment_form">
+                  <textarea class="comment" placeholder="add your comment">
+                  </textarea>
+                  <input type="submit" value="add comment" />
+                </div>
+              </div> -->
+            </div>
+
+            <!--my edit modal -->
+
+            <div class="dashboard_item_rigt hide" id="from_edit">
+              <div class="add_blog edit_modal" id="form_blog">
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  placeholder="add title"
+                />
+                <!-- <input
+                  type="text"
+                  name="body"
+                  id="body"
+                  placeholder="Add your content here"
+                /> -->
+                <textarea
+                  type="text"
+                  name="body"
+                  id="body"
+                  placeholder="Add your content here"
+                >
+                </textarea>
+
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  placeholder="add image"
+                />
+
+                <input
+                  class="addBlog add_blog_button"
+                  type="submit"
+                  value="Update Blog"
+                  id="updateBlog"
+                />
+              </div>
+            </div>
+
+            <hr />
+            <!-- for related blog -->
+            <div class="related_blog">
+              <div class="header_related">
+                <h3>Related Blog</h3>
+              </div>
+
+              <div class="related_blog_item">
+                <div class="blog_item_content">
+                  <div class="blog_relate_image">
+                    <img
+                      src="../images/pexels-adrianna-calvo-4886824.jpg"
+                      alt="photo_blog"
+                    />
+                  </div>
+                  <h3>website Development</h3>
+                </div>
+                <div class="blog_item_content">
+                  <div class="blog_relate_image">
+                    <img
+                      src="../images/pexels-adrianna-calvo-4886824.jpg"
+                      alt="photo_blog"
+                    />
+                  </div>
+                  <h3>website Development</h3>
+                </div>
+                <div class="blog_item_content">
+                  <div class="blog_relate_image">
+                    <img
+                      src="../images/pexels-adrianna-calvo-4886824.jpg"
+                      alt="photo_blog"
+                    />
+                  </div>
+                  <h3>website Development</h3>
+                </div>
+                <div class="blog_item_content">
+                  <div class="blog_relate_image">
+                    <img
+                      src="../images/pexels-adrianna-calvo-4886824.jpg"
+                      alt="photo_blog"
+                    />
+                  </div>
+                  <h3>website Development</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- for categories -->
+          <div class="blog_item_rigt">
+            <div class="blog_item">
+              <div class="blog_search">
+                <input type="text" placeholder="Search.." name="search" />
+                <i class="fa fa-search"></i>
+              </div>
+              <div class="blog_categories">
+                <h1>Category</h1>
+                <a href="#">Busineses</a>
+                <a href="#">Sport</a>
+                <a href="#">Economic</a>
+                <a href="#">Healthy</a>
+                <a href="#">Agriculture</a>
+                <a href="#">Education</a>
+              </div>
+
+              <div class="blog_categories blog_popular">
+                <h1>Popular Post</h1>
+                <a href="#">Web Development</a>
+                <a href="#">Heal this word</a>
+                <a href="#">Yes it good to create</a>
+                <a href="#">Today's match</a>
+              </div>
+
+              <div class="blog_categories blog_tags">
+                <h1>Tags</h1>
+                <a href="#">Python</a>
+                <a href="#">JavaScript</a>
+                <a href="#">football</a>
+                <a href="#">Sante</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer info and details -->
+
+    <footer>
+      <div class="footer support">
+        <h3>Phone support</h3>
+        <p>24 hours a day</p>
+        <p>+2507887573743</p>
+      </div>
+      <div class="footer social_media">
+        <h3>Get intouch with us</h3>
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-twitter"></i>
+      </div>
+      <div class="footer subscribe">
+        <h3>Subscribe to our blog</h3>
+        <p>Singup for our offer</p>
+
+        <div class="footer_input">
+          <input type="text" name="email" id="email_subscribution" />
+          <input class="footer_submit" type="submit" value="Subscribe" />
+        </div>
+      </div>
+    </footer>
+  </body>
+
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
+  <script src="../Js/singleBlog.js" defer></script>
+
+  <script src="../Js/tinymce/tinymce.min.js"></script>
+
+  <!-- <script type="module" defer>
+    // Import the functions you need from the SDKs you need
+    // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+    // import {
+    //   getDatabase,
+    //   set,
+    //   ref,
+    //   get,
+    //   child,
+    //   onValue,
+    // } from firebase;
+
+    // import { initializeApp } from "firebase/app";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5sPlupW_n1XEt6xsw_Y7aAZKltGEFyXw",
+      authDomain: "mybrand-df7b7.firebaseapp.com",
+      projectId: "mybrand-df7b7",
+      storageBucket: "mybrand-df7b7.appspot.com",
+      messagingSenderId: "1073877765217",
+      appId: "1:1073877765217:web:7f63596f42c5d4ca18ae20",
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    // const database = getDatabase();
+
+    //my id in the localStorage
+
+    const blog_id = JSON.parse(localStorage.getItem("id"));
+
+    console.log(blog_id);
+    //function to get inpu value
+
+    function getInputValue(id) {
+      return document.getElementById(id).value;
+    }
+
+    //my add blog button
+    const removeBlogButton = document.getElementById("removeBlog");
+    const editBlogButton = document.getElementById("editBlog");
+    const blogAdmin = document.getElementById("blog_admin");
+
+    // const blogRef = ref(database, "blogs/" + blog_id);
+    // commenting this since they are not working
+
+    // const dbRef = firebase.database();
+    // get(child(dbRef, `blogs/${blog_id}`))
+    //   .then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //       console.log(snapshot.val());
+    //     } else {
+    //       console.log(
+    //         "No data available that is why I am going to use localStorage"
+    //       );
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
+    //remove blog
+    removeBlogButton.addEventListener("click", (e) => {
+      let key = e.target.dataset.uid;
+      console.log("let remove this blog " + key);
+      console.log(key);
+      firebase
+        .database()
+        .ref("blogs/" + key)
+        .remove();
+      console.log("delete successfully");
+      // window.location.href = "./blog.html";
+    });
+
+    //edit or update blog
+    editBlogButton.addEventListener("click", (e) => {
+      let key = e.target.dataset.uid;
+      console.log("let edit this blog" + key);
+      const updateBlogButton = document.getElementById("updateBlog");
+      const form = document.getElementById("from_edit");
+      const title = document.getElementById("title");
+      const body = document.getElementById("body");
+      const image = document.getElementById("image");
+
+      //get data from locastoragee
+      let data = JSON.parse(localStorage.getItem("sngle_data"));
+
+      console.log(data);
+
+      form.classList.remove("hide");
+
+      title.value = data.title;
+      const blogText = tinymce.activeEditor.setContent(data.body);
+      image.name = data.Image;
+
+      updateBlogButton.addEventListener("click", (e) => {
+        //   firebase
+        //     .database()
+        //     .ref("blogs/" + key)
+        //     .update({
+        //       // id: value.id,
+        //       title: title.value,
+        //       body: blogText,
+        //       Image: value.Image,
+        //       uid_key: key,
+        //     });
+        //   console.log("update done successfully");
+        //   // window.location.href = "./html/blog.html";
+        // });
+
+        // image variable
+        const image = document.getElementById("image").files[0];
+        const imageName = image.name;
+        //refernce a collection
+        const storageRef = firebase.storage().ref("images/" + imageName);
+        // const imagesRef = ref("images/" + imageName);
+
+        // upload image to selected  storage reference
+        var uploadTask = storageRef.put(image);
+
+        uploadTask.on(
+          "state_changed",
+          function (snapshot) {
+            var progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "done");
+          },
+          function (error) {
+            console.log(error.message);
+          },
+          function () {
+            // handle successfully upload here..
+            uploadTask.snapshot.ref
+              .getDownloadURL()
+              .then(function (downloadURL) {
+                // getimage downloaded url here and upload to the database
+
+                // const title = getInputValue("title");
+                // const body = getInputValue("body");
+
+                const blogText = tinymce.activeEditor.getContent();
+                // var id;
+
+                var id = Math.floor(Math.random() * 100);
+
+                firebase
+                  .database()
+                  .ref("blogs/" + key)
+                  .update({
+                    // id: value.id,
+                    title: title.value,
+                    body: blogText,
+                    Image: downloadURL,
+                    uid_key: key,
+                  }),
+                  function (error) {
+                    if (error) {
+                      console.log("error whie uploading");
+                    } else {
+                      console.log("successfully uploaded");
+                    }
+                  };
+              });
+          }
+        );
+      });
+    });
+  </script> -->
+
+  <!-- adding tiny myce -->
+
+  <script>
+    console.log(tinymce);
+    tinymce.init({
+      selector: "#body",
+      width: 450,
+      height: 250,
+    });
+  </script>
+</html>
