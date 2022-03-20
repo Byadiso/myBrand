@@ -93,7 +93,6 @@ export const signin = async (req, res, next) => {
           message: "user logged in successfully",
           user: user,
         });
-        user.token;
       }
     }
     if (result === false) {
@@ -148,7 +147,7 @@ export const isAuth = async (req, res, next) => {
 
 export const isAdmin = async (req, res, next) => {
   const usertoken = req.headers.authorization;
-  console.log(usertoken);
+  // console.log(usertoken);
   if (usertoken === undefined) {
     return res
       .status(404)
@@ -166,7 +165,7 @@ export const isAdmin = async (req, res, next) => {
     res.status(400).json({ message: "No user with that email or username" });
   });
 
-  console.log(user);
+  // console.log(user);
 
   if (user.role === 0) {
     return res.status(403).json({

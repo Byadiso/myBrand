@@ -4,6 +4,10 @@
   "description": "ALTP project cohort 7",
   "main": "server.js",
   "type": "module",
+  "jest": {
+"testEnvironment":"node",
+"testTimeout": 90000
+  },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "build": "node server.js --out-dir build",

@@ -24,8 +24,16 @@ import { userById } from "../controllers/user.js";
 import { verifyToken } from "../middlewares/auth.js";
 import { UpdateViews } from "../middlewares/blog.js";
 import { mongooseErrorHandler } from "../middlewares/checkerros.js";
+import { createBlogValidator } from "../validator/index.js";
 
-router.post("/blogs/create/", verifyToken, requireSignin, isAdmin, create);
+router.post(
+  "/blog/create/",
+  verifyToken,
+
+  requireSignin,
+  isAdmin,
+  create
+);
 router.delete("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, remove);
 router.put("/blogs/:blogId/", verifyToken, requireSignin, isAdmin, update);
 router.get("/blogs/:blogId", UpdateViews, read);

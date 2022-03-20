@@ -25,7 +25,7 @@ export const read = (req, res) => {
 };
 
 export const list = (req, res) => {
-  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+  let limit = req.query.limit ? parseInt(req.query.limit) : 10;
   Blog.find()
     .select("-image")
     // .populate('comments','text created')
@@ -165,7 +165,6 @@ export const create = (req, res) => {
       blog.image.contentType = files.image.mimetype;
     }
     blog.save((err, result) => {
-      // result.image = undefined;
       if (err) {
         console.log(err);
         return res.status(404).json({
@@ -174,6 +173,7 @@ export const create = (req, res) => {
           status: false,
         });
       }
+      result.image = undefined;
       return res.json({
         blog: result,
         status: true,

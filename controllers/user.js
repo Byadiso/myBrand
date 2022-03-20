@@ -75,7 +75,7 @@ export const update = (req, res) => {
       }
       user.hashed_password = undefined;
       user.salt = undefined;
-      res.json(user);
+      res.json({user:user, message:'user updated successfully'});
     }
   );
 };
