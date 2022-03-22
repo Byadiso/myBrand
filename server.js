@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import expressValidator from "express-validator";
+import cors from "cors";
 
 import path from "path";
 
@@ -14,6 +15,7 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import blogRoutes from "./routes/blog.js";
 import categoryRoutes from "./routes/category.js";
+import messageRoutes from "./routes/message.js";
 
 //app
 const app = express();
@@ -49,6 +51,7 @@ app.use((req, res, next) => {
 //middlewares
 app.use(bodyParser.json());
 app.use(expressValidator());
+app.use(cors());
 
 app.use(
   express.urlencoded({
@@ -62,6 +65,7 @@ app.use(express.json());
 app.use("/", authRoutes);
 app.use("/", userRoutes);
 app.use("/", blogRoutes);
+app.use("/", messageRoutes);
 app.use("/", categoryRoutes);
 
 app.use("*", (req, res) => {

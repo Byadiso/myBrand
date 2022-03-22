@@ -16,7 +16,7 @@ import { userById } from "../controllers/user.js";
 import { verifyToken } from "../middlewares/auth.js";
 import { mongooseErrorHandler } from "../middlewares/checkerros.js";
 
-router.post("/message/create/", verifyToken, requireSignin, isAdmin, create);
+router.post("/message/create/", create);
 router.delete(
   "/message/:messageId/",
   verifyToken,
@@ -24,9 +24,9 @@ router.delete(
   isAdmin,
   remove
 );
-router.put("/message/:messageId/", verifyToken, requireSignin, isAdmin, update);
+router.put("/message/:messageId/", update);
 router.get("/message/:messageId", read);
-router.get("/message", list);
+router.get("/messages", list);
 router.get("/message/", listByUser);
 
 router.param("userId", userById);

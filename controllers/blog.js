@@ -6,6 +6,7 @@ import Blog from "../models/blog.js";
 
 export const blogById = (req, res, next, id) => {
   Blog.findById(id)
+    .select("-image")
     .populate("comments", "text created")
     .populate("comments.createdBy", "_id name")
     .exec((err, blog) => {
@@ -24,11 +25,12 @@ export const read = (req, res) => {
   if (res.status == 500) {
     return res.status(500).json({ error: "internal error" });
   }
+
   return res.status(200).json({ Blog: req.blog, message: "succceeded" });
 };
 
 export const list = (req, res) => {
-  let limit = req.query.limit ? parseInt(req.query.limit) : 10;
+  let limit = req.query.limit ? parseInt(req.query.limit) : 50;
   Blog.find()
     .select("-image")
     // .populate('comments','text created')
@@ -181,9 +183,18 @@ export const create = (req, res) => {
           error: "Image should be less than  3mb in size",
         });
       }
+      console.log(files.image);
+      // var oldPath = files.image.path;
+      // var newPath = path.join(__dirname, "uploads") + "/" + files.image.name;
+      // var rawData = fs.readFileSync(oldPath);
+
+      // fs.writeFile(newPath, rawData, function (err) {
+      //   if (err) console.log(err);
+      //   return res.send("Successfully uploaded to my computer");
+      // });
 
       blog.image.data = fs.readFileSync(files.image.path);
-      blog.image.contentType = files.image.mimetype;
+      blog.image.contentType = files.image.type;
     }
     blog.save((err, result) => {
       if (err) {
@@ -278,13 +289,14 @@ export const update = (req, res) => {
   });
 };
 
+// export const photo = (req, res, next) => {
+//   res.set("Content-Type", req.blog.image.contentType);
+//   return res.send(req.blog.image.data);
+//   next();
+// };
+
 export const photo = (req, res, next) => {
-  console.log(req.blog.image);
-  if (req.blog.image) {
-    res.set("Content-Type", req.blog.image.contentType);
-    return res.send(req.blog.image.data);
-  }
-  next();
+  res.sendFile(path.join(__dirname, "../uploads/images/" + req.params.path));
 };
 
 export const listSearch = (req, res) => {

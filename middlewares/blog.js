@@ -4,10 +4,9 @@ export const UpdateViews = (req, res, next) => {
   let blogId = req.params.blogId;
 
   Blog.updateOne({ _id: blogId }, { $inc: { views: +1 } })
-
+    .select("-image")
     .populate("Views.viewedBy", "_id name")
     .populate("ViewedBy", "_id name")
-    .select("-image")
     .exec((err, result) => {
       if (err) {
         console.log(err);
@@ -16,7 +15,7 @@ export const UpdateViews = (req, res, next) => {
           data: result,
         });
       } else {
-        res.json({
+        return res.status(200).json({
           data: result,
           status: true,
           message: "Views Updated ",

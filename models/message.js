@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema;
 
-const blogSchema = new mongoose.Schema(
+const messageSchema = new mongoose.Schema(
   {
     sender: {
       type: String,
@@ -11,7 +11,7 @@ const blogSchema = new mongoose.Schema(
     email: {
       type: String,
       trim: true,
-      required: true,
+      required: [true, "Your email is required"],
       maxlength: 2000,
     },
 

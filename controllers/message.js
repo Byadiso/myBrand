@@ -5,7 +5,7 @@ import fs from "fs";
 import Message from "../models/message.js";
 
 export const messageById = (req, res, next, id) => {
-  Blog.findById(id)
+  Message.findById(id)
     .populate("message.createdBy", "_id name")
     .exec((err, message) => {
       if (err || !message) {
@@ -23,13 +23,12 @@ export const read = (req, res) => {
 };
 
 export const list = (req, res) => {
-  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+  let limit = req.query.limit ? parseInt(req.query.limit) : 10;
   Message.find()
-    // .populate('comments','text created')
-    .populate("message.createdBy", "_id name")
     .limit(limit)
     .exec((err, data) => {
       if (err) {
+        console.log(err);
         return res.status(400).json({
           error: "messages not found",
         });
@@ -65,7 +64,7 @@ export const create = (req, res) => {
   let form = new formidable.IncomingForm();
 
   form.keepExtensions = true;
-  form.parse(req, (err, fields, files) => {
+  form.parse(req, (err, fields) => {
     // console.log("Parsing done.");
     // console.dir(req.headers);
     // console.log(fields);
@@ -73,9 +72,9 @@ export const create = (req, res) => {
     // console.log(files.image);
 
     // check for all fields
-    const { Sender, email, content } = fields;
+    const { sender, email, content } = fields;
 
-    if ((!sender && !email, content)) {
+    if (!sender && !email && content) {
       return res.status(400).json({
         error: " All fields are required",
       });
@@ -83,7 +82,7 @@ export const create = (req, res) => {
 
     if (!sender) {
       return res.status(400).json({
-        error: `Your is required`,
+        error: `Your name is required`,
       });
     }
     if (!content) {
@@ -92,11 +91,10 @@ export const create = (req, res) => {
       });
     }
 
-    let message = new Blog(fields);
-    message.createdBy = req.profile;
+    let message = new Message(fields);
+    message.createdBy = req.body.sender;
 
     message.save((err, result) => {
-      result.image = undefined;
       if (err) {
         console.log(err);
         return res.status(404).json({
@@ -108,7 +106,7 @@ export const create = (req, res) => {
       res.json({
         message: result,
         status: true,
-        message: "Your message has ben sent successful",
+        message: "Your message has been sent successful",
       });
     });
   });
@@ -116,14 +114,14 @@ export const create = (req, res) => {
 
 export const remove = (req, res) => {
   let message = req.message;
-  message.remove((err, deletedblog) => {
+  message.remove((err, deletedMessage) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler(err),
       });
     }
     res.json({
-      // deletedblog,
+      // deletedMessage,
       message: "message deleted successfully",
       status: true,
     });
