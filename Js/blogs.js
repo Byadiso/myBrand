@@ -81,7 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(id);
       let idSave = localStorage.setItem("id", id);
 
-      window.location.href = "../html/single_blog.html";
+      // window.location.href = "../html/single_blog.html";
+      window.location.href = `../html/single_blog.html?id=${id}`;
     }
 
     // const id_clicked = JSON.stringify(id);

@@ -3,13 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const blogDiv = document.getElementById("blog_item_content");
 
   let data = { ...JSON.parse(localStorage.getItem("data")) };
-  let blogId = localStorage.getItem("id");
-
-  console.log(blogId);
+  // let blogId = localStorage.getItem("id");
 
   let array = [];
 
   array = [...array, data];
+
+  let myId = location.href.split("?id=")[1];
+  let blogId = decodeURIComponent(myId);
+
+  console.log(blogId);
 
   const blog_item_content = document.querySelector("#blog_item_content");
   let blog_single = document.createElement("DIV");
@@ -28,45 +31,60 @@ document.addEventListener("DOMContentLoaded", () => {
   listBlog();
   // function to render my blog
   function renderblog(data) {
-    console.log(data);
-    // messageDiv.className = "err";
+    // console.log(data);
+    messageDiv.className = "err";
     // messageDiv.innerHTML = data.message;
-    // blog = data.blog;
+    blog = data.blog;
 
-    // let content_elt = document.createElement("DIV");
-    // const { _id, title, content, description, createdAt } = blog;
+    let content_elt = document.createElement("DIV");
+    const { _id, title, content, createdAt } = blog;
 
-    // let photoUrl = `http://localhost:3000/blog/photo/${_id}`;
+    let photoUrl = `http://localhost:3000/blog/photo/${_id}`;
 
-    // // for short  notation is the best
-    // var timestamp = timeDifference(new Date(), new Date(createdAt));
-    // content_elt.innerHTML = `<div class="blog_image blog" data-id=${_id}>
-    //   <img src=${photoUrl} alt="blog image blog" data-id=${_id}>
-    // </div>
-    // <h3 class="blog" data-id=${_id}>${title}</h3>
-    // <p class="blog_title blog" data-id=${_id}>${content}</p>
-    // <p  data-id=${_id} class="readme_button blog">Read more..</p>
-    // `;
+    // for short  notation is the best
+    var timestamp = timeDifference(new Date(), new Date(createdAt));
+    content_elt.innerHTML = `<div class="blog_image blog" data-id=${_id}>
+      <img src=${photoUrl} alt="blog image blog" data-id=${_id}>
+    </div>
+    <div class="icon_blog">
+        <p><i class="fa fa-heart"></i>Like</p>
+        <p><i class="fa fa-comment"></i>comment</p>
 
-    // content_elt.setAttribute("class", "blog_item");
-    // content_elt.setAttribute("data-id", _id);
+       </div>
+    <h3 class="blog" data-id=${_id}>${title}</h3>
+    <p class="blog_title blog" data-id=${_id}>${content}</p>
+    <div class="comment_section">
+            <div class="comment_content">
+                <p>this is your comment</p>
+            </div>
+            <div class="comment_form">
+              <textarea class="comment" placeholder="add your comment">
+              </textarea>
+              <input type="submit" value="Add comment" />
+    
+            </div>
+          </div>
+    `;
 
-    // // adding a class to my content_elt
-    // content_elt.setAttribute("class", "column-grid-blog");
+    content_elt.setAttribute("class", "blog_item");
+    content_elt.setAttribute("data-id", _id);
 
-    // // to append my whole create section
-    // blogDiv.append(content_elt);
+    // adding a class to my content_elt
+    content_elt.setAttribute("class", "column-grid-blog");
 
-    // const viewBtns = document.querySelectorAll(".btn-view");
-    // viewBtns.forEach((Btn) => {
-    //   Btn.addEventListener("click", (e) => {
-    //     // Storage()
-    //     let propId = e.target.parentElement.dataset.id;
-    //     localStorage.setItem("id", propId);
-    //     console.log(propId);
-    //     location.href = "../pages/singleblog.html";
-    //   });
-    // });
+    // to append my whole create section
+    blogDiv.append(content_elt);
+
+    const viewBtns = document.querySelectorAll(".btn-view");
+    viewBtns.forEach((Btn) => {
+      Btn.addEventListener("click", (e) => {
+        // Storage()
+        let propId = e.target.parentElement.dataset.id;
+        localStorage.setItem("id", propId);
+        console.log(propId);
+        location.href = "../pages/singleblog.html";
+      });
+    });
   }
 
   // addEventListener to my single blog  save our id to localStorage
@@ -137,3 +155,29 @@ document.addEventListener("DOMContentLoaded", () => {
 //     }
 //   }
 // });
+
+function timeDifference(current, previous) {
+  var msPerMinute = 60 * 1000;
+  var msPerHour = msPerMinute * 60;
+  var msPerDay = msPerHour * 24;
+  var msPerMonth = msPerDay * 30;
+  var msPerYear = msPerDay * 365;
+
+  var elapsed = current - previous;
+
+  if (elapsed < msPerMinute) {
+    if (elapsed / 1000 < 30) return "Just now";
+
+    return Math.round(elapsed / 1000) + " seconds ago";
+  } else if (elapsed < msPerHour) {
+    return Math.round(elapsed / msPerMinute) + " minutes ago";
+  } else if (elapsed < msPerDay) {
+    return Math.round(elapsed / msPerHour) + " hours ago";
+  } else if (elapsed < msPerMonth) {
+    return Math.round(elapsed / msPerDay) + " days ago";
+  } else if (elapsed < msPerYear) {
+    return Math.round(elapsed / msPerMonth) + " months ago";
+  } else {
+    return Math.round(elapsed / msPerYear) + " years ago";
+  }
+}
