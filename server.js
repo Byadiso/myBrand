@@ -20,17 +20,13 @@ const app = express();
 
 //db
 mongoose
-  .connect(
-    process.env.MONGODB_URI ||
-      "mongodb+srv://byadiso:Uwineza3010!@cluster0.sekj1.mongodb.net/mybrand?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("DB Connected"))
   .catch((err) => {
     console.error(`Error connecting to  the database . \n${err}`);
   });
 
 // set header
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(

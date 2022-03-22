@@ -1,6 +1,17 @@
 // import request from "supertest";
 // import app from "../../../";
 
+// import mongoose from "mongoose";
+
+// beforeEach(async () => {
+//   await mongoose
+//     .connect(process.env.MONGODB_URI)
+//     .then(() => console.log("DB Connected"))
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }, 9000);
+
 // describe("Auth tests", () => {
 //   describe("TEST  AUTH signup", () => {
 //     let user, res;

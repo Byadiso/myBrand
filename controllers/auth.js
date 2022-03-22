@@ -16,7 +16,7 @@ export const signup = async (req, res) => {
       $or: [{ username: username }, { email: email }],
     }).catch((error) => {
       console.log(error);
-      res.status(400).json({ message: "Something went wrong" });
+      res.status(400).json({ error: "Something went wrong" });
     });
 
     if (user == null) {
@@ -33,33 +33,33 @@ export const signup = async (req, res) => {
     } else {
       // User found
       if (email == user.email) {
-        res.status(400).json({ message: "email in user" });
+        res.status(400).json({ error: "email in user" });
       } else {
-        res.status(400).json({ message: "username  already in user." });
+        res.status(400).json({ error: "username  already in user." });
       }
     }
   } else {
     if (!name) {
       res.status(400).json({
-        message: "name is missing",
+        error: "name is missing",
         user: req.body,
       });
     }
 
     if (!email) {
       res.status(400).json({
-        message: "email is missing",
+        error: "email is missing",
         user: req.body,
       });
       if (!password) {
         res.status(400).json({
-          message: "password is required",
+          error: "password is required",
           user: req.body,
         });
 
         if (!username) {
           res.status(400).json({
-            message: "username is missing",
+            error: "username is missing",
             user: req.body,
           });
         }
@@ -74,7 +74,7 @@ export const signin = async (req, res, next) => {
       $or: [{ username: req.body.username }, { email: req.body.email }],
     }).catch((error) => {
       console.log(error);
-      res.status(400).json({ message: "No user with that email or username" });
+      res.status(400).json({ error: "No user with that email or username" });
     });
 
     if (user != null) {
@@ -95,13 +95,11 @@ export const signin = async (req, res, next) => {
         });
       }
     }
-    if (result === false) {
-      res.status(400).json({ message: "Login credentials incorrect!" });
+    if (result !== true) {
+      return res.status(400).json({ error: "Login credentials incorrect!" });
     }
   } else {
-    res
-      .status(404)
-      .json({ message: "Make sure each field has a valid value!" });
+    res.status(404).json({ error: "Make sure each field has a valid value!" });
   }
 };
 

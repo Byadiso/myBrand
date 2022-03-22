@@ -14,14 +14,17 @@ export const blogById = (req, res, next, id) => {
           error: " blog not found with that id",
         });
       }
-      req.blog = blog;
+      return res.status(200).json({ blog: blog, message: "single blog" });
       next();
     });
 };
 
 export const read = (req, res) => {
   req.blog.image = undefined;
-  return res.json(req.blog);
+  if (res.status == 500) {
+    return res.status(500).json({ error: "internal error" });
+  }
+  return res.status(200).json({ Blog: req.blog, message: "succceeded" });
 };
 
 export const list = (req, res) => {
@@ -37,7 +40,7 @@ export const list = (req, res) => {
           error: "blogs not found",
         });
       }
-      res.status(200).json({
+      return res.status(200).json({
         count: data.length + " Blogs",
         blogs: data,
         message: "all Blogs",
@@ -87,6 +90,24 @@ export const listByUser = (req, res) => {
       res.json({
         blogs: blogs,
         message: `blog by this user`,
+      });
+    });
+};
+
+export const listSingleBlog = (req, res) => {
+  Blog.find({ _id: req.param.blogById })
+    .populate("createdBy", "_id name")
+    .select("_id title body created comments")
+    .sort("_created")
+    .exec((err, blog) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      res.json({
+        blogs: blog,
+        message: `Single blog`,
       });
     });
 };
@@ -258,6 +279,7 @@ export const update = (req, res) => {
 };
 
 export const photo = (req, res, next) => {
+  console.log(req.blog.image);
   if (req.blog.image) {
     res.set("Content-Type", req.blog.image.contentType);
     return res.send(req.blog.image.data);

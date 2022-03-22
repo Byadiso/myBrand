@@ -1,7 +1,16 @@
 // import request from "supertest";
 // import app from "../../../";
+// import mongoose from "mongoose";
 
 // describe("user tests", () => {
+//   beforeEach(async () => {
+//     await mongoose
+//       .connect(process.env.MONGODB_URI)
+//       .then(() => console.log("DB Connected"))
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   }, 9000);
 //   let token;
 //   beforeAll(() =>
 //     request(app)
