@@ -20,6 +20,12 @@ import messageRoutes from "./routes/message.js";
 //app
 const app = express();
 
+//for cross origin
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 //db
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -42,12 +48,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//for cross origin
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
 //middlewares
 app.use(bodyParser.json());
 app.use(expressValidator());
@@ -62,11 +62,11 @@ app.use(
 app.use(express.json());
 
 //routes middleware
-app.use("/", authRoutes);
-app.use("/", userRoutes);
-app.use("/", blogRoutes);
-app.use("/", messageRoutes);
-app.use("/", categoryRoutes);
+app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+app.use("/api", blogRoutes);
+app.use("/api", messageRoutes);
+app.use("/api", categoryRoutes);
 
 app.use("*", (req, res) => {
   res.status(400).json({

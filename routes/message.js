@@ -24,10 +24,10 @@ router.delete(
   isAdmin,
   remove
 );
-router.put("/message/:messageId/", update);
-router.get("/message/:messageId", read);
-router.get("/messages", list);
-router.get("/message/", listByUser);
+router.put("/v1/message/:messageId/", update);
+router.get("/v1/message/:messageId", read);
+router.get("/v1/messages", list);
+router.get("/v1/message/", listByUser);
 
 router.param("userId", userById);
 router.param("messageId", messageById);

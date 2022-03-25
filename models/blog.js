@@ -14,7 +14,7 @@ const blogSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 2000,
+      // maxlength: 2000,
     },
     views: {
       type: Number,

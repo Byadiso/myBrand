@@ -13,10 +13,10 @@ beforeEach(async () => {
     });
 }, 9000);
 
-describe("Blogs tests", () => {
+describe("messages tests", () => {
   //let retrie token
   let token;
-  let blogId;
+  let messageId;
 
   let connection;
   let db;
@@ -33,51 +33,47 @@ describe("Blogs tests", () => {
   //     await connection.close();
   //   });
 
-  describe("Test Blog Create", () => {
-    let blog, res;
+  describe("Test message Create", () => {
+    let message, res;
 
-    it("should create a blog ", async () => {
-      blog = {
-        title: "Yes it is awesome",
+    it("should create a message ", async () => {
+      message = {
+        sender: "desire",
         content: "yeseeee  it is  and todayis a new day",
-        image: "testo12",
+        email: "testo@gmail.com",
       };
 
       let res = await request(app)
-        .post("/blog/create")
-        .send(blog)
+        .post("/message/create")
+        .send(message)
         .set(
           "Authorization",
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjI0MGMzNDEyOWRkYzgyYThkYWI0OWEiLCJpYXQiOjE2NDcyMjE4MDN9.1UqN9J8qhGJ3_KQGg9wL1J0QZXEd2klcGFFwQG3XMEo"
         );
 
       expect(res.body.message).toContain(
-        "Your blog is created successful by req.body instead of a form with an image"
+        "Your message is created successful by req.body instead of a form with an image"
       );
     });
 
-    it("should not create a blog if no token provided", async () => {
-      blog = {
-        title: "Yes it is awesome",
+    it("should not create a message if no token provided", async () => {
+      message = {
+        sender: "desire",
         content: "yeseeee  it is  and todayis a new day",
-        image: "testo12",
+        email: "testo@gmail.com",
       };
 
-      let res = await request(app)
-        .post("/blog/create")
-        .send(blog)
-        .set("Authorization", "");
-
+      let res = await request(app).post("/message/create").send(message);
       expect(res.body.message).toContain(
         "A token is required for authentication"
       );
     });
 
-    it("should not create a blog without a title", async () => {
-      blog = {
-        title: "",
+    it("should not create a message without a title", async () => {
+      message = {
+        sender: "desire",
         content: "yeseeee  it is  and todayis a new day",
-        image: "testo12",
+        email: "testo@gmail.com",
       };
 
       let loggedUser = await request(app).post("/login").send({
@@ -86,17 +82,17 @@ describe("Blogs tests", () => {
       });
 
       res = await request(app)
-        .post("/blog/create")
+        .post("/message/create")
         .set("Authorization", "Bearer " + loggedUser.body.token)
-        .send(blog);
+        .send(message);
       expect(res.body.error).toContain("Title is required");
     });
 
-    it("should not create a blog without a content", async () => {
-      blog = {
-        title: "yess",
-        content: "",
-        image: "testo12",
+    it("should not create a message without a content", async () => {
+      message = {
+        sender: "desire",
+        content: "yeseeee  it is  and todayis a new day",
+        email: "testo@gmail.com",
       };
 
       let loggedUser = await request(app).post("/login").send({
@@ -105,19 +101,19 @@ describe("Blogs tests", () => {
       });
 
       res = await request(app)
-        .post("/blog/create")
+        .post("/message/create")
         .set("Authorization", "Bearer " + loggedUser.body.token)
-        .send(blog);
+        .send(message);
       expect(res.body.error).toContain(
-        "Blog validation failed: content: Path `content` is required."
+        "message validation failed: content: Path `content` is required."
       );
     });
 
-    it("Admin only should create a blog", async () => {
-      blog = {
-        title: "yess",
-        content: "yesssssss",
-        image: "testo12",
+    it("Admin only should create a message", async () => {
+      message = {
+        sender: "desire",
+        content: "yeseeee  it is  and todayis a new day",
+        email: "testo@gmail.com",
       };
 
       //using not admin user's details
@@ -127,17 +123,17 @@ describe("Blogs tests", () => {
       });
 
       res = await request(app)
-        .post("/blog/create")
+        .post("/message/create")
         .set("Authorization", "Bearer " + loggedUser.body.token)
-        .send(blog);
+        .send(message);
       expect(res.body.error).toContain("Access denied");
     });
 
-    it("Blog title should be min 4 character", async () => {
-      blog = {
-        title: "ys",
-        content: "dafdsafd",
-        image: "testo12",
+    it("message title should be min 4 character", async () => {
+      message = {
+        sender: "desire",
+        content: "yeseeee  it is  and todayis a new day",
+        email: "testo@gmail.com",
       };
 
       let loggedUser = await request(app).post("/login").send({
@@ -146,19 +142,19 @@ describe("Blogs tests", () => {
       });
 
       res = await request(app)
-        .post("/blog/create")
-        .send(blog)
+        .post("/message/create")
+        .send(message)
         .set("Authorization", "Bearer " + loggedUser.body.token);
       expect(res.body.error).toBe(
-        "Blog validation failed: title: title should be at least four characters"
+        "message validation failed: title: title should be at least four characters"
       );
     });
 
-    it("Blog title should be mmax 32 character", async () => {
-      blog = {
-        title: "y13213214324143243241432143fhjgjhgjhkgjgjgkjhgkjgh2414s",
-        content: "adafdfs",
-        image: "testo12",
+    it("message title should be mmax 32 character", async () => {
+      message = {
+        sender: "desire",
+        content: "yeseeee  it is  and todayis a new day",
+        email: "testo@gmail.com",
       };
 
       let loggedUser = await request(app).post("/login").send({
@@ -167,21 +163,21 @@ describe("Blogs tests", () => {
       });
 
       res = await request(app)
-        .post("/blog/create")
+        .post("/message/create")
         .set("Authorization", "Bearer " + loggedUser.body.token)
-        .send(blog);
+        .send(message);
       expect(res.body.error).toBe(
-        "Blog validation failed: title: title should less than 32 characters"
+        "message validation failed: title: title should less than 32 characters"
       );
     });
   });
 });
 
-//   describe("Test Update Blog ", () => {
-//     let blog;
+//   describe("Test Update message ", () => {
+//     let message;
 
-//     it("should update blog successfully", async () => {
-//       blog = {
+//     it("should update message successfully", async () => {
+//       message = {
 //         title: "y132132143241432432414321432414s",
 //         content: "adafdfs",
 //         image: "testo12",
@@ -192,23 +188,23 @@ describe("Blogs tests", () => {
 //         password: "123123",
 //       });
 //       const res = await request(app)
-//         .put(`/blogs/${blogId}`)
+//         .put(`/messages/${messageId}`)
 //         .set("Authorization", "Bearer " + loggedUser.body.token)
-//         .send(blog);
-//       expect(res.body.message).toContain("Blog updated successfully");
+//         .send(message);
+//       expect(res.body.message).toContain("message updated successfully");
 //     });
 //   });
 
-//   describe("Test Get All Blogs ", () => {
-//     it("should get all blogs", async () => {
-//       const res = await request(app).get("/blogs");
-//       expect(res.body.message).toContain("all Blogs");
+//   describe("Test Get All messages ", () => {
+//     it("should get all messages", async () => {
+//       const res = await request(app).get("/messages");
+//       expect(res.body.message).toContain("all messages");
 //     });
 //   });
 
-//   describe("Test Get Single Blog ", () => {
-//     it("should get single blog", async () => {
-//       let blog = {
+//   describe("Test Get Single message ", () => {
+//     it("should get single message", async () => {
+//       let message = {
 //         title: "y132132143241432432414321432414s",
 //         content: "adafdfs",
 //         image: "testo12",
@@ -221,19 +217,19 @@ describe("Blogs tests", () => {
 
 //       let loggedUser = await request(app).post("/login").send(user);
 
-//       let createdBlog = await request(app)
-//         .post("/create/blog")
+//       let createdmessage = await request(app)
+//         .post("/create/message")
 //         .set("Authorization", "Bearer " + loggedUser.body.token)
-//         .send(blog);
+//         .send(message);
 
-//       const res = await request(app).get(`/blogs/${createdBlog.body._id}`);
-//       expect(res.body.message).toContain("Single blog");
+//       const res = await request(app).get(`/messages/${createdmessage.body._id}`);
+//       expect(res.body.message).toContain("Single message");
 //     });
 //   });
 
-//   describe("Test Delete Single Blog ", () => {
-//     it("should get single blog", async () => {
-//       let blog = {
+//   describe("Test Delete Single message ", () => {
+//     it("should get single message", async () => {
+//       let message = {
 //         name: "testosgfsgf",
 //         content: "13241",
 //         image: "imm",
@@ -244,17 +240,17 @@ describe("Blogs tests", () => {
 //         password: "123123",
 //       });
 
-//       let createdBlog = await request(app)
-//         .post("/blog/create")
-//         .send(blog)
+//       let createdmessage = await request(app)
+//         .post("/message/create")
+//         .send(message)
 //         .set("Authorization", "Bearer " + loggedUser.body.token);
 
-//       console.log(createdBlog.body);
+//       console.log(createdmessage.body);
 
 //       const res = await request(app)
-//         .delete(`/blogs/${createdBlog.body.blog._id}`)
+//         .delete(`/messages/${createdmessage.body.message._id}`)
 //         .set("Authorization", "Bearer " + loggedUser.body.token);
-//       expect(res.body.message).toContain("blog deleted successfully");
+//       expect(res.body.message).toContain("message deleted successfully");
 //     }, 30000);
 //   //   });
 // });

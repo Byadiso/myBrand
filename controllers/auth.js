@@ -120,7 +120,7 @@ export const isAuth = async (req, res, next) => {
   if (usertoken === undefined) {
     return res
       .status(404)
-      .json({ message: "No token found, plz login and try again" });
+      .json({ error: "No token found, plz login and try again" });
   }
 
   const token = usertoken.split(" ");
@@ -131,7 +131,7 @@ export const isAuth = async (req, res, next) => {
   //getting user's details
   var user = await User.findOne({ _id: userId }).catch((error) => {
     console.log(error);
-    res.status(400).json({ message: "No user with that email or username" });
+    res.status(400).json({ error: "No user with that email or username" });
   });
 
   // let user = req.profile && req.auth && req.profile._id == req.auth._id;
@@ -149,7 +149,7 @@ export const isAdmin = async (req, res, next) => {
   if (usertoken === undefined) {
     return res
       .status(404)
-      .json({ message: "No token found, plz login and try again" });
+      .json({ error: "No token found, plz login and try again" });
   }
 
   // const usertoken = req.headers.authorization;
@@ -160,7 +160,7 @@ export const isAdmin = async (req, res, next) => {
   //getting user's details
   var user = await User.findOne({ _id: userId }).catch((error) => {
     console.log(error);
-    res.status(400).json({ message: "No user with that email or username" });
+    res.status(400).json({ error: "No user with that email or username" });
   });
 
   // console.log(user);
