@@ -18,12 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let blog_single = document.createElement("DIV");
 
   const listBlog = () => {
-    return fetch(`http://localhost:3000/blogs/${blogId}`)
+    return fetch(`http://localhost:3000/api/v1/blogs/${blogId}`)
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
         renderblog(data);
-        localStorage.setItem("blog", JSON.stringify(data));
+        // localStorage.setItem("blog", JSON.stringify(data));
       })
       .catch((err) => console.log(err));
   };
@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log(data);
     messageDiv.className = "err";
     // messageDiv.innerHTML = data.message;
-    blog = data.blog;
+    blog = data.Blog;
 
     let content_elt = document.createElement("DIV");
-    const { _id, title, content, createdAt } = blog;
+    const { _id, title, content, createdAt, views } = blog;
 
-    let photoUrl = `http://localhost:3000/blog/photo/${_id}`;
+    let photoUrl = `http://localhost:3000/api/v1/blog/photo/${_id}`;
 
     // for short  notation is the best
     var timestamp = timeDifference(new Date(), new Date(createdAt));
@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="icon_blog">
         <p><i class="fa fa-heart"></i>Like</p>
         <p><i class="fa fa-comment"></i>comment</p>
+        <p><i class="fa fa-eye"></i>${views}</p>
 
        </div>
     <h3 class="blog" data-id=${_id}>${title}</h3>
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     content_elt.setAttribute("data-id", _id);
 
     // adding a class to my content_elt
-    content_elt.setAttribute("class", "column-grid-blog");
+    content_elt.setAttribute("class", "blog_item_content");
 
     // to append my whole create section
     blogDiv.append(content_elt);

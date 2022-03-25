@@ -29,7 +29,7 @@
           <a href="./blog.html" class="menu_nav">Blog</a>
           <a href="./services.html" class="menu_nav">Services</a>
           <a href="./contact.html" class="menu_nav">Contact us</a>
-          <a href="./login.html" class="menu_nav">login</a>
+          <a href="./login.html" class="menu_nav" id="loginMenu">login</a>
           <a href="./hire.html" class="menu_nav hire_now">Hire me</a>
           <!-- <button class="hire_now menu_nav">Hire me</button> -->
         </div>
@@ -48,94 +48,6 @@
       <div class="blog_section">
         <div class="blog_content">
           <div class="blog_item_left">
-            <!-- <div class="blog_item">
-              <div class="blog_image">
-                <img
-                  src="../images/pexels-adrianna-calvo-4886824.jpg"
-                  alt="photo_blog"
-                />
-              </div>
-              <h3>website Development</h3>
-              <p class="blog_title">
-                website Development is a great opportunity to show to the world
-                the real you with your business
-              </p>
-              <h4 class="readmore">
-                <a href="./single_blog.html">Read more..</a>
-              </h4>
-            </div>
-            <div class="blog_item">
-              <div class="blog_image">
-                <img
-                  src="../images/pexels-adrianna-calvo-4886824.jpg"
-                  alt="photo_blog"
-                />
-              </div>
-              <h3>website Development</h3>
-              <p class="blog_title">
-                website Development is a great opportunity to show to the world
-                the real you with your business
-              </p>
-              <h4 class="readmore">Read more..</h4>
-            </div>
-            <div class="blog_item">
-              <div class="blog_image">
-                <img
-                  src="../images/pexels-adrianna-calvo-4886824.jpg"
-                  alt="photo_blog"
-                />
-              </div>
-              <h3>website Development</h3>
-              <p class="blog_title">
-                website Development is a great opportunity to show to the world
-                the real you with your business
-              </p>
-              <h4 class="readmore">Read more..</h4>
-            </div>
-
-            <div class="blog_item">
-              <div class="blog_image">
-                <img
-                  src="../images/pexels-adrianna-calvo-4886824.jpg"
-                  alt="photo_blog"
-                />
-              </div>
-              <h3>website Development</h3>
-              <p class="blog_title">
-                website Development is a great opportunity to show to the world
-                the real you with your business
-              </p>
-              <h4 class="readmore">Read more..</h4>
-            </div>
-            <div class="blog_item">
-              <div class="blog_image">
-                <img
-                  src="../images/pexels-adrianna-calvo-4886824.jpg"
-                  alt="photo_blog"
-                />
-              </div>
-              <h3>website Development</h3>
-              <p class="blog_title">
-                website Development is a great opportunity to show to the world
-                the real you with your business
-              </p>
-              <h4 class="readmore">Read more..</h4>
-            </div>
-            <div class="blog_item">
-              <div class="blog_image">
-                <img
-                  src="../images/pexels-adrianna-calvo-4886824.jpg"
-                  alt="photo_blog"
-                />
-              </div>
-              <h3>website Development</h3>
-              <p class="blog_title">
-                website Development is a great opportunity to show to the world
-                the real you with your business
-              </p>
-              <h4 class="readmore">Read more..</h4>
-            </div> -->
-
             <h2>
               Welcome to my <span id="blog_number">blogs</span> from my Backend
             </h2>
@@ -207,88 +119,22 @@
     </footer>
   </body>
   <script src="../Js/blogs.js" type="module"></script>
+  <script>
+    // // check if user is logged in
+    let token = localStorage.getItem("token");
+    if (token) {
+      console.log(token);
 
-  <!-- <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-    import {
-      getDatabase,
-      set,
-      ref,
-      onValue,
-    } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
-
-    // import { initializeApp } from "firebase/app";
-
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyA5sPlupW_n1XEt6xsw_Y7aAZKltGEFyXw",
-      authDomain: "mybrand-df7b7.firebaseapp.com",
-      projectId: "mybrand-df7b7",
-      storageBucket: "mybrand-df7b7.appspot.com",
-      messagingSenderId: "1073877765217",
-      appId: "1:1073877765217:web:7f63596f42c5d4ca18ae20",
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-
-    //function to get inpu value
-
-    function getInputValue(id) {
-      return document.getElementById(id).value;
+      const loginMenu = document.getElementById("loginMenu");
+      loginMenu.innerHTML = "Dashboard";
+      loginMenu.setAttribute("href", "./dashboard.html");
+      // ...
     }
-
-    //my add blog button
-    const addButton = document.getElementById("addBlog");
-    const blogAdmin = document.getElementById("blog_admin");
-
-    const blogs = ref(database, "blogs/");
-    onValue(blogs, (snapshot) => {
-      const data = snapshot.val();
-
-      let blogsArray = [];
-      console.log(data);
-
-      for (var [key, value] of Object.entries(data)) {
-        // console.log(value.title, value.body, data);
-        console.log(key);
-        var obj = {
-          id: value.id,
-          title: value.title,
-          body: value.body,
-          Image: value.Image,
-          uid_key: key,
-        };
-
-        blogsArray.push(obj);
-        console.log(blogsArray);
-
-        const content_elt = document.createElement("DIV");
-        content_elt.innerHTML = `
-        <div class="blog_image blog" data-id=${value.id}>
-          <img src=${value.Image} alt="blog image blog" data-id=${value.id}>
-        </div>
-        <h3 class="blog" data-id=${value.id}>${value.title}</h3>
-        <p class="blog_title blog" data-id=${value.id}>${value.body}</p>
-        <p  data-id=${value.id} class="readme_button blog">Read more..</p>
-        `;
-
-        content_elt.setAttribute("class", "blog_item");
-        content_elt.setAttribute("data-id", value.id);
-        blogAdmin.append(content_elt);
-      }
-
-      console.log(blogsArray);
-
-      const dataSave = JSON.stringify(blogsArray);
-
-      // save to localStorage
-      localStorage.setItem("data", dataSave);
-    });
-  </script> -->
+    // if (token == undefined) {
+    //   // User is signed out
+    //   // ...
+    //   location.href = "./login.html";
+    //   console.log("no user");
+    // }
+  </script>
 </html>

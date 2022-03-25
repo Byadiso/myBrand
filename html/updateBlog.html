@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBrand</title>
-    <link rel="stylesheet" href="../css/services.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
     <!-- for roboto font -->
     <link
       href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
@@ -38,38 +38,47 @@
     <section>
       <div class="hero_section">
         <div class="hero_content">
-          <h1>I create everyday</h1>
-          <h1>Beautiful Designs</h1>
+          <h2>Hello I'm</h2>
+          <h1>Desire BYAMUNGU</h1>
+          <h2>Full-stack Developer</h2>
+          <button class="hire_now hire_text">Hire me</button>
         </div>
       </div>
 
-      <!-- Services section -->
+      <!-- Top Promotions section-->
 
-      <div class="service_section">
-        <div class="Service_header">
-          <h2>Services</h2>
-          <p>What I Do</p>
-        </div>
-        <div class="service_content">
-          <div class="service_item">
-            <div class="service_text">
-              <h4 class="service_title">website Development</h4>
-            </div>
-          </div>
-          <div class="service_item">
-            <div class="service_text">
-              <h4 class="service_title">App Development</h4>
-            </div>
-          </div>
-          <div class="service_item">
-            <div class="service_text">
-              <h4 class="service_title">SEO Optimization</h4>
-            </div>
-          </div>
-          <div class="service_item">
-            <div class="service_text">
-              <h4 class="service_title">SEO Optimization</h4>
-            </div>
+       
+        <div class="updateBlog_section">
+          <div class="update_blog" id="form_blog">
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Update title"
+            />
+
+            <textarea
+              type="text"
+              name="content"
+              id="content"
+              placeholder="Add your content here"
+            >
+            </textarea>
+
+            <input
+              type="file"
+              name="image"
+              id="image"
+              value=""
+              placeholder="add image"
+            />
+
+            <input
+              class="updateBlog add_blog_button"
+              type="submit"
+              value="Add Blog"
+              id="updateBlog"
+            />
           </div>
         </div>
       </div>
@@ -100,9 +109,8 @@
       </div>
     </footer>
   </body>
+  <script>
 
-  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
-  <script type="module">
     // check if user is logged in
     let token = localStorage.getItem("token");
     if (token) {
@@ -119,5 +127,26 @@
       location.href = "./login.html";
       console.log("no user");
     }
+  </script>
+  <script src="../Js/updateBlog.js"></script>
+
+
+  <script src="../Js/tinymce/tinymce.min.js"></script>
+  <script>
+    console.log(tinymce);
+    tinymce.init({
+      selector: "#content",
+      width: 450,
+      height: 250,
+    });
+  </script> -->
+
+  <script>
+    console.log(tinymce);
+    tinymce.init({
+      selector: "#content",
+      maxwidth: 450,    
+      height: 250,
+    });
   </script>
 </html>

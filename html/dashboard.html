@@ -29,7 +29,7 @@
           <a href="./blog.html" class="menu_nav">Blog</a>
           <a href="./services.html" class="menu_nav">Services</a>
           <a href="./contact.html" class="menu_nav">Contact us</a>
-          <a href="./login.html" class="menu_nav">login</a>
+          <a href="./login.html" class="menu_nav" id="loginMenu">login</a>
           <a href="./hire.html" class="menu_nav hire_now">Hire me</a>
           <!-- <button class="hire_now menu_nav">Hire me</button> -->
         </div>
@@ -56,18 +56,38 @@
               </div>
               <div class="dashboard_categories">
                 <h1>Dashboard</h1>
-                <a href="#" id="add"><i class="fa fa-add"></i>Add Blog</a>
-                <a href="#" id="info"><i class="fa fa-add"></i>My info</a>
-                <a href="#" id="members"><i class="fa fa-add"></i>Members</a>
-                <a href="#" id="settings"
-                  ><i class="fa fa-settings"></i>Settings</a
+                <a href="../html/add_blog.html" id="add" class="addBlog"
+                  ><i class="fa fa-plus"></i>Add Blog</a
+                >
+                <a href="../html/info.html" id="info" class="myInfo"
+                  ><i class="fa fa-info"></i>My info</a
+                >
+                <a href="../html/members" id="members" class="members"
+                  ><i class="fa fa-user"></i>Subscribers</a
+                >
+                <a href="../html/messages.html" id="add" class="addBlog"
+                  ><i class="fa fa-envelope"></i>Messages</a
+                >
+                <a href="../html/settings.html" id="settings" class="settings"
+                  ><i class="fa fa-gear"></i>Settings</a
+                >
+                <a href="#" id="logout" class="logout"
+                  ><i class="fa fa-sign-out"></i>logout</a
                 >
               </div>
             </div>
           </div>
           <div class="dashboard_item_rigt">
-            <div id="main_dashboard">
+            <div id="main_dashboard ">
               Hello Admin welcome to your dashboards
+            </div>
+            <div id="blog_admin">
+              <img
+                id="loading"
+                src="../images/loading.gif"
+                alt="loading trick"
+                srcset=""
+              />
             </div>
 
             <div class="add_blog hide" id="form_blog">
@@ -77,12 +97,7 @@
                 id="title"
                 placeholder="add title"
               />
-              <!-- <input
-                type="text"
-                name="body"
-                id="body"
-                placeholder="Add your content here"
-              /> -->
+
               <textarea
                 type="text"
                 name="body"
@@ -105,6 +120,39 @@
                 id="addBlog"
               />
             </div>
+
+            <!-- edit form -->
+            <div class="add_blog hide" id="form_edit">
+              <input
+                type="text"
+                name="title"
+                id="title_update"
+                placeholder="add title"
+              />
+
+              <textarea
+                type="text"
+                name="body"
+                id="body_update"
+                placeholder="Add your content here"
+              >
+              </textarea>
+
+              <input
+                type="file"
+                name="image"
+                id="image_update"
+                placeholder="add image"
+              />
+
+              <input
+                class="addBlog add_blog_button"
+                type="submit"
+                value="Update Blog"
+                id="updateBlog"
+              />
+            </div>
+            <h5 id="alert_message_add_blog" class="hide">Added successfully</h5>
           </div>
         </div>
       </div>
@@ -138,147 +186,44 @@
   <script src="../Js/dashboard.js" defer></script>
   <script src="../Js/tinymce/tinymce.min.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
-
   <script type="module">
     // Import the functions you need from the SDKs you need
 
-    // import {
-    //   getDatabase,
-    //   set,
-    //   ref,
-    //   update,
-    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
-    // import {
-    //   getAuth,
-    //   createUserWithEmailAndPassword,
-    //   signInWithEmailAndPassword,
-    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js";
+    const logoutButton = document.getElementById("logout");
 
-    // import {
-    //   getStorage,
-    //   ref as sRef,
-    // } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-storage.js";
-    // import { initializeApp } from "firebase/app";
-
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyA5sPlupW_n1XEt6xsw_Y7aAZKltGEFyXw",
-      authDomain: "mybrand-df7b7.firebaseapp.com",
-      projectId: "mybrand-df7b7",
-      storageBucket: "mybrand-df7b7.appspot.com",
-      messagingSenderId: "1073877765217",
-      appId: "1:1073877765217:web:7f63596f42c5d4ca18ae20",
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    // const database = firebase.getDatabase(app);
-    // const auth = firebase.getAuth();
-    // const storage = firebase.getStorage(app);
-
-    const addButton = document.getElementById("addBlog");
-
-    addButton.addEventListener("click", (e) => {
+    logoutButton.addEventListener("click", (e) => {
       e.preventDefault();
+      // console.log("yes log out");
+      auth.signOut().then(() => {
+        console.log("User logged out");
 
-      // image variable
-      const image = document.getElementById("image").files[0];
-      const imageName = image.name;
-
-      //refernce a collection
-      const storageRef = firebase.storage().ref("images/" + imageName);
-      // const imagesRef = ref("images/" + imageName);
-
-      // upload image to selected  storage reference
-      var uploadTask = storageRef.put(image);
-
-      uploadTask.on(
-        "state_changed",
-        function (snapshot) {
-          var progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "done");
-        },
-        function (error) {
-          console.log(error.message);
-        },
-        function () {
-          // handle successfully upload here..
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            // getimage downloaded url here and upload to the database
-
-            const title = getInputValue("title");
-            // const body = getInputValue("body");
-
-            const blogText = tinymce.activeEditor.getContent();
-            // var id;
-
-            var id = Math.floor(Math.random() * 100);
-
-            firebase
-              .database()
-              .ref("blogs/")
-              .push()
-              .set(
-                {
-                  title: title,
-                  // body: body,
-                  body: blogText,
-                  Image: downloadURL,
-                  id: id,
-                },
-                function (error) {
-                  if (error) {
-                    console.log("error whie uploading");
-                  } else {
-                    console.log("successfully uploaded");
-                  }
-                }
-              );
-          });
-
-          //function to get input value
-
-          function getInputValue(id) {
-            return document.getElementById(id).value;
-          }
-
-          //my add blog button
-          // const addButton = document.getElementById("addBlog");
-
-          // addButton.addEventListener("click", (e) => {
-          //   e.preventDefault();
-
-          //   const title = getInputValue("title");
-          //   const body = getInputValue("body");
-
-          //   set(ref(database, "blogs/" + title), {
-          //     title: title,
-          //     body: body,
-          //     Image: image,
-          //   });
-
-          console.log("blog added successully");
-        }
-      );
+        setTimeout(() => {
+          location.href = "./blog.html";
+        }, 3000);
+      });
     });
-  </script>
 
-  <!-- adding tiny myce -->
+    // check if user is logged in
+    let token = localStorage.getItem("token");
+    if (token) {
+      console.log(token);
 
-  <script>
-    console.log(tinymce);
-    tinymce.init({
-      selector: "#body",
-      width: 450,
-      height: 250,
-    });
+      const loginMenu = document.getElementById("loginMenu");
+      loginMenu.innerHTML = "Dashboard";
+      loginMenu.setAttribute("href", "./dashboard.html");
+      // ...
+    }
+    if (token == undefined) {
+      // User is signed out
+      // ...
+      location.href = "./login.html";
+      console.log("no user");
+    }
+
+    // for edit and delete item from firebase
+
+    const removeBlogButton = document.getElementById("removeBlog");
+    const editBlogButton = document.getElementById("editBlog");
+    const blogAdmin = document.getElementById("blog_admin");
   </script>
 </html>

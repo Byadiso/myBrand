@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //Login logic from the Server
 
   const login = () => {
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const username_register = document.querySelector(
       '[name="username-register"]'
     );
-    fetch("http://localhost:3000/signup", {
+    fetch("http://localhost:3000/api/v1/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

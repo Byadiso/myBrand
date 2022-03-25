@@ -29,7 +29,7 @@
           <a href="./blog.html" class="menu_nav">Blog</a>
           <a href="./services.html" class="menu_nav">Services</a>
           <a href="./contact.html" class="menu_nav">Contact us</a>
-          <a href="./login.html" class="menu_nav">login</a>
+          <a href="./login.html" class="menu_nav" id="loginMenu">login</a>
           <a href="./hire.html" class="menu_nav hire_now">Hire me</a>
           <!-- <button class="hire_now menu_nav">Hire me</button> -->
         </div>
@@ -135,4 +135,24 @@
       </div>
     </footer>
   </body>
+
+  <script>
+
+    // check if user is logged in
+    let token = localStorage.getItem("token");
+    if (token) {
+      console.log(token);
+
+      const loginMenu = document.getElementById("loginMenu");
+      loginMenu.innerHTML = "Dashboard";
+      loginMenu.setAttribute("href", "./dashboard.html");
+      // ...
+    }
+    if (token == undefined) {
+      // User is signed out
+      // ...
+      location.href = "./login.html";
+      console.log("no user");
+    }
+  </script>
 </html>

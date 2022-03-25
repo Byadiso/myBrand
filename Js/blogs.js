@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //function to fetch all dat from backend
 
   const listAll = () => {
-    return fetch("http://localhost:3000/blogs")
+    return fetch("http://localhost:3000/api/v1/blogs")
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
@@ -22,13 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(data);
     blogNumber.innerHTML = data.count;
     messageDiv.className = "err";
-    messageDiv.innerHTML = data.message;
+    // messageDiv.innerHTML = data.message;
     blogs = data.blogs;
     for (var i = 0; i < blogs.length; i++) {
       let content_elt = document.createElement("DIV");
       const { _id, title, content, createdAt } = blogs[i];
 
-      let photoUrl = `http://localhost:3000/blog/photo/${_id}`;
+      // content = content.substr(0, 100);
+
+      let photoUrl = `http://localhost:3000/api/v1/blog/photo/${_id}`;
 
       // for short  notation is the best
       var timestamp = timeDifference(new Date(), new Date(createdAt));
@@ -36,15 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src=${photoUrl} alt="blog image blog" data-id=${_id}>
       </div>
       <h3 class="blog" data-id=${_id}>${title}</h3>
-      <p class="blog_title blog" data-id=${_id}>${content}</p>
+      
       <p  data-id=${_id} class="readme_button blog">Read more..</p>
       `;
 
+      // <p class="blog_title blog" data-id=${_id}>${content}</p>
       content_elt.setAttribute("class", "blog_item");
       content_elt.setAttribute("data-id", _id);
 
       // adding a class to my content_elt
-      content_elt.setAttribute("class", "column-grid-blog");
+      content_elt.setAttribute("class", "blog_item");
 
       // to append my whole create section
       blogDiv.append(content_elt);

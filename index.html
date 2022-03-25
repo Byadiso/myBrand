@@ -42,7 +42,12 @@
           <a href="./html/contact.html" class="menu_nav small_device"
             >Contact us</a
           >
-          <a href="./html/login.html" class="menu_nav small_device">login</a>
+          <a
+            href="./html/login.html"
+            class="menu_nav small_device"
+            id="loginMenu"
+            >login</a
+          >
           <a href="./html/hire.html" class="menu_nav hire_now small_device"
             >Hire me</a
           >
@@ -201,4 +206,23 @@
     </footer>
   </body>
   <script src="./Js/script.js"></script>
+
+  <script>
+    // check if user is logged in
+    let token = localStorage.getItem("token");
+    if (token) {
+      console.log(token);
+
+      const loginMenu = document.getElementById("loginMenu");
+      loginMenu.innerHTML = "Dashboard";
+      loginMenu.setAttribute("href", "./dashboard.html");
+      // ...
+    }
+    if (token == undefined) {
+      // User is signed out
+      // ...
+      location.href = "./login.html";
+      console.log("no user");
+    }
+  </script>
 </html>
