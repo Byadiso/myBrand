@@ -20,6 +20,7 @@ router.post("/v1/category/create/", requireSignin, isAdmin, create);
 router.delete("/v1/category/:categoryId/", requireSignin, isAdmin, remove);
 router.put("/v1/category/:categoryId/", requireSignin, isAdmin, update);
 router.get("/v1/categories", list);
+router.get("/v1/categories/:categoryId", read);
 
 router.param("userId", userById);
 router.param("categoryId", categoryById);

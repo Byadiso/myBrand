@@ -61,53 +61,46 @@ export const listByUser = (req, res) => {
 };
 
 export const create = (req, res) => {
-  let form = new formidable.IncomingForm();
+  // check for all fields
 
-  form.keepExtensions = true;
-  form.parse(req, (err, fields) => {
-    // console.log("Parsing done.");
-    // console.dir(req.headers);
-    // console.log(fields);
-    // // console.log(files);
-    // console.log(files.image);
+  if (!req.body.sender && !req.body.email && req.body.content) {
+    return res.status(400).json({
+      error: " All fields are required",
+    });
+  }
 
-    // check for all fields
-    const { sender, email, content } = fields;
+  if (!req.body.sender) {
+    return res.status(400).json({
+      error: `Your name is required.`,
+    });
+  }
+  if (!req.body.content) {
+    return res.status(400).json({
+      error: `Your content is required.`,
+    });
+  }
+  if (!req.body.email) {
+    return res.status(400).json({
+      error: `Your email is required.`,
+    });
+  }
 
-    if (!sender && !email && content) {
-      return res.status(400).json({
-        error: " All fields are required",
+  let message = new Message(req.body);
+  message.createdBy = req.body.sender;
+
+  message.save((err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(404).json({
+        // error: errorHandler(err),
+        error: err.message,
+        status: false,
       });
     }
-
-    if (!sender) {
-      return res.status(400).json({
-        error: `Your name is required`,
-      });
-    }
-    if (!content) {
-      return res.status(400).json({
-        error: `Content is required`,
-      });
-    }
-
-    let message = new Message(fields);
-    message.createdBy = req.body.sender;
-
-    message.save((err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(404).json({
-          // error: errorHandler(err),
-          error: err.message,
-          status: false,
-        });
-      }
-      res.json({
-        message: result,
-        status: true,
-        message: "Your message has been sent successful",
-      });
+    res.json({
+      message: result,
+      status: true,
+      message: "Your message has been sent successful",
     });
   });
 };

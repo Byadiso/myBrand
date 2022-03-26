@@ -1,73 +1,107 @@
-// import request from "supertest";
-// import app from "../../../";
-// import mongoose from "mongoose";
+import request from "supertest";
+import app from "../../../";
+import mongoose from "mongoose";
 
-// describe("user tests", () => {
-//   beforeEach(async () => {
-//     await mongoose
-//       .connect(process.env.MONGODB_URI)
-//       .then(() => console.log("DB Connected"))
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }, 9000);
-//   let token;
-//   beforeAll(() =>
-//     request(app)
-//       .post("/users")
-//       .send({
-//         name: "testo",
-//         email: "testo@gmail.com",
-//         password: "123123",
-//         role: "user",
-//       })
-//       .then((res) => {
-//         token = res.body.token;
-//       })
-//   );
+beforeEach(async () => {
+  await mongoose
+    .connect(process.env.MONGODB_URI)
+    .then(() => console.log("DB Connected"))
+    .catch((error) => {
+      console.log(error);
+    });
+}, 9000);
 
-//   describe("test signup", () => {
-//     let user, res;
-//     it("should signup unique user", async () => {
-//       user = { name: "testo", email: "test1@gmail.com", password: "123123" };
-//       res = await request(app).post("/users").send(user);
-//       expect(res.body.message).toContain("successfully registered");
-//     });
-//     it("should not register an existing user", async () => {
-//       user = { name: "testo", email: "testo@gmail.com", password: "123123" };
-//       res = await request(app).post("/users").send(user);
-//       expect(res.body.message).toContain("exists");
-//     });
-//     it("should not register if no email", async () => {
-//       user = { name: "testo", email: "", password: "123123" };
-//       res = await request(app).post("/users").send(user);
-//       expect(res.body.error).toBe("email missing");
-//     });
-//     it("should not register if no name", async () => {
-//       user = { name: "", email: "testo@mail.com", password: "123123" };
-//       res = await request(app).post("/users").send(user);
-//       expect(res.body.error).toBe("name missing");
-//     });
-//     it("should catch invalid email", async () => {
-//       user = { name: "mkjhi", email: "testomail.com", password: "123123" };
-//       res = await request(app).post("/users").send(user);
-//       expect(res.body.error).toBe("invalid email");
-//     });
-//   });
-//   describe("create blog", () => {
-//     it("should not create blog", async () => {
-//       const res = await request(app)
-//         .post("/blogs")
-//         .set("Authorization", "")
-//         .send({ title: "kjhgfh", content: "hjghf" });
-//       expect(res.body.message).toContain("login first");
-//     });
-//     it("should not creat blog if not admin", async () => {
-//       const res = await request(app)
-//         .post("/blogs")
-//         .set("Authorization", "Bearer " + token)
-//         .send({ title: "kjhgfh", content: "hjghf" });
-//       expect(res.body.message).toContain("logged in as admin");
-//     });
-//   });
-// });
+describe("CATEGORIES tests", () => {
+  let token;
+
+  describe("Create a category Test", () => {
+    let category, res;
+    it("should create a category", async () => {
+      category = {
+        name: "sport",
+      };
+
+      let loggedUser = await request(app).post("/api/v1/login").send({
+        email: "test1@gmail.com",
+        password: "123123",
+      });
+
+      res = await request(app)
+        .post("/api/v1/category/create")
+        .send(category)
+        .set("Authorization", "Bearer " + loggedUser.body.token);
+      expect(res.body.message).toContain("successfully created a category");
+    });
+
+    it("should not create a category with no name", async () => {
+      category = {
+        name: "",
+      };
+
+      let cat = await request(app)
+        .post("/api/v1/category/create")
+        .send(category);
+
+      expect(cat.body.error).toContain("Your category name is required");
+    });
+
+    it("should get all categories", async () => {
+      res = await request(app).get("/api/v1/categories");
+      expect(res.body.message).toContain("all your categories");
+    });
+
+    it("should get single category", async () => {
+      let cat = await request(app).get("/api/v1/categories/");
+      // .then((item) => console.log(item._body.categories[0]._id));
+
+      res = await request(app).get(
+        `/api/v1/categories/${cat._body.categories[0]._id}`
+      );
+      expect(res.body.message).toContain("Single category");
+    });
+
+    it("should not get single category if no id provided", async () => {
+      let categoryId = await request(app).get("/api/v1/categories").Categories;
+      let category = await request(app).get(`/api/v1/categories/${categoryId}`);
+      expect(category.body.error).toContain("category Does not exist");
+    });
+
+    it("should update a category", async () => {
+      let loggedUser = await request(app).post("/api/v1/login").send({
+        email: "test1@gmail.com",
+        password: "123123",
+      });
+
+      let categoryId = await request(app).get("/api/v1/categories");
+      let category = await request(app)
+        .put(`/api/v1/category/${categoryId._body.categories[0]._id}`)
+        .send({ name: "sport" })
+        .set("Authorization", "Bearer " + loggedUser.body.token);
+      expect(category.body.message).toContain("Category updated successfully");
+    });
+
+    it("should not update a category if no id provided", async () => {
+      let categoryId = await request(app).get("/api/v1/categories");
+
+      let category = await request(app).put(`/api/v1/category/${categoryId}`);
+      expect(category.body.error).toContain("category Does not exist");
+    });
+
+    it("should delete a category", async () => {
+      let categoryId = await request(app).get("/api/v1/categories");
+      let category = await request(app).delete(
+        `/api/v1/category/${categoryId._body.categories[0]._id}`
+      );
+      expect(category.body.message).toContain("Category deleted successfully");
+    });
+
+    it("should not delete a category if no id provided", async () => {
+      let categoryId = await request(app).get("/api/v1/categories");
+
+      let category = await request(app).delete(
+        `/api/v1/category/${categoryId}`
+      );
+      expect(category.body.error).toContain("category Does not exist");
+    });
+  });
+});

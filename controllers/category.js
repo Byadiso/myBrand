@@ -2,25 +2,26 @@ import { errorHandler } from "../helper/dbErroHandler.js";
 import Category from "../models/category.js";
 
 export const create = (req, res) => {
-  const category = new Category(req.body);
-  console.log(category);
-  if (category !== undefined) {
-    category.save((err, data) => {
-      if (err) {
-        return res.status(400).json({
-          error: errorHandler(err),
-          error: err,
-        });
-      }
-      res.json({
-        category: data,
-        status: true,
-        message: "Your category has been successfull created",
-      });
+  if (!req.body.name) {
+    return res.status(400).json({
+      error: `Your category name is required`,
     });
-  } else {
-    res.status(400).json({ message: " enter a name first" });
   }
+  const category = new Category(req.body);
+
+  category.save((err, data) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler(err),
+        error: err,
+      });
+    }
+    res.json({
+      category: data,
+      status: true,
+      message: "Your category has been successfull created",
+    });
+  });
 };
 
 export const categoryById = (req, res, next, id) => {
@@ -36,7 +37,7 @@ export const categoryById = (req, res, next, id) => {
 };
 
 export const read = (req, res) => {
-  return res.json(req.category);
+  return res.json({ category: req.category, message: "Single category" });
 };
 
 export const remove = (req, res) => {
@@ -77,9 +78,9 @@ export const list = (req, res) => {
         error: errorHandler(err),
       });
     }
-    res.json({
+    return res.status(200).json({
       count: categories.length,
-      Categories: categories,
+      categories: categories,
       message: "all your categories",
     });
   });

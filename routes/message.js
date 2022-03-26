@@ -16,15 +16,15 @@ import { userById } from "../controllers/user.js";
 import { verifyToken } from "../middlewares/auth.js";
 import { mongooseErrorHandler } from "../middlewares/checkerros.js";
 
-router.post("/message/create/", create);
+router.post("/v1/message/create/", create);
 router.delete(
-  "/message/:messageId/",
+  "/v1/message/:messageId/",
   verifyToken,
   requireSignin,
   isAdmin,
   remove
 );
-router.put("/v1/message/:messageId/", update);
+router.put("/v1/message/:messageId/", isAdmin, update);
 router.get("/v1/message/:messageId", read);
 router.get("/v1/messages", list);
 router.get("/v1/message/", listByUser);

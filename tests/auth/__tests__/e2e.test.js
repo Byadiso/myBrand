@@ -23,7 +23,7 @@ describe("Auth tests", () => {
         username: "testo12",
         password: "123123",
       };
-      res = await request(app).post("/signup").send(user);
+      res = await request(app).post("/api/v1/signup").send(user);
       expect(res.body.message).toContain("account registered Successfully");
     });
 
@@ -34,8 +34,8 @@ describe("Auth tests", () => {
         username: "testo1",
         password: "pass123",
       };
-      res = await request(app).post("/signup").send(user);
-      expect(res.body.message).toContain("email in user");
+      res = await request(app).post("/api/v1/signup").send(user);
+      expect(res.body.error).toContain("email in user");
     });
 
     it("should not register an existing username", async () => {
@@ -45,25 +45,25 @@ describe("Auth tests", () => {
         username: "testo",
         password: "pass123",
       };
-      res = await request(app).post("/signup").send(user);
-      expect(res.body.message).toContain("username  already in user");
+      res = await request(app).post("/api/v1/signup").send(user);
+      expect(res.body.error).toContain("username  already in user");
     });
 
     it("should not register if no email", async () => {
       user = { name: "desire byamungu", email: "", password: "pass123" };
-      res = await request(app).post("/signup").send(user);
+      res = await request(app).post("/api/v1/signup").send(user);
       expect(res.body.error).toBe("Email must contain @");
     });
 
     it("should not register if no name", async () => {
       user = { name: "", email: "test@mail.com", password: "pass123" };
-      res = await request(app).post("/signup").send(user);
+      res = await request(app).post("/api/v1/signup").send(user);
       expect(res.body.error).toBe("Name is required");
     });
 
     it("should not register user with invalid email", async () => {
       user = { name: "test", email: "testmail.com", password: "123123" };
-      res = await request(app).post("/signup").send(user);
+      res = await request(app).post("/api/v1/signup").send(user);
       expect(res.body.error).toBe("Email must contain @");
     });
   });
@@ -71,7 +71,7 @@ describe("Auth tests", () => {
   describe("Login user", () => {
     it("should login user successfully", async () => {
       const res = await request(app)
-        .post("/login")
+        .post("/api/v1/login")
         .send({ email: "test@gmail.com", password: "123123" });
       expect(res.body.message).toContain("user logged in successfully");
     });
@@ -79,7 +79,7 @@ describe("Auth tests", () => {
     "should not log user with no email",
       async () => {
         const res = await request(app)
-          .post("/login")
+          .post("/api/v1/login")
           .send({ email: "", password: "123123" });
         expect(res.body.error).toContain("email is required");
       };
