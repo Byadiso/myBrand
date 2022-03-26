@@ -13,7 +13,7 @@
     "build": "nodemon  server.js --out-dir build",
     "start": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
-    "startDev": "nodemon server.js"    
+    "startDev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -44,7 +44,7 @@
     "express": "^4.17.3",
     "express-jwt": "^6.1.1",
     "express-validator": "^5.3.1",
-    "formidable": "^1.2.2",
+    "formidable": "^1.2.6",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^9.2.2",
     "mongoose": "^6.2.4",
@@ -65,7 +65,7 @@
     "joi": "^14.3.1",
     "supertest": "^6.2.2"
   },
-    "engines": {
-    "node": "17.x"
+  "engines": {
+    "node": "12.x"
   }
 }
