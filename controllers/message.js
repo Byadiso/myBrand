@@ -5,17 +5,16 @@ import fs from "fs";
 import Message from "../models/message.js";
 
 export const messageById = (req, res, next, id) => {
-  Message.findById(id)
-    .populate("message.createdBy", "_id name")
-    .exec((err, message) => {
-      if (err || !message) {
-        return res.status(400).json({
-          error: " message not found",
-        });
-      }
-      req.message = message;
-      next();
-    });
+  Message.findById(id).exec((err, message) => {
+    if (err || !message) {
+      return res.status(400).json({
+        errorMessage: " message not found",
+        error: err,
+      });
+    }
+    req.message = message;
+    next();
+  });
 };
 
 export const read = (req, res) => {
@@ -110,7 +109,7 @@ export const remove = (req, res) => {
   message.remove((err, deletedMessage) => {
     if (err) {
       return res.status(400).json({
-        error: errorHandler(err),
+        error: err,
       });
     }
     res.json({
