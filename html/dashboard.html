@@ -191,23 +191,9 @@
 
     const logoutButton = document.getElementById("logout");
 
-    logoutButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      // console.log("yes log out");
-      auth.signOut().then(() => {
-        console.log("User logged out");
-
-        setTimeout(() => {
-          location.href = "./blog.html";
-        }, 3000);
-      });
-    });
-
     // check if user is logged in
     let token = localStorage.getItem("token");
     if (token) {
-      console.log(token);
-
       const loginMenu = document.getElementById("loginMenu");
       loginMenu.innerHTML = "Dashboard";
       loginMenu.setAttribute("href", "./dashboard.html");
@@ -219,6 +205,14 @@
       location.href = "./login.html";
       console.log("no user");
     }
+
+    logoutButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("yes log out");
+      localStorage.removeItem("token");
+
+      location.href = "./login.html";
+    });
 
     // for edit and delete item from firebase
 

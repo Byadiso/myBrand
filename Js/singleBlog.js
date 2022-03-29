@@ -32,12 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // function to render my blog
   function renderblog(data) {
     // console.log(data);
-    messageDiv.className = "err";
+    messageDiv.classList.add("err");
     // messageDiv.innerHTML = data.message;
     blog = data.Blog;
 
     let content_elt = document.createElement("DIV");
-    const { _id, title, content, createdAt, views } = blog;
+    const { _id, title, content, createdAt, views, comments } = blog;
 
     let photoUrl = `http://localhost:3000/api/v1/blog/photo/${_id}`;
 
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
     <div class="icon_blog">
         <p><i class="fa fa-heart"></i>Like</p>
-        <p><i class="fa fa-comment"></i>comment</p>
+        <p><i class="fa fa-comment"></i>${comments.length + " "}Comments</p>
         <p><i class="fa fa-eye"></i>${views}</p>
 
        </div>
@@ -56,7 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
     <p class="blog_title blog" data-id=${_id}>${content}</p>
     <div class="comment_section">
             <div class="comment_content">
-                <p>this is your comment</p>
+            <h2>Comments</h2>
+            <hr>
+                <p>${comments.length === 0 ? "No Comment yet" : comments[0]}</p>
             </div>
             <div class="comment_form">
               <textarea class="comment" placeholder="add your comment">
@@ -90,19 +92,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // addEventListener to my single blog  save our id to localStorage
 
-  blogDiv.addEventListener("click", (e) => {
-    e.preventDefault();
-    let id = e.target.dataset.id;
+  // blogDiv.addEventListener("click", (e) => {
+  //   e.preventDefault();
+  //   let id = e.target.dataset.id;
 
-    if (e.target.className.includes("readme_button")) {
-      console.log("yes");
-      console.log(id);
-      let idSave = localStorage.setItem("id", id_clicked);
-      if (idSave != undefined) {
-        window.location.href = "../html/single_blog.html";
-      }
-    }
-  });
+  //   if (e.target.className.includes("readme_button")) {
+  //     console.log("yes");
+  //     console.log(id);
+  //     let idSave = localStorage.setItem("id", id_clicked);
+  //     if (idSave != undefined) {
+  //       window.location.href = "../html/single_blog.html";
+  //     }
+  //   }
+  // });
 });
 
 // let blog = array.find((item) => {

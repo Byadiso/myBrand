@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form_blog = document.getElementById("form_blog");
   const blogAdmin = document.getElementById("blog_admin");
   const form = document.getElementById("form_blog");
+  const logoutButton = document.getElementById("form_blog");
   let token = JSON.parse(localStorage.getItem("token"));
 
   const name = document.querySelector('[name="name"]');
@@ -129,4 +130,15 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   fetchBlog();
+
+  // loging logic
+
+  // logoutButton.addEventListener("", () => {
+  //   logout();
+  // });
+
+  // const logout = () => {
+  //   let token = localStorage.get("token");
+  //   console.log(token);
+  // };
 });

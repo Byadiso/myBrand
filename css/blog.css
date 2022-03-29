@@ -719,7 +719,7 @@ width: 100%;
 
 
 .blog_item_content{
-    margin-right: 20px;
+    margin-right: 10px;
     max-width: 100%;
 }
 
@@ -909,8 +909,8 @@ footer input[type=submit]{
     }
 
     .blog_item_content{
-        margin: 20px;
-        padding:10px;
+        margin: 10px;
+        padding:5px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1065,8 +1065,8 @@ for ipods and tables */
     }
 
     .blog_item_content{
-        padding: 20px;
-        margin: 10px;
+        padding: 5px;
+        margin: 5px;
     }
 
     /* for footer section */

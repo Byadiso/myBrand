@@ -429,9 +429,12 @@ for message */
     justify-content:center;
     /* flex-direction: column; */
     align-items: center;
-    max-width: 65%;
+    max-width: 100%;
 }
-
+#header_messages{
+    display: flex;
+    justify-content:center;
+}
 .message{
     padding: 100px;
     background:var(--colorGreyText)
@@ -593,6 +596,20 @@ update blog */
     padding:5px;
     display: none;
     justify-content: center;
+}
+
+.message_content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap:wrap;
+}
+.message_item{
+    background: var(--whiteColor);
+    border-radius: 20px;
+    margin: 20px;
+    padding: 5px;
+    
 }
 
 .dashboard_item_left{

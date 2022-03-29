@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MyBrand</title>
-    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/blog.css" />
     <!-- for roboto font -->
     <link
       href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
@@ -38,46 +38,99 @@
     <section>
       <div class="hero_section">
         <div class="hero_content">
-          <h2>Hello I'm</h2>
-          <h1>Desire BYAMUNGU</h1>
-          <h2>Full-stack Developer</h2>
-          <button class="hire_now hire_text">Hire me</button>
+          <h2>My Blogs</h2>
+          <h1>My Latest blogs</h1>
         </div>
       </div>
 
-      <!-- Top Promotions section-->
+      <!-- blogs section -->
 
-       
-        <div class="addBlog_section">
-          <div class="add_blog" id="form_blog">
-            <input
-              type="text"
-              name="title"
-              id="title"
-              placeholder="add title"
-            />
+      <div class="blog_section">
+        <div class="blog_content single_blog">
+          <div class="blog_item_left">
+            <div id="header_message"></div>
+            <div class="blog_item_content" id="blog_item_content"></div>
+            <hr />
+            <!-- for related blog -->
+            <div class="related_blog">
+              <div class="header_related">
+                <h3>Related Blog</h3>
+              </div>
 
-            <textarea
-              type="text"
-              name="content"
-              id="content"
-              placeholder="Add your content here"
-            >
-            </textarea>
+              <div class="related_blog_item">
+                <div class="blog_item_content">
+                  <div class="blog_relate_image">
+                    <img
+                      src="../images/pexels-adrianna-calvo-4886824.jpg"
+                      alt="photo_blog"
+                    />
+                  </div>
+                  <h3>website Development</h3>
+                </div>
+                <div class="blog_item_content">
+                  <div class="blog_relate_image">
+                    <img
+                      src="../images/pexels-adrianna-calvo-4886824.jpg"
+                      alt="photo_blog"
+                    />
+                  </div>
+                  <h3>website Development</h3>
+                </div>
+                <div class="blog_item_content">
+                  <div class="blog_relate_image">
+                    <img
+                      src="../images/pexels-adrianna-calvo-4886824.jpg"
+                      alt="photo_blog"
+                    />
+                  </div>
+                  <h3>website Development</h3>
+                </div>
+                <div class="blog_item_content">
+                  <div class="blog_relate_image">
+                    <img
+                      src="../images/pexels-adrianna-calvo-4886824.jpg"
+                      alt="photo_blog"
+                    />
+                  </div>
+                  <h3>website Development</h3>
+                </div>
+              </div>
+            </div>
+          </div>
 
-            <input
-              type="file"
-              name="image"
-              id="image"
-              placeholder="add image"
-            />
+          <!-- for categories -->
+          <div class="blog_item_rigt">
+            <div class="blog_item">
+              <div class="blog_search">
+                <input type="text" placeholder="Search.." name="search" />
+                <i class="fa fa-search"></i>
+              </div>
+              <div class="blog_categories">
+                <h1>Category</h1>
+                <a href="#">Busineses</a>
+                <a href="#">Sport</a>
+                <a href="#">Economic</a>
+                <a href="#">Healthy</a>
+                <a href="#">Agriculture</a>
+                <a href="#">Education</a>
+              </div>
 
-            <input
-              class="addBlog add_blog_button"
-              type="submit"
-              value="Add Blog"
-              id="addBlog"
-            />
+              <div class="blog_categories blog_popular">
+                <h1>Popular Post</h1>
+                <a href="#">Web Development</a>
+                <a href="#">Heal this word</a>
+                <a href="#">Yes it good to create</a>
+                <a href="#">Today's match</a>
+              </div>
+
+              <div class="blog_categories blog_tags">
+                <h1>Tags</h1>
+                <a href="#">Python</a>
+                <a href="#">JavaScript</a>
+                <a href="#">football</a>
+                <a href="#">Sante</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -108,12 +161,10 @@
       </div>
     </footer>
   </body>
-  <script src="../Js/tinymce/tinymce.min.js"></script>
 
-  <script src="../Js/updateBlog.js"></script>
+  <script src="../Js/singleBlog.js" defer></script>
 
   <script>
-
     // check if user is logged in
     let token = localStorage.getItem("token");
     if (token) {
@@ -121,7 +172,7 @@
 
       const loginMenu = document.getElementById("loginMenu");
       loginMenu.innerHTML = "Dashboard";
-      loginMenu.setAttribute("href", "./dashboard.html");
+      loginMenu.setAttribute("href", "./html/dashboard.html");
       // ...
     }
     if (token == undefined) {
@@ -130,23 +181,5 @@
       location.href = "./login.html";
       console.log("no user");
     }
-  </script>
-  
-  <script>
-    console.log(tinymce);
-    tinymce.init({
-      selector: "#content",
-      maxwidth: 450,    
-      height: 250,
-    });
-  </script> -->
-
-  <script>
-    console.log(tinymce);
-    tinymce.init({
-      selector: "#content",
-      maxwidth: 450,    
-      height: 250,
-    });
   </script>
 </html>
