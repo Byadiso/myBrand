@@ -1,5 +1,5 @@
 import { errorHandler } from "../helper/dbErroHandler.js";
-import formidable from "formidable";
+// import formidable from "formidable";
 import _ from "lodash";
 import fs from "fs";
 import Message from "../models/message.js";
@@ -125,25 +125,25 @@ export const remove = (req, res) => {
   });
 };
 
-export const update = (req, res) => {
-  let form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, (err, fields) => {
-    let message = req.message;
-    message = _.extend(message, fields);
+// export const update = (req, res) => {
+//   let form = new formidable.IncomingForm();
+//   form.keepExtensions = true;
+//   form.parse(req, (err, fields) => {
+//     let message = req.message;
+//     message = _.extend(message, fields);
 
-    message.save((err, result) => {
-      if (err) {
-        return res.status(404).json({
-          error: err,
-          success: false,
-        });
-      }
-      res.json({
-        message: result,
-        success: true,
-        message: "Your message has been Updated successfull",
-      });
-    });
-  });
-};
+//     message.save((err, result) => {
+//       if (err) {
+//         return res.status(404).json({
+//           error: err,
+//           success: false,
+//         });
+//       }
+//       res.json({
+//         message: result,
+//         success: true,
+//         message: "Your message has been Updated successfull",
+//       });
+//     });
+//   });
+// };
