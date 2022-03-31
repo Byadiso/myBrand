@@ -61,28 +61,33 @@ export const listByUser = (req, res) => {
 
 export const create = (req, res) => {
   // check for all fields
+  let sender = req.body.sender;
+  let email = req.body.email;
+  let content = req.body.content;
 
-  if (!req.body.sender && !req.body.email && req.body.content) {
+  if (!sender && !email && content) {
     return res.status(400).json({
       error: " All fields are required",
     });
   }
 
-  if (!req.body.sender) {
-    return res.status(400).json({
-      error: `Your name is required.`,
-    });
-  }
-  if (!req.body.content) {
-    return res.status(400).json({
-      error: `Your content is required.`,
-    });
-  }
-  if (!req.body.email) {
-    return res.status(400).json({
-      error: `Your email is required.`,
-    });
-  }
+  // if (!sender) {
+  //   console.log(req);
+  //   return res.status(400).json({
+  //     error: `Your name is required.`,
+  //   });
+  // }
+
+  // if (!content) {
+  //   return res.status(400).json({
+  //     error: `Your content is required.`,
+  //   });
+  // }
+  // if (!email) {
+  //   return res.status(400).json({
+  //     error: `Your email is required.`,
+  //   });
+  // }
 
   let message = new Message(req.body);
   message.createdBy = req.body.sender;
