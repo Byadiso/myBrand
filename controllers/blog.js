@@ -1,5 +1,5 @@
 import { errorHandler } from "../helper/dbErroHandler.js";
-import formidable from "formidable";
+// import formidable from "formidable";
 import _ from "lodash";
 import fs from "fs";
 import Blog from "../models/blog.js";
@@ -297,67 +297,67 @@ export const remove = (req, res) => {
   });
 };
 
-export const update = (req, res) => {
-  let form = new formidable.IncomingForm();
+// export const update = (req, res) => {
+//   let form = new formidable.IncomingForm();
 
-  form.keepExtensions = true;
+//   form.keepExtensions = true;
 
-  //check if i used form to update my data
+//   //check if i used form to update my data
 
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      return res.status(400).json({
-        error: "Image could not be uploaded",
-      });
-    }
+//   form.parse(req, (err, fields, files) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: "Image could not be uploaded",
+//       });
+//     }
 
-    // check for all fields
-    const { title, content } = fields;
+//     // check for all fields
+//     const { title, content } = fields;
 
-    if (!title && !content) {
-      return res.status(400).json({
-        error: " All fields are required",
-      });
-    }
+//     if (!title && !content) {
+//       return res.status(400).json({
+//         error: " All fields are required",
+//       });
+//     }
 
-    if (!title) {
-      return res.status(400).json({
-        error: `Title is required`,
-      });
-    }
-    if (!content) {
-      return res.status(400).json({
-        error: `Content is required`,
-      });
-    }
+//     if (!title) {
+//       return res.status(400).json({
+//         error: `Title is required`,
+//       });
+//     }
+//     if (!content) {
+//       return res.status(400).json({
+//         error: `Content is required`,
+//       });
+//     }
 
-    let blog = req.blog;
-    blog = _.extend(blog, fields);
-    if (files.image) {
-      //validation of image files
-      if (files.image.size > 3000000) {
-        return res.status(400).json({
-          error: "Image should be less than  3mb in size",
-        });
-      }
-      blog.image.data = fs.readFileSync(files.image.filepath);
-      blog.image.contentType = files.image.type;
-    }
-    blog.save((err, result) => {
-      if (err) {
-        return res.status(404).json({
-          error: err,
-          success: false,
-        });
-      }
-      res.json({
-        blog: result,
-        success: true,
-        message: "Your blog has been Updated successfull",
-      });
-    });
-  });
-};
+//     let blog = req.blog;
+//     blog = _.extend(blog, fields);
+//     if (files.image) {
+//       //validation of image files
+//       if (files.image.size > 3000000) {
+//         return res.status(400).json({
+//           error: "Image should be less than  3mb in size",
+//         });
+//       }
+//       blog.image.data = fs.readFileSync(files.image.filepath);
+//       blog.image.contentType = files.image.type;
+//     }
+//     blog.save((err, result) => {
+//       if (err) {
+//         return res.status(404).json({
+//           error: err,
+//           success: false,
+//         });
+//       }
+//       res.json({
+//         blog: result,
+//         success: true,
+//         message: "Your blog has been Updated successfull",
+//       });
+//     });
+//   });
+// };
 
 export const photo = (req, res, next) => {
   if (req.blog.image) {
