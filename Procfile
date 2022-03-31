@@ -1,2 +1,2 @@
-web: npm startDev
+web: npm start
 
