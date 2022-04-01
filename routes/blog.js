@@ -3,7 +3,7 @@ const router = express.Router();
 
 import { requireSignin, isAuth, isAdmin } from "../controllers/auth.js";
 import {
-  create,
+  // create,
   blogById,
   read,
   remove,
@@ -27,14 +27,14 @@ import { verifyToken } from "../middlewares/auth.js";
 import { mongooseErrorHandler } from "../middlewares/checkerros.js";
 import { createBlogValidator } from "../validator/index.js";
 
-router.post(
-  "/v1/blog/create/",
-  verifyToken,
+// router.post(
+//   "/v1/blog/create/",
+//   verifyToken,
 
-  requireSignin,
-  isAdmin,
-  create
-);
+//   requireSignin,
+//   isAdmin,
+//   create
+// );
 router.delete(
   "/v1/blogs/:blogId/",
   verifyToken,
