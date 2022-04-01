@@ -6,7 +6,7 @@ import {
   // create,
   read,
   remove,
-  update,
+  // update,
   list,
   listByUser,
   messageById,
@@ -24,7 +24,7 @@ router.delete(
   isAdmin,
   remove
 );
-router.put("/v1/message/:messageId/", isAdmin, update);
+// router.put("/v1/message/:messageId/", isAdmin, update);
 router.get("/v1/message/:messageId", read);
 router.get("/v1/messages", list);
 router.get("/v1/message/", listByUser);

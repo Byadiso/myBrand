@@ -7,7 +7,7 @@ import {
   blogById,
   read,
   remove,
-  update,
+  // update,
   list,
   listRelated,
   listCategories,
@@ -42,7 +42,7 @@ router.delete(
   isAdmin,
   remove
 );
-router.put("/v1/blogs/:blogId/", verifyToken, isAdmin, update);
+// router.put("/v1/blogs/:blogId/", verifyToken, isAdmin, update);
 router.get("/v1/blogs/:blogId", read);
 router.get("/v1/blogs", list);
 router.get("/v1/blogs/search", listSearch);
