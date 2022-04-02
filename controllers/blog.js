@@ -1,5 +1,5 @@
 import { errorHandler } from "../helper/dbErroHandler.js";
-// import formidable from "formidable";
+import formidable from "formidable";
 import _ from "lodash";
 import fs from "fs";
 import Blog from "../models/blog.js";
@@ -146,140 +146,140 @@ export const listBySearch = (req, res) => {
     });
 };
 
-// export const create = (req, res) => {
-//   let form = new formidable.IncomingForm();
-//   // console.log(req.body);
+export const create = (req, res) => {
+  let form = new formidable.IncomingForm();
+  // console.log(req.body);
 
-//   // if (req.body) {
-//   //   let blog = new Blog(req.body);
-//   //   blog.createdBy = req.profile;
-//   //   blog.save((err, result) => {
-//   //     if (err) {
-//   //       console.log(err);
-//   //       return res.status(404).json({
-//   //         // error: errorHandler(err),
-//   //         error: err.message,
-//   //         status: false,
-//   //       });
-//   //     }
-//   //     result.image = "images/blog.jpg";
-//   //     return res.json({
-//   //       blog: result,
-//   //       status: true,
-//   //       message:
-//   //         "Your blog is created successful by req.body instead of a form with an image",
-//   //     });
-//   //   });
-//   // }
-//   //
+  // if (req.body) {
+  //   let blog = new Blog(req.body);
+  //   blog.createdBy = req.profile;
+  //   blog.save((err, result) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(404).json({
+  //         // error: errorHandler(err),
+  //         error: err.message,
+  //         status: false,
+  //       });
+  //     }
+  //     result.image = "images/blog.jpg";
+  //     return res.json({
+  //       blog: result,
+  //       status: true,
+  //       message:
+  //         "Your blog is created successful by req.body instead of a form with an image",
+  //     });
+  //   });
+  // }
+  //
 
-//   form.keepExtensions = true;
+  form.keepExtensions = true;
 
-//   form.parse(req, (err, fields, files) => {
-//     // console.log("Parsing done.");
-//     // console.dir(req.headers);
+  form.parse(req, (err, fields, files) => {
+    // console.log("Parsing done.");
+    // console.dir(req.headers);
 
-//     // // console.log(files);
-//     // console.log(files.image);
-//     if (err) {
-//       return res.status(400).json({
-//         error: "Image could not be uploaded",
-//       });
-//     }
-//     // check for all fields
-//     const { title, content } = fields;
+    // // console.log(files);
+    // console.log(files.image);
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
+    // check for all fields
+    const { title, content } = fields;
 
-//     if (!title && !content) {
-//       return res.status(400).json({
-//         error: " All fields are required",
-//       });
-//     }
+    if (!title && !content) {
+      return res.status(400).json({
+        error: " All fields are required",
+      });
+    }
 
-//     if (!title) {
-//       return res.status(400).json({
-//         error: `Title is required`,
-//       });
-//     }
-//     if (!content) {
-//       return res.status(400).json({
-//         error: `Content is required`,
-//       });
-//     }
+    if (!title) {
+      return res.status(400).json({
+        error: `Title is required`,
+      });
+    }
+    if (!content) {
+      return res.status(400).json({
+        error: `Content is required`,
+      });
+    }
 
-//     let blog = new Blog(fields);
-//     blog.createdBy = req.profile;
+    let blog = new Blog(fields);
+    blog.createdBy = req.profile;
 
-//     if (files.image) {
-//       //validation of image files
-//       if (files.image.size > 3000000) {
-//         return res.status(400).json({
-//           error: "Image should be less than  3mb in size",
-//         });
-//       }
-//       // console.log(files.image);
-//       // var oldPath = files.image.path;
-//       // var newPath = path.join(__dirname, "uploads") + "/" + files.image.name;
-//       // var rawData = fs.readFileSync(oldPath);
+    if (files.image) {
+      //validation of image files
+      if (files.image.size > 3000000) {
+        return res.status(400).json({
+          error: "Image should be less than  3mb in size",
+        });
+      }
+      // console.log(files.image);
+      // var oldPath = files.image.path;
+      // var newPath = path.join(__dirname, "uploads") + "/" + files.image.name;
+      // var rawData = fs.readFileSync(oldPath);
 
-//       // fs.writeFile(newPath, rawData, function (err) {
-//       //   if (err) console.log(err);
-//       //   return res.send("Successfully uploaded to my computer");
-//       // });
+      // fs.writeFile(newPath, rawData, function (err) {
+      //   if (err) console.log(err);
+      //   return res.send("Successfully uploaded to my computer");
+      // });
 
-//       blog.image.data = fs.readFileSync(files.image.path);
-//       blog.image.contentType = files.image.type;
-//     }
+      blog.image.data = fs.readFileSync(files.image.path);
+      blog.image.contentType = files.image.type;
+    }
 
-//     blog.save((err, result) => {
-//       if (err) {
-//         // console.log(err);
-//         return res.status(404).json({
-//           // error: errorHandler(err),
-//           error: err.message,
-//           status: false,
-//         });
-//       }
-//       result.image = undefined;
-//       return res.json({
-//         blog: result,
-//         status: true,
-//         message: "Your blog is created successful",
-//       });
-//     });
+    blog.save((err, result) => {
+      if (err) {
+        // console.log(err);
+        return res.status(404).json({
+          // error: errorHandler(err),
+          error: err.message,
+          status: false,
+        });
+      }
+      result.image = undefined;
+      return res.json({
+        blog: result,
+        status: true,
+        message: "Your blog is created successful",
+      });
+    });
 
-//     // if (form.error == null) {
-//     //   console.log("NO we have something in th field");
-//     // }
-//   });
+    // if (form.error == null) {
+    //   console.log("NO we have something in th field");
+    // }
+  });
 
-//   // uncomment this or the top one for test to pass for blog
+  // uncomment this or the top one for test to pass for blog
 
-//   // if (form.error == null && req.body && req.body.files == undefined) {
-//   //   let blog = new Blog({
-//   //     title: req.body.title,
-//   //     content: req.body.content,
-//   //     image: req.body.image,
-//   //   });
-//   //   blog.createdBy = req.profile;
-//   //   blog.save((err, result) => {
-//   //     if (err) {
-//   //       console.log(err);
-//   //       return res.status(404).json({
-//   //         // error: errorHandler(err),
-//   //         error: err.message,
-//   //         status: false,
-//   //       });
-//   //     }
-//   //     result.image = "images/blog.jpg";
-//   //     return res.json({
-//   //       blog: result,
-//   //       status: true,
-//   //       message:
-//   //         "Your blog is created successful by req.body instead of a form with an image",
-//   //     });
-//   //   });
-//   // }
-// };
+  // if (form.error == null && req.body && req.body.files == undefined) {
+  //   let blog = new Blog({
+  //     title: req.body.title,
+  //     content: req.body.content,
+  //     image: req.body.image,
+  //   });
+  //   blog.createdBy = req.profile;
+  //   blog.save((err, result) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(404).json({
+  //         // error: errorHandler(err),
+  //         error: err.message,
+  //         status: false,
+  //       });
+  //     }
+  //     result.image = "images/blog.jpg";
+  //     return res.json({
+  //       blog: result,
+  //       status: true,
+  //       message:
+  //         "Your blog is created successful by req.body instead of a form with an image",
+  //     });
+  //   });
+  // }
+};
 
 export const remove = (req, res) => {
   let blog = req.blog;
@@ -297,67 +297,67 @@ export const remove = (req, res) => {
   });
 };
 
-// export const update = (req, res) => {
-//   let form = new formidable.IncomingForm();
+export const update = (req, res) => {
+  let form = new formidable.IncomingForm();
 
-//   form.keepExtensions = true;
+  form.keepExtensions = true;
 
-//   //check if i used form to update my data
+  //check if i used form to update my data
 
-//   form.parse(req, (err, fields, files) => {
-//     if (err) {
-//       return res.status(400).json({
-//         error: "Image could not be uploaded",
-//       });
-//     }
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
 
-//     // check for all fields
-//     const { title, content } = fields;
+    // check for all fields
+    const { title, content } = fields;
 
-//     if (!title && !content) {
-//       return res.status(400).json({
-//         error: " All fields are required",
-//       });
-//     }
+    if (!title && !content) {
+      return res.status(400).json({
+        error: " All fields are required",
+      });
+    }
 
-//     if (!title) {
-//       return res.status(400).json({
-//         error: `Title is required`,
-//       });
-//     }
-//     if (!content) {
-//       return res.status(400).json({
-//         error: `Content is required`,
-//       });
-//     }
+    if (!title) {
+      return res.status(400).json({
+        error: `Title is required`,
+      });
+    }
+    if (!content) {
+      return res.status(400).json({
+        error: `Content is required`,
+      });
+    }
 
-//     let blog = req.blog;
-//     blog = _.extend(blog, fields);
-//     if (files.image) {
-//       //validation of image files
-//       if (files.image.size > 3000000) {
-//         return res.status(400).json({
-//           error: "Image should be less than  3mb in size",
-//         });
-//       }
-//       blog.image.data = fs.readFileSync(files.image.filepath);
-//       blog.image.contentType = files.image.type;
-//     }
-//     blog.save((err, result) => {
-//       if (err) {
-//         return res.status(404).json({
-//           error: err,
-//           success: false,
-//         });
-//       }
-//       res.json({
-//         blog: result,
-//         success: true,
-//         message: "Your blog has been Updated successfull",
-//       });
-//     });
-//   });
-// };
+    let blog = req.blog;
+    blog = _.extend(blog, fields);
+    if (files.image) {
+      //validation of image files
+      if (files.image.size > 3000000) {
+        return res.status(400).json({
+          error: "Image should be less than  3mb in size",
+        });
+      }
+      blog.image.data = fs.readFileSync(files.image.filepath);
+      blog.image.contentType = files.image.type;
+    }
+    blog.save((err, result) => {
+      if (err) {
+        return res.status(404).json({
+          error: err,
+          success: false,
+        });
+      }
+      res.json({
+        blog: result,
+        success: true,
+        message: "Your blog has been Updated successfull",
+      });
+    });
+  });
+};
 
 export const photo = (req, res, next) => {
   if (req.blog.image) {
@@ -367,10 +367,6 @@ export const photo = (req, res, next) => {
 
   next();
 };
-
-// export const photo = (req, res, next) => {
-//   res.sendFile(path.join(__dirname, "../uploads/images/" + req.params.path));
-// };
 
 export const listSearch = (req, res) => {
   // create query object to hold search value and category value
