@@ -34,7 +34,6 @@
     "@babel/core": "^7.17.8",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "@babel/runtime": "^7.17.8",
     "@shelf/jest-mongodb": "^2.2.1",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.3",
@@ -62,10 +61,7 @@
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.17.0",
-    "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-watch": "^7.0.0",
@@ -76,6 +72,6 @@
     "supertest": "^6.2.2"
   },
   "engines": {
-    "node": "17.x"
+    "node": "17.7.1"
   }
 }
