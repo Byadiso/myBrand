@@ -1,0 +1,57 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _mongoose = _interopRequireDefault(require("mongoose"));
+
+var ObjectId = _mongoose["default"].Schema.ObjectId;
+var blogSchema = new _mongoose["default"].Schema({
+  title: {
+    type: String,
+    trim: true,
+    required: [true, "Title is required"],
+    maxlength: [32, "title should less than 32 characters"],
+    minLength: [4, "title should be at least four characters"]
+  },
+  content: {
+    type: String,
+    trim: true,
+    required: true // maxlength: 2000,
+
+  },
+  views: {
+    type: Number,
+    "default": 0
+  },
+  image: {
+    data: Buffer,
+    contentType: String
+  },
+  createdBy: {
+    type: ObjectId,
+    ref: "User"
+  },
+  comments: [{
+    type: String,
+    created: {
+      type: Date,
+      "default": Date.now
+    },
+    createdBy: {
+      type: ObjectId,
+      ref: "User"
+    }
+  }]
+}, {
+  timestamps: true
+});
+
+var Blog = _mongoose["default"].model("Blog", blogSchema);
+
+var _default = Blog;
+exports["default"] = _default;
