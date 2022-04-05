@@ -11,11 +11,11 @@ dotenv.config();
 
 //import routes
 
-import authRoutes from "./routes/auth.js";
+import authRoutes from "./src/routes/auth.js.js";
 import userRoutes from "./routes/user.js";
-import blogRoutes from "./routes/blog.js";
-import categoryRoutes from "./routes/category.js";
-import messageRoutes from "./routes/message.js";
+import blogRoutes from "./src/routes/blog.js.js";
+import categoryRoutes from "./src/routes/category.js.js";
+import messageRoutes from "./src/routes/message.js.js";
 
 //app
 const app = express();
@@ -73,6 +73,10 @@ app.use("*", (req, res) => {
     status: 400,
     error: "Sorry this router doesn't exist !",
   });
+});
+
+app.get("/", (req, res) => {
+  res.send("Api running");
 });
 
 const port = process.env.PORT || 3000;

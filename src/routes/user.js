@@ -7,7 +7,7 @@ import {
   listUsers,
   userPhoto,
 } from "../controllers/user.js";
-import { requireSignin, isAuth, isAdmin } from "../controllers/auth.js";
+import { requireSignin, isAuth, isAdmin } from "../controllers/auth.js.js";
 const router = express.Router();
 
 router.get("/v1/user/:userId", requireSignin, read);

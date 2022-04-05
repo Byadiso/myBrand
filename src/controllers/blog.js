@@ -1,4 +1,4 @@
-import { errorHandler } from "../helper/dbErroHandler.js";
+import { errorHandler } from "../../helper/dbErroHandler.js";
 import formidable from "formidable";
 import _ from "lodash";
 import fs from "fs";
