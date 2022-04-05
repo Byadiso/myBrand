@@ -75,8 +75,11 @@ app.use("*", (req, res) => {
   });
 });
 
-app.get("/", (req, res) => {
-  res.send("Api running");
+app.use("/", (req, res) => {
+  res.status(200).json({
+    status: 200,
+    message: "Welcome to my brand website ALTP !",
+  });
 });
 
 const port = process.env.PORT || 3000;
