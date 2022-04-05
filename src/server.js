@@ -11,11 +11,11 @@ dotenv.config();
 
 //import routes
 
-import authRoutes from "./routes/auth.js";
+import authRoutes from "./src/routes/auth.js.js";
 import userRoutes from "./routes/user.js";
-import blogRoutes from "./routes/blog.js";
-import categoryRoutes from "./routes/category.js";
-import messageRoutes from "./routes/message.js";
+import blogRoutes from "./src/routes/blog.js.js";
+import categoryRoutes from "./src/routes/category.js.js";
+import messageRoutes from "./src/routes/message.js.js";
 
 //app
 const app = express();
@@ -72,6 +72,13 @@ app.use("*", (req, res) => {
   res.status(400).json({
     status: 400,
     error: "Sorry this router doesn't exist !",
+  });
+});
+
+app.use("/", (req, res) => {
+  res.status(200).json({
+    status: 200,
+    message: "Welcome to my brand website ALTP !",
   });
 });
 

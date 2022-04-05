@@ -1,5 +1,5 @@
 import User from "../models/user.js";
-import { errorHandler } from "../helper/dbErroHandler.js";
+import { errorHandler } from "../../helper/dbErroHandler.js";
 
 export const userById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
@@ -75,7 +75,7 @@ export const update = (req, res) => {
       }
       user.hashed_password = undefined;
       user.salt = undefined;
-      res.json({user:user, message:'user updated successfully'});
+      res.json({ user: user, message: "user updated successfully" });
     }
   );
 };

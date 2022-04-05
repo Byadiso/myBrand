@@ -1,4 +1,4 @@
-import { errorHandler } from "../helper/dbErroHandler.js";
+import { errorHandler } from "../../helper/dbErroHandler.js";
 import Category from "../models/category.js";
 
 export const create = (req, res) => {
