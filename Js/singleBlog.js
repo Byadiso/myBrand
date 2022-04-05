@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let blog_single = document.createElement("DIV");
 
   const listBlog = () => {
-    return fetch(`http://localhost:3000/api/v1/blogs/${blogId}`)
+    return fetch(`https://mybrand-altp.herokuapp.com/api/v1/blogs/${blogId}`)
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
