@@ -53,14 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
   listAll();
 
   //set content
-  let photoUrl = `http://localhost:3000/api/v1/blog/photo/${blogId}`;
+  let photoUrl = `https://mybrand-altp.herokuapp.com/api/v1/blog/photo/${blogId}`;
   content.innerHTML = blogTobeEdited.content;
   title.innerHTML = blogTobeEdited.title;
   console.log(fileField);
   fileField.file = photoUrl;
 
   const updateBlog = (form, token, id) => {
-    fetch(`http://localhost:3000/api/v1/blogs/${id}`, {
+    fetch(`https://mybrand-altp.herokuapp.com/api/v1/blogs/${id}`, {
       method: "PUT",
       headers: {
         "Access-Control-Allow-Origin": "*",

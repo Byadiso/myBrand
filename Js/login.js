@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const username_register = document.querySelector(
       '[name="username-register"]'
     );
-    fetch("http://localhost:3000/api/v1/signup", {
+    fetch("https://mybrand-altp.herokuapp.com/api/v1/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -629,6 +629,11 @@ add error border when make a mistake to my form */
 .error_message{
     border:1px solid var(--error)
 }
+
+#SendErrorDisplay{    
+    color:var(--error);
+  
+}
     /* footer */
 
 footer{

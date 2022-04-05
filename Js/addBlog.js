@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const addBlog = (form, token) => {
-    fetch(`http://localhost:3000/api/v1/blog/create`, {
+    fetch(`https://mybrand-altp.herokuapp.com/api/v1/blog/create`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin": "*",

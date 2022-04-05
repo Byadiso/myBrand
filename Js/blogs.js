@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //function to fetch all dat from backend
 
   const listAll = () => {
-    return fetch("http://localhost:3000/api/v1/blogs")
+    return fetch("https://mybrand-altp.herokuapp.com/api/v1/blogs")
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // content = content.substr(0, 100);
 
-      let photoUrl = `http://localhost:3000/api/v1/blog/photo/${_id}`;
+      let photoUrl = `https://mybrand-altp.herokuapp.com/api/v1/blog/photo/${_id}`;
 
       // for short  notation is the best
       var timestamp = timeDifference(new Date(), new Date(createdAt));

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // });
 
   const fetchBlog = () => {
-    return fetch("http://localhost:3000/api/v1/blogs")
+    return fetch("https://mybrand-altp.herokuapp.com/api/v1/blogs")
       .then((resp) => resp.json())
       .then((data) => {
         renderblog(data);

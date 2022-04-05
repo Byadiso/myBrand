@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let content_elt = document.createElement("DIV");
     const { _id, title, content, createdAt, views, comments } = blog;
 
-    let photoUrl = `http://localhost:3000/api/v1/blog/photo/${_id}`;
+    let photoUrl = `https://mybrand-altp.herokuapp.com/api/v1/blog/photo/${_id}`;
 
     // for short  notation is the best
     var timestamp = timeDifference(new Date(), new Date(createdAt));

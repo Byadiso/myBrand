@@ -27,12 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderMessage = (data) => {
     console.log(data);
+    const loadingIcon = document.getElementById("loading");
     data = data.messages;
-    if (data == undefined) {
+    if (data.length === 0) {
       const content_elt = document.createElement("DIV");
       header_messages.innerHTML = "";
+
       messageContainer.append(content_elt);
-      return (content_elt.innerHTML = `<p>No Message Yet</p>`);
+
+      setTimeout(() => {
+        loadingIcon.classList.add("hide");
+        content_elt.innerHTML = `<p>No Message Yet</p>`;
+      }, 2000);
     }
 
     for (var i = 0; i < data.length; i++) {
@@ -40,9 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       var timestamp = timeDifference(new Date(), new Date(createdAt));
       const content_elt = document.createElement("DIV");
-      if (data.length === 0) {
-        content_elt.innerHTML = `<h2> No Message yet</h2>`;
-      }
       content_elt.innerHTML = `
           
             <h3 class="blog" data-id=${_id}>${sender + ", " + email}</h3>
@@ -99,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const deleteMessage = (id, token) => {
-    return fetch(`http://localhost:3000/api/v1/message/${id}`, {
+    return fetch(`https://mybrand-altp.herokuapp.com/api/v1/message/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
