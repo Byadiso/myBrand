@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // });
 
   const fetchMessage = () => {
-    return fetch("http://localhost:3000/api/v1/messages")
+    return fetch("https://mybrand-altp.herokuapp.com/api/v1/messages")
       .then((resp) => resp.json())
       .then((messages) => {
         renderMessage(messages);

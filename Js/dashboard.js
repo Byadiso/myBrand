@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("photo", fileField.files[0]);
       formData.append("price", content.value);
 
-      fetch(`http://localhost:3000/api/v1/blogs/${id}`, {
+      fetch(`https://mybrand-altp.herokuapp.com/api/v1/blogs/${id}`, {
         method: "PUT",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const deleteBlog = (id, token) => {
-    return fetch(`http://localhost:3000/api/v1/blogs/${id}`, {
+    return fetch(`https://mybrand-altp.herokuapp.com/api/v1/blogs/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const { Image, title, _id } = data[i];
       console.log(Image);
 
-      let photoUrl = `http://localhost:3000/api/v1/blog/photo/${_id}`;
+      let photoUrl = `https://mybrand-altp.herokuapp.com/api/v1/blog/photo/${_id}`;
 
       const content_elt = document.createElement("DIV");
       content_elt.innerHTML = `

@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //Login logic from the Server
 
   const login = () => {
-    fetch("http://localhost:3000/api/v1/login", {
+    fetch("https://mybrand-altp.herokuapp.com/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
